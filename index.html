@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>NeuraFlow – KI Automations Agentur</title>
-  <meta name="description" content="NeuraFlow baut KI-Automationen & Chatbots, die Leads qualifizieren, Prozesse vereinfachen und dein Business skalieren."/>
+  <meta name="description" content="NeuraFlow baut KI-Automationen, Chatbots & Workflows, die Leads qualifizieren, Prozesse vereinfachen und dein Business skalieren."/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -15,81 +15,137 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Crect width='100%25' height='100%25' rx='48' fill='%23ffffff'/%3E%3Cpath d='M70 170 L128 60 L186 170' fill='none' stroke='%23ff7a00' stroke-width='18' stroke-linecap='round'/%3E%3Ccircle cx='128' cy='150' r='10' fill='%23ff7a00'/%3E%3C/svg%3E"/>
 
   <style>
-    /* ---- Design Tokens ---- */
+    /* =========================
+       Design Tokens
+       ========================= */
     :root{
-      --bg:#ffffff; --bg-2:#f6f7fb; --card:#f9f9fb;
-      --ink:#111111; --muted:#575b68;
-      --accent:#ff7a00; --accent-2:#ff8f1f; --accent-ghost:rgba(255,122,0,.12);
-      --line:rgba(0,0,0,.10); --line-strong:rgba(0,0,0,.18);
+      --bg:#ffffff;
+      --bg-2:#f6f7fb;
+      --card:#f9f9fb;
+      --ink:#111111;
+      --muted:#575b68;
+      --accent:#ff7a00;
+      --accent-2:#ff8f1f;
+      --accent-ghost:rgba(255,122,0,.12);
+      --line:rgba(0,0,0,.10);
+      --line-strong:rgba(0,0,0,.18);
       --shadow:0 20px 60px rgba(0,0,0,.08);
-      --radius:18px; --maxw:1200px;
+      --radius:18px;
+      --maxw:1200px;
       --ring:0 0 0 6px rgba(255,122,0,.15);
       --glow:0 24px 80px rgba(255,122,0,.18);
-      --logo-size-mobile:50px; --logo-size-desktop:60px; --logo-size-footer:40px;
+      --logo-size-mobile:50px;
+      --logo-size-desktop:60px;
+      --logo-size-footer:40px;
     }
+
+    /* Base */
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,"Plus Jakarta Sans",system-ui;line-height:1.6;color:var(--ink);background:var(--bg);}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 360px at 80% -10%, rgba(0,0,0,.03), transparent 50%),
+        radial-gradient(800px 280px at 10% 0%, rgba(0,0,0,.02), transparent 45%),
+        var(--bg);
+      line-height:1.6;
+      position:relative; isolation:isolate;
+    }
+    body::after{
+      content:""; pointer-events:none; position:fixed; inset:0; z-index:-1;
+      background-image:url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22 viewBox=%220 0 160 160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filters%3E%3Crect width=%22160%22 height=%22160%22 filter=%22url(%23n)%22 opacity=%220.018%22/%3E%3C/svg%3E');
+      background-size:160px 160px;
+    }
     img{max-width:100%;display:block}
-    a{text-decoration:none;color:inherit}
-    .container{max-width:var(--maxw);margin:auto;padding:0 20px}
+    a{color:inherit;text-decoration:none}
+    .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding:0 20px}
     .section{padding:84px 0}
-    .section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px;gap:16px}
-    .section-head h2{margin:0;font-size:clamp(26px,3.4vw,40px)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px}
+    .section-head h2{margin:0;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em}
     .section-head p{margin:0;color:var(--muted)}
 
-    /* Header */
-    header{position:sticky;top:0;z-index:50;background:#ffffffd9;backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    /* Header / Nav */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(12px);
+      background:#fff;
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
     .brand-logo{height:var(--logo-size-mobile);width:auto;display:block}
-    @media(min-width:1000px){.brand-logo{height:var(--logo-size-desktop)}}
-    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;align-items:center}
-    nav a{padding:10px 12px;border-radius:10px}
-    nav a:hover{background:var(--accent-ghost)}
+    @media (min-width:1000px){.brand-logo{height:var(--logo-size-desktop)}}
+    nav ul{display:flex;gap:18px;list-style:none;padding:0;margin:0;align-items:center}
+    nav a{padding:10px 12px;border-radius:10px;opacity:.95}
+    nav a:hover{background:var(--accent-ghost);outline:none}
     .menu-btn{display:none}
-    @media(max-width:1000px){nav ul{display:none}.menu-btn{display:inline-flex}}
+    @media (max-width:1000px){nav ul{display:none}.menu-btn{display:inline-flex}}
 
     /* Buttons */
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;font-weight:700;background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#fff;border:none}
-    .btn:hover{box-shadow:var(--glow);transform:translateY(-1px)}
+    .btn{--pad:12px 16px;display:inline-flex;align-items:center;gap:10px;padding:var(--pad);
+      border-radius:14px;font-weight:700;letter-spacing:.2px;
+      border:1px solid color-mix(in oklab, var(--accent) 45%, #0000);
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      color:#fff;
+      box-shadow:0 0 0 rgba(0,0,0,0);transition:transform .18s ease, filter .18s ease, box-shadow .3s ease}
+    .btn:hover{transform:translateY(-1px);filter:brightness(1.03);box-shadow:var(--glow)}
+    .btn:active{transform:translateY(0) scale(.99)}
     .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-    .btn--chip{background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px}
+    .btn--ghost:hover{background:var(--accent-ghost)}
+    .btn--chip{background:transparent;border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:6px 12px}
 
     /* Hero */
-    .hero{padding:clamp(56px,10vw,120px) 0 64px}
-    .headline{font-weight:800;font-size:clamp(34px,5.4vw,64px);line-height:1.1}
-    .sub{color:var(--muted);font-size:clamp(16px,2vw,20px);margin:14px 0 26px}
+    .hero{padding: clamp(56px, 10vw, 120px) 0 64px}
+    .headline{font-weight:800;font-size: clamp(34px,5.4vw,64px);line-height:1.05;letter-spacing:-.02em}
+    .sub{font-size: clamp(16px,2.1vw,20px);color:var(--muted);margin:14px 0 26px}
     .grid{display:grid;gap:28px;grid-template-columns:1.1fr .9fr}
-    @media(max-width:1000px){.grid{grid-template-columns:1fr}}
+    @media (max-width:1000px){.grid{grid-template-columns:1fr}}
 
-    /* Cards */
+    /* Cards / Layout */
     .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
-    .card h3{margin-top:8px}
-    .card p{color:var(--muted)}
-    .list{list-style:none;padding:0;margin-top:10px}
-    .list li{margin:8px 0;padding-left:22px;position:relative}
+    .card:hover{border-color:var(--line-strong);transform:translateY(-2px)}
+    .card h3{margin:8px 0 10px;font-size:20px}
+    .card p{margin:0;color:var(--muted)}
+    .list{margin:14px 0 0;padding:0;list-style:none}
+    .list li{padding-left:24px;margin:10px 0;position:relative}
     .list li::before{content:"✔";position:absolute;left:0;color:var(--accent)}
 
+    /* Prozess steps */
+    .step{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg-2)}
+    .bubble{min-width:34px;height:34px;border-radius:999px;display:grid;place-items:center;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line)}
+
     /* Footer */
-    footer{padding:36px 0 72px;border-top:1px solid var(--line);background:#fafafa}
-    .foot{display:grid;grid-template-columns:1fr 1fr;align-items:center}
-    .footer-links{display:flex;gap:14px;justify-content:flex-end;flex-wrap:wrap}
+    footer{padding:36px 0 72px;border-top:1px solid var(--line);background:linear-gradient(180deg, var(--bg), #fafafa)}
+    .foot{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .foot small{color:var(--muted)}
+    .footer-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+    .footer-links a{opacity:.95;border-bottom:1px dotted rgba(0,0,0,.25)}
     .footer-brand-logo{height:var(--logo-size-footer)}
+
+    /* Responsive */
+    @media (max-width:1000px){
+      .cards .card{grid-column:span 12}
+    }
+
+    /* Animations */
+    .reveal{opacity:0;transform:translateY(10px)}
   </style>
 </head>
 <body>
   <!-- Header -->
-  <header>
+  <header aria-label="Hauptnavigation">
     <div class="container nav">
       <a href="#home" aria-label="NeuraFlow Startseite">
         <img src="logo.png" alt="NeuraFlow Logo" class="brand-logo">
       </a>
       <nav>
-        <button class="btn btn--ghost menu-btn" id="menuToggle">Menü</button>
+        <button class="btn btn--ghost menu-btn" id="menuToggle" aria-expanded="false">Menü</button>
         <ul id="desktopMenu">
           <li><a href="#leistungen">Leistungen</a></li>
           <li><a href="#prozess">Prozess</a></li>
-          <li><a href="#beispiele">Anwendungsbeispiele</a></li>
+          <li><a href="#warum">Warum NeuraFlow</a></li>
           <li><a href="#preise">Preise</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a class="btn" href="#kontakt">Erstgespräch →</a></li>
@@ -102,9 +158,9 @@
   <main id="home" class="hero container">
     <div class="grid">
       <div>
-        <h1 class="headline">Automatisiere dein Business mit <span style="color:var(--accent)">KI-Workflows</span></h1>
-        <p class="sub">Wir bauen Chatbots & Automatisierungen, die Leads qualifizieren, Onboarding erleichtern und Prozesse vereinfachen – sicher und DSGVO-konform.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <h1 class="headline reveal">Automatisiere dein Business mit <span style="color:var(--accent)">KI-Workflows</span></h1>
+        <p class="sub reveal">Wir bauen Chatbots & Automatisierungen, die Leads qualifizieren, Onboarding erleichtern und Prozesse vereinfachen – sicher und DSGVO-konform.</p>
+        <div class="reveal" style="display:flex;gap:12px;flex-wrap:wrap">
           <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
           <a class="btn btn--ghost" href="#leistungen">Leistungen ansehen</a>
         </div>
@@ -115,111 +171,70 @@
   <!-- Leistungen -->
   <section id="leistungen" class="section container">
     <div class="section-head">
-      <h2>Leistungen</h2>
-      <p>Einfach, klar und wirkungsvoll.</p>
+      <h2>Leistungen</h2><p>Einfach, klar und wirkungsvoll.</p>
     </div>
     <div class="cards">
-      <article class="card">
+      <article class="card reveal">
         <h3>Chatbots</h3>
-        <p>24/7 digitale Assistenten für Support & Sales.</p>
-        <ul class="list">
-          <li>Kundensupport automatisieren</li>
-          <li>Lead-Fragen beantworten</li>
-          <li>Integration mit CRM</li>
-        </ul>
+        <p>Digitale Assistenten für Support & Sales.</p>
+        <ul class="list"><li>Kundensupport automatisieren</li><li>Leads vorqualifizieren</li><li>Integration ins CRM</li></ul>
       </article>
-      <article class="card">
+      <article class="card reveal">
         <h3>Lead-Qualifizierung</h3>
-        <p>Automatisierte Vorqualifizierung von Anfragen.</p>
-        <ul class="list">
-          <li>Bedarfsanalyse per Chatbot</li>
-          <li>Automatische Terminbuchung</li>
-          <li>Nahtlose Übergabe an Sales</li>
-        </ul>
+        <p>Automatische Bewertung von Anfragen.</p>
+        <ul class="list"><li>Bedarfsanalyse per Chatbot</li><li>Terminbuchung automatisiert</li><li>Nahtlose Übergabe</li></ul>
       </article>
-      <article class="card">
+      <article class="card reveal">
         <h3>Onboarding & Prozesse</h3>
-        <p>Schnellere Abläufe für Kunden & Team.</p>
-        <ul class="list">
-          <li>Onboarding automatisieren</li>
-          <li>Verträge digital abwickeln</li>
-          <li>Rechnungsstellung vereinfachen</li>
-        </ul>
+        <p>Effiziente Abläufe für Kunden & Team.</p>
+        <ul class="list"><li>Onboarding-Flows</li><li>Verträge digital</li><li>Rechnungen automatisiert</li></ul>
       </article>
     </div>
   </section>
 
   <!-- Prozess -->
   <section id="prozess" class="section container">
-    <div class="section-head">
-      <h2>Prozess</h2>
-      <p>In wenigen Schritten live.</p>
-    </div>
+    <div class="section-head"><h2>Prozess</h2><p>In wenigen Schritten live.</p></div>
     <div class="cards">
-      <div class="card"><h3>1. Analyse</h3><p>Wir prüfen deine Ziele & Use-Cases.</p></div>
-      <div class="card"><h3>2. Umsetzung</h3><p>In 10–14 Tagen steht ein Prototyp bereit.</p></div>
-      <div class="card"><h3>3. Go-Live</h3><p>Rollout, Monitoring & Optimierung.</p></div>
+      <div class="step reveal" style="grid-column:span 4"><div class="bubble">1</div><div><b>Analyse</b><p class="muted">Wir prüfen deine Ziele & Use-Cases.</p></div></div>
+      <div class="step reveal" style="grid-column:span 4"><div class="bubble">2</div><div><b>Umsetzung</b><p class="muted">In 10–14 Tagen ein Prototyp mit echten Daten.</p></div></div>
+      <div class="step reveal" style="grid-column:span 4"><div class="bubble">3</div><div><b>Go-Live</b><p class="muted">Rollout, Monitoring & Optimierung.</p></div></div>
     </div>
   </section>
 
-  <!-- Anwendungsbeispiele -->
-  <section id="beispiele" class="section container">
-    <div class="section-head">
-      <h2>Anwendungsbeispiele</h2>
-      <p>Typische Szenarien aus der Praxis.</p>
-    </div>
+  <!-- Warum NeuraFlow -->
+  <section id="warum" class="section container">
+    <div class="section-head"><h2>Warum NeuraFlow?</h2><p>Dein Partner für KI-Automatisierung.</p></div>
     <div class="cards">
-      <div class="card">
-        <h3>Lead-Bot</h3>
-        <p>Ein Chatbot, der Interessenten vorqualifiziert und automatisch Termine vergibt.</p>
-      </div>
-      <div class="card">
-        <h3>Support-Automatisierung</h3>
-        <p>Antwortvorschläge & Ticket-Routing sparen bis zu 40% Bearbeitungszeit.</p>
-      </div>
-      <div class="card">
-        <h3>Onboarding-Flow</h3>
-        <p>Neukunden erhalten automatisch alle Infos, Verträge & Rechnungen.</p>
-      </div>
+      <div class="card reveal"><h3>🚀 Schnell</h3><p>Prototypen & Ergebnisse in 2 Wochen.</p></div>
+      <div class="card reveal"><h3>📊 Messbar</h3><p>Klare KPIs & Dashboards für Erfolg.</p></div>
+      <div class="card reveal"><h3>🔒 Sicher</h3><p>DSGVO-konform & transparente Prozesse.</p></div>
+      <div class="card reveal"><h3>🤝 Persönlich</h3><p>Direkter Draht, kein Chatbot im Support.</p></div>
     </div>
   </section>
 
   <!-- Preise -->
   <section id="preise" class="section container">
-    <div class="section-head">
-      <h2>Preise</h2><p>Transparent & flexibel.</p>
-    </div>
+    <div class="section-head"><h2>Preise</h2><p>Transparent & flexibel.</p></div>
     <div class="cards">
-      <div class="card">
-        <h3>Starter</h3>
-        <p>Ein Use-Case, einmalig.</p>
-        <p><b>2.900 €</b></p>
-      </div>
-      <div class="card">
-        <h3>Scale</h3>
-        <p>2–3 Workflows, monatlich.</p>
-        <p><b>3.500 € / Monat</b></p>
-      </div>
-      <div class="card">
-        <h3>Enterprise</h3>
-        <p>Individuelle Lösungen.</p>
-        <p><b>Auf Anfrage</b></p>
-      </div>
+      <div class="card reveal"><h3>Starter</h3><p>Ein Use-Case, einmalig.</p><p class="price"><b>2.900 €</b></p></div>
+      <div class="card reveal"><h3>Scale</h3><p>2–3 Workflows, monatlich.</p><p class="price"><b>3.500 € / Monat</b></p></div>
+      <div class="card reveal"><h3>Enterprise</h3><p>Individuelle Lösungen.</p><p class="price"><b>Auf Anfrage</b></p></div>
     </div>
   </section>
 
   <!-- FAQ -->
   <section id="faq" class="section container">
     <div class="section-head"><h2>FAQ</h2></div>
-    <details><summary>Wie schnell seid ihr?</summary><p>Ein erster Prototyp ist meist in 10–14 Tagen live.</p></details>
-    <details><summary>Welche Tools nutzt ihr?</summary><p>Wir integrieren gängige Systeme wie HubSpot, Slack oder Zendesk.</p></details>
-    <details><summary>Wie sieht es mit Datenschutz aus?</summary><p>Alles DSGVO-konform inkl. Datenminimierung & EU-Hosting.</p></details>
+    <details class="reveal"><summary>Wie schnell seid ihr?</summary><p>Ein erster Prototyp ist meist in 10–14 Tagen live.</p></details>
+    <details class="reveal"><summary>Welche Tools nutzt ihr?</summary><p>Wir integrieren gängige Systeme wie HubSpot, Slack oder Zendesk.</p></details>
+    <details class="reveal"><summary>Wie sieht es mit Datenschutz aus?</summary><p>Alles DSGVO-konform inkl. Datenminimierung & EU-Hosting.</p></details>
   </section>
 
   <!-- Kontakt -->
   <section id="kontakt" class="section container">
-    <div class="section-head"><h2>Kontakt</h2><p>Schick uns dein Anliegen – wir antworten i. d. R. in &lt;24h.</p></div>
-    <form onsubmit="submitForm(event)" style="display:grid;gap:12px;max-width:600px">
+    <div class="section-head"><h2>Kontakt</h2><p>Schick uns dein Anliegen – wir antworten i. d. R. &lt;24h.</p></div>
+    <form onsubmit="submitForm(event)" class="reveal" style="display:grid;gap:12px;max-width:600px">
       <label>Vorname*<input required name="firstName"></label>
       <label>Nachname*<input required name="lastName"></label>
       <label>Email*<input required type="email" name="email"></label>
@@ -244,8 +259,12 @@
     </div>
   </footer>
 
+  <!-- Floating CTA -->
+  <a href="#kontakt" class="btn float-cta" style="position:fixed;right:20px;bottom:20px;display:none">Kostenloses Erstgespräch</a>
+
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
+    // Form
     function submitForm(e){
       e.preventDefault();
       const data = Object.fromEntries(new FormData(e.target).entries());
@@ -256,7 +275,22 @@
       window.location.href = `mailto:hi@neuraflow.ai?subject=${subject}&body=${body}`;
       document.getElementById('formStatus').textContent = "Danke! Dein E-Mail-Client öffnet sich.";
     }
+    // Reveal
+    const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
+      for(const e of entries){
+        if(e.isIntersecting){
+          e.target.animate([{opacity:0, transform:'translateY(10px)'},{opacity:1, transform:'none'}],
+            {duration:520, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards'}); io.unobserve(e.target);
+        }
+      }
+    }, {threshold:.12}) : null;
+    document.querySelectorAll('.reveal').forEach(el=>io?.observe(el));
+    // Floating CTA
+    const floatCta=document.querySelector('.float-cta');
+    window.addEventListener('scroll',()=>{floatCta.style.display=window.scrollY>500?'inline-flex':'none'});
   </script>
 </body>
 </html>
+
+
 
