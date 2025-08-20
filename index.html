@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NeuraFlow – KI-Automatisierungsagentur</title>
-  <meta name="description" content="NeuraFlow ist deine KI-Automatisierungsagentur: Chatbots, Lead-Qualifizierung, Onboarding, Verträge & Rechnungen – alles automatisiert und messbar." />
+  <meta name="description" content="NeuraFlow ist deine KI-Automatisierungsagentur: Chatbots, Lead-Qualifizierung, Onboarding, Verträge & Rechnungen – alles automatisiert und messbar. Spezialisiert auf Coaches, Berater, Mentoren und Agenturen." />
   <meta name="theme-color" content="#ff7a18" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -41,15 +41,28 @@
       position:sticky; top:0; z-index:1000;
       background:#fff; border-bottom:1px solid var(--border);
       box-shadow:0 2px 16px rgba(0,0,0,0.04);
+      transition:box-shadow .2s ease, transform .2s ease;
     }
     .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px; height:72px;
+      display:flex; align-items:center; justify-content:space-between; gap:16px; height:86px; /* größerer Header für größeres Logo */
+      transition:height .2s ease;
     }
+    header.scrolled{box-shadow:0 6px 22px rgba(0,0,0,0.06)}
+    header.scrolled .nav{height:64px} /* sanftes Shrinking beim Scrollen */
     .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:0.2px}
-    .brand img{height:40px; width:auto; border-radius:10px} /* Logo mit weißem BG bleibt sauber */
-    .nav a{color:var(--text); font-weight:600; opacity:0.9}
+    .brand img{height:54px; width:auto; border-radius:10px; transition:height .2s ease} /* Logo größer */
+    header.scrolled .brand img{height:40px}
+    .nav a{color:var(--text); font-weight:600; opacity:0.9; position:relative; padding-bottom:4px}
     .nav a:hover{opacity:1}
+    /* Klick-/Scroll-Effekt in der Navigation */
     .menu{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
+    .menu a::after{
+      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; width:0; margin:auto;
+      background:var(--accent); transition:width .2s ease;
+    }
+    .menu a:hover::after{width:100%}
+    .menu a.active{color:var(--accent)}
+    .menu a.active::after{width:100%}
     .cta{
       background:linear-gradient(180deg,var(--accent),var(--accent-600));
       color:#fff; padding:12px 18px; border-radius:12px; font-weight:700;
@@ -73,15 +86,25 @@
       border-radius:14px; overflow:hidden; border:1px solid var(--border)
     }
     /* Sections */
-    section{padding:80px 0; position:relative}
+    section{padding:80px 0; position:relative; scroll-margin-top:100px} /* verhindert Überdeckung durch Sticky-Header */
     .section-title{font-size:clamp(26px,3vw,36px); margin:0 0 14px}
     .section-lead{color:var(--muted); margin-bottom:38px}
+    section:target .section-title{box-shadow:0 8px 0 -6px var(--accent); display:inline-block} /* dezenter Effekt beim Anspringen */
     /* Grid cards */
     .grid{display:grid; gap:20px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
     .grid-4{grid-template-columns:repeat(4,1fr)}
-    @media (max-width:1024px){ .hero-grid{grid-template-columns:1fr} .grid-4{grid-template-columns:repeat(2,1fr)} .menu{gap:14px; flex-wrap:wrap} .nav{height:auto} }
-    @media (max-width:768px){ .grid-3{grid-template-columns:1fr} .menu{gap:12px} .cta{padding:10px 14px} }
+    @media (max-width:1024px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+      .menu{gap:14px; flex-wrap:wrap}
+      .nav{height:auto}
+    }
+    @media (max-width:768px){
+      .grid-3{grid-template-columns:1fr}
+      .menu{gap:12px}
+      .cta{padding:10px 14px}
+    }
     .card{
       background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
       padding:22px; box-shadow:var(--shadow); height:100%;
@@ -102,9 +125,7 @@
     .step h4{margin:0 0 6px}
     /* Pricing */
     .pricing{align-items:stretch}
-    .price{
-      font-size:32px; font-weight:800; margin:6px 0 14px
-    }
+    .price{font-size:32px; font-weight:800; margin:6px 0 14px}
     .price small{font-size:14px; color:var(--muted); font-weight:600}
     .feature{display:flex; align-items:flex-start; gap:10px; margin:8px 0}
     .feature svg{flex:0 0 auto}
@@ -139,7 +160,7 @@
 <body>
 
   <!-- Header -->
-  <header>
+  <header id="site-header">
     <div class="container nav">
       <a class="brand" href="#top" aria-label="NeuraFlow Startseite">
         <img src="logo.png" alt="NeuraFlow Logo" />
@@ -163,10 +184,10 @@
         <div>
           <span class="eyebrow">KI-Automatisierung · neuraflow.net</span>
           <h1>Skalier&nbsp;dein Business mit <span style="background:linear-gradient(90deg,#ff7a18,#ff6a00); -webkit-background-clip:text; background-clip:text; color:transparent;">NeuraFlow</span></h1>
-          <p class="lead">Wir bauen Automationen, die <strong>Umsatz steigern</strong>, <strong>Kosten senken</strong> und <strong>Zeit sparen</strong> — von Chatbots über Lead-Qualifizierung bis zu Onboarding, Verträgen & Rechnungen.</p>
+          <p class="lead">Wir bauen Automationen, die <strong>Umsatz steigern</strong>, <strong>Kosten senken</strong> und <strong>Zeit sparen</strong> — von Chatbots über Lead-Qualifizierung bis zu Onboarding, Verträgen & Rechnungen. <br><strong>Spezialisiert auf Coaches, Berater, Mentoren und Agenturen.</strong></p>
           <div style="display:flex; gap:12px; flex-wrap:wrap">
             <a class="cta" href="#kontakt">Jetzt Projekt anfragen</a>
-            <a class="cta ghost" href="#preise" aria-label="Zu den Preisen">Preise ansehen</a>
+            <!-- Hinweis: "Preise ansehen"-Button entfernt, da alles auf Anfrage ist -->
           </div>
           <div class="hero-card" style="margin-top:18px" data-reveal>
             <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap">
@@ -176,8 +197,11 @@
           </div>
         </div>
         <div class="hero-img" data-reveal>
-          <!-- lizenzfreies, thematisch passendes Bild (Unsplash CDN) -->
-          <img src="https://images.unsplash.com/photo-1581091870627-3f9b06f1475a?q=80&w=1600&auto=format&fit=crop" alt="Automatisierung & Robotic Process Workflows" loading="lazy" />
+          <!-- HERO-BILD LOKAL EINBINDEN:
+               1) Lade dieses Bild herunter: https://images.unsplash.com/photo-1581091870627-3f9b06f1475a?q=80&w=1600&auto=format&fit=crop
+               2) Speichere es als "hero.jpg" in dein Repo-Root (gleiches Verzeichnis wie index.html und logo.png).
+               3) Commit & Push. Der untenstehende <img>-Tag lädt dann die lokale Datei. -->
+          <img src="hero.jpg" alt="Automatisierung & Robotic Process Workflows" loading="lazy" />
         </div>
       </div>
     </section>
@@ -313,7 +337,8 @@
         </div>
 
         <div class="hero-img" style="margin-top:22px" data-reveal>
-          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop" alt="Engineering & Automations Dashboards" loading="lazy" />
+          <!-- Bild aktualisiert: thematisch KI & Digitalisierung -->
+          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop" alt="Abstrakte KI & Digitalisierung" loading="lazy" />
         </div>
       </div>
     </section>
@@ -322,12 +347,12 @@
     <section id="preise">
       <div class="container">
         <h2 class="section-title">Preise</h2>
-        <p class="section-lead">Transparent & skalierbar – wähle das Paket, das zu deinem Wachstum passt.</p>
+        <p class="section-lead">Alles auf Anfrage – wir erstellen ein Angebot passend zu deinem Geschäftsmodell.</p>
 
         <div class="grid grid-3 pricing">
           <div class="card" data-reveal>
             <h3>Starter</h3>
-           <p class="price">Auf Anfrage</p>
+            <p class="price">Auf Anfrage</p>
             <p>Perfekt für den ersten Use-Case oder MVP.</p>
             <div class="feature">
               <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
@@ -347,7 +372,7 @@
           <div class="card popular" data-reveal>
             <div class="badge">Am beliebtesten</div>
             <h3>Growth</h3>
-           <p class="price">Auf Anfrage</p>
+            <p class="price">Auf Anfrage</p>
             <p>Kontinuierlicher Ausbau & Optimierung.</p>
             <div class="feature">
               <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
@@ -448,16 +473,7 @@
                 <label for="email" style="display:block; font-weight:600; margin:4px 0">E-Mail</label>
                 <input id="email" name="Email" type="email" required />
               </div>
-              <div>
-                <label for="budget" style="display:block; font-weight:600; margin:4px 0">Budget</label>
-                <select id="budget" name="Budget">
-                  <option>Bitte wählen…</option>
-                  <option>unter 2.000 €</option>
-                  <option>2.000 – 5.000 €</option>
-                  <option>5.000 – 15.000 €</option>
-                  <option>über 15.000 €</option>
-                </select>
-              </div>
+              <!-- Budget-Feld entfernt auf Wunsch -->
               <div>
                 <label for="msg" style="display:block; font-weight:600; margin:4px 0">Projektbeschreibung</label>
                 <textarea id="msg" name="Nachricht" placeholder="Was soll automatisiert werden? Welche Systeme nutzt ihr heute?"></textarea>
@@ -572,7 +588,31 @@
     }, {threshold:0.12});
     document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
 
-    // Barrierefreiheit: Focus für Skip
+    // Header-Shrink beim Scrollen + Scrollspy für aktive Navlinks
+    const header = document.getElementById('site-header');
+    const navLinks = Array.from(document.querySelectorAll('.menu a')).filter(a=>a.getAttribute('href').startsWith('#'));
+    const sections = navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+    window.addEventListener('scroll', ()=>{
+      if(window.scrollY > 10){ header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
+    });
+
+    const spy = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        const id = '#' + entry.target.id;
+        const link = navLinks.find(a=>a.getAttribute('href') === id);
+        if(link){
+          if(entry.isIntersecting){ 
+            navLinks.forEach(l=>l.classList.remove('active'));
+            link.classList.add('active');
+          }
+        }
+      });
+    }, {rootMargin:'-50% 0px -49% 0px', threshold:0});
+
+    sections.forEach(sec=>spy.observe(sec));
+
+    // Barrierefreiheit: Focus-Styles
     const style = document.createElement('style');
     style.textContent = `
       a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: 3px solid rgba(255,122,24,0.6); outline-offset:2px }
