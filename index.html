@@ -49,7 +49,7 @@
     .brand img{height:40px; width:auto; border-radius:10px} /* Logo mit weißem BG bleibt sauber */
     .nav a{color:var(--text); font-weight:600; opacity:0.9}
     .nav a:hover{opacity:1}
-    .menu{display:flex; align-items:center; gap:22px}
+    .menu{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
     .cta{
       background:linear-gradient(180deg,var(--accent),var(--accent-600));
       color:#fff; padding:12px 18px; border-radius:12px; font-weight:700;
@@ -80,8 +80,8 @@
     .grid{display:grid; gap:20px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
     .grid-4{grid-template-columns:repeat(4,1fr)}
-    @media (max-width:1024px){ .hero-grid{grid-template-columns:1fr} .grid-4{grid-template-columns:repeat(2,1fr)} }
-    @media (max-width:768px){ .grid-3{grid-template-columns:1fr} }
+    @media (max-width:1024px){ .hero-grid{grid-template-columns:1fr} .grid-4{grid-template-columns:repeat(2,1fr)} .menu{gap:14px; flex-wrap:wrap} .nav{height:auto} }
+    @media (max-width:768px){ .grid-3{grid-template-columns:1fr} .menu{gap:12px} .cta{padding:10px 14px} }
     .card{
       background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
       padding:22px; box-shadow:var(--shadow); height:100%;
@@ -143,7 +143,6 @@
     <div class="container nav">
       <a class="brand" href="#top" aria-label="NeuraFlow Startseite">
         <img src="logo.png" alt="NeuraFlow Logo" />
-        <span>NeuraFlow</span>
       </a>
       <nav class="menu" aria-label="Hauptnavigation">
         <a href="#leistungen">Leistungen</a>
@@ -177,8 +176,8 @@
           </div>
         </div>
         <div class="hero-img" data-reveal>
-          <!-- lizenzfreies, neutrales Bild (Unsplash CDN) -->
-          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1600&auto=format&fit=crop" alt="Abstrakte KI-Automatisierung" loading="lazy" />
+          <!-- lizenzfreies, thematisch passendes Bild (Unsplash CDN) -->
+          <img src="https://images.unsplash.com/photo-1581091870627-3f9b06f1475a?q=80&w=1600&auto=format&fit=crop" alt="Automatisierung & Robotic Process Workflows" loading="lazy" />
         </div>
       </div>
     </section>
@@ -217,7 +216,7 @@
           </div>
 
           <div class="card" data-reveal>
-            <div class="badge">Lead-Qualifizierung</div>
+            <div class="badge">Lead-Qualifizierung automatisiert</div>
             <h3>Mehr Pipeline, weniger Aufwand</h3>
             <p>Automatisiertes Scoring & Routing – Prioritäten erkennen, Termine buchen, Team entlasten.</p>
             <ul>
@@ -228,7 +227,7 @@
           </div>
 
           <div class="card" data-reveal>
-            <div class="badge">Onboarding automatisiert</div>
+            <div class="badge">Onboarding-Prozess automatisiert</div>
             <h3>Schnell zu „Time-to-Value“</h3>
             <p>Schritt-für-Schritt-Guides, automatische Aufgaben, E-Mail/SMS-Sequenzen & Self-Service Portale.</p>
             <ul>
@@ -239,7 +238,7 @@
           </div>
 
           <div class="card" data-reveal>
-            <div class="badge">Verträge & Rechnungen</div>
+            <div class="badge">Rechnungen & Verträge automatisiert</div>
             <h3>Dokumente ohne Friktion</h3>
             <p>Automatisierte Vertragserstellung, E-Sign, Rechnungsversand & Mahnwesen – audit-sicher.</p>
             <ul>
@@ -314,7 +313,7 @@
         </div>
 
         <div class="hero-img" style="margin-top:22px" data-reveal>
-          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop" alt="Teamarbeit mit Daten & Automatisierung" loading="lazy" />
+          <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?q=80&w=1600&auto=format&fit=crop" alt="Engineering & Automations Dashboards" loading="lazy" />
         </div>
       </div>
     </section>
@@ -464,7 +463,7 @@
                 <textarea id="msg" name="Nachricht" placeholder="Was soll automatisiert werden? Welche Systeme nutzt ihr heute?"></textarea>
               </div>
               <button class="cta" type="submit">Nachricht senden</button>
-              <p style="color:var(--muted); font-size:14px">Oder direkt per E-Mail: <a href="mailto:hello@neuraflow.net">hello@neuraflow.net</a></p>
+              <p style="color:var(--muted); font-size:14px">Oder direkt per E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
             </form>
           </div>
 
@@ -472,7 +471,7 @@
             <h3>Kontaktinformationen</h3>
             <p><strong>NeuraFlow</strong><br/>KI-Automatisierungsagentur</p>
             <p><a href="https://neuraflow.net" target="_blank" rel="noopener">neuraflow.net</a></p>
-            <p>E-Mail: <a href="mailto:hello@neuraflow.net">hello@neuraflow.net</a></p>
+            <p>E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
             <p>Standort: Berlin </p>
             <div style="height:1px; background:var(--border); margin:10px 0"></div>
             <p style="color:var(--muted); font-size:14px">Hinweis: Mit dem Absenden stimmst du der Verarbeitung deiner Daten zum Zweck der Kontaktaufnahme zu. Details siehe Datenschutz.</p>
@@ -499,7 +498,7 @@
       <div class="container">
         <h2 class="section-title">Impressum</h2>
         <div class="card" data-reveal>
-          <p><strong>NeuraFlow</strong> · Vertretungsberechtigt: —<br/>Adresse: —<br/>E-Mail: <a href="mailto:hello@neuraflow.net">hello@neuraflow.net</a></p>
+          <p><strong>NeuraFlow</strong> · Vertretungsberechtigt: —<br/>Adresse: —<br/>E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
           <p>Inhaltlich verantwortlich nach § 18 Abs. 2 MStV: —</p>
         </div>
       </div>
@@ -510,7 +509,7 @@
         <h2 class="section-title">Datenschutz</h2>
         <div class="card" data-reveal>
           <p>Wir verarbeiten personenbezogene Daten ausschließlich gemäß DSGVO. Zwecke: Kontaktaufnahme, Angebotserstellung, Projektabwicklung. Rechtsgrundlagen: Art. 6 Abs. 1 lit. a, b DSGVO. Speicherdauer: bis Zweckerfüllung bzw. gesetzlicher Aufbewahrung.</p>
-          <p>Betroffenenrechte: Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit. Kontakt: <a href="mailto:hello@neuraflow.net">hello@neuraflow.net</a>.</p>
+          <p>Betroffenenrechte: Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit. Kontakt: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a>.</p>
         </div>
       </div>
     </section>
