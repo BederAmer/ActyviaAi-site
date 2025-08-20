@@ -187,7 +187,7 @@
           <p class="lead">Wir bauen Automationen, die <strong>Umsatz steigern</strong>, <strong>Kosten senken</strong> und <strong>Zeit sparen</strong> — von Chatbots über Lead-Qualifizierung bis zu Onboarding, Verträgen & Rechnungen. <br><strong>Spezialisiert auf Coaches, Berater, Mentoren und Agenturen.</strong></p>
           <div style="display:flex; gap:12px; flex-wrap:wrap">
             <a class="cta" href="#kontakt">Jetzt Projekt anfragen</a>
-            <!-- Hinweis: "Preise ansehen"-Button entfernt, da alles auf Anfrage ist -->
+            <!-- "Preise ansehen" entfernt -->
           </div>
           <div class="hero-card" style="margin-top:18px" data-reveal>
             <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap">
@@ -198,9 +198,9 @@
         </div>
         <div class="hero-img" data-reveal>
           <!-- HERO-BILD LOKAL EINBINDEN:
-               1) Lade dieses Bild herunter: https://images.unsplash.com/photo-1581091870627-3f9b06f1475a?q=80&w=1600&auto=format&fit=crop
+               1) Lade dieses Bild herunter: https://unsplash.com/photos/a-computer-generated-image-of-a-network-and-a-laptop-f0JGorLOkw0
                2) Speichere es als "hero.jpg" in dein Repo-Root (gleiches Verzeichnis wie index.html und logo.png).
-               3) Commit & Push. Der untenstehende <img>-Tag lädt dann die lokale Datei. -->
+               3) Commit & Push. -->
           <img src="hero.jpg" alt="Automatisierung & Robotic Process Workflows" loading="lazy" />
         </div>
       </div>
@@ -337,7 +337,7 @@
         </div>
 
         <div class="hero-img" style="margin-top:22px" data-reveal>
-          <!-- Bild aktualisiert: thematisch KI & Digitalisierung -->
+          <!-- Bild thematisch KI & Digitalisierung -->
           <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop" alt="Abstrakte KI & Digitalisierung" loading="lazy" />
         </div>
       </div>
@@ -347,7 +347,7 @@
     <section id="preise">
       <div class="container">
         <h2 class="section-title">Preise</h2>
-        <p class="section-lead">Alles auf Anfrage – wir erstellen ein Angebot passend zu deinem Geschäftsmodell.</p>
+      <p class="section-lead">Alles auf Anfrage – wir erstellen ein Angebot passend zu deinem Geschäftsmodell.</p>
 
         <div class="grid grid-3 pricing">
           <div class="card" data-reveal>
@@ -457,8 +457,8 @@
 
         <div class="grid" style="grid-template-columns:1.1fr 0.9fr; gap:24px">
           <div class="card" data-reveal>
-            <!-- Mailto-Formular: funktioniert ohne Backend -->
-            <form method="post" action="mailto:deineagentur@neuraflow.net?subject=Anfrage%20über%20neuraflow.net" enctype="text/plain">
+            <!-- Formspree: Ersetze im Script unten FORM_ENDPOINT mit deinem Endpunkt (z. B. https://formspree.io/f/abcdwxyz) -->
+            <form id="contact-form">
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
                 <div>
                   <label for="fname" style="display:block; font-weight:600; margin:4px 0">Vorname</label>
@@ -473,12 +473,14 @@
                 <label for="email" style="display:block; font-weight:600; margin:4px 0">E-Mail</label>
                 <input id="email" name="Email" type="email" required />
               </div>
-              <!-- Budget-Feld entfernt auf Wunsch -->
+              <input type="hidden" name="_subject" value="Neue Anfrage über neuraflow.net" />
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
               <div>
                 <label for="msg" style="display:block; font-weight:600; margin:4px 0">Projektbeschreibung</label>
                 <textarea id="msg" name="Nachricht" placeholder="Was soll automatisiert werden? Welche Systeme nutzt ihr heute?"></textarea>
               </div>
               <button class="cta" type="submit">Nachricht senden</button>
+              <p id="form-status" role="status" aria-live="polite" style="color:var(--muted); font-size:14px; margin-top:8px"></p>
               <p style="color:var(--muted); font-size:14px">Oder direkt per E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
             </form>
           </div>
@@ -602,7 +604,7 @@
         const id = '#' + entry.target.id;
         const link = navLinks.find(a=>a.getAttribute('href') === id);
         if(link){
-          if(entry.isIntersecting){ 
+          if(entry.isIntersecting){
             navLinks.forEach(l=>l.classList.remove('active'));
             link.classList.add('active');
           }
@@ -611,6 +613,44 @@
     }, {rootMargin:'-50% 0px -49% 0px', threshold:0});
 
     sections.forEach(sec=>spy.observe(sec));
+
+    // -------- Kontaktformular: Formspree Anbindung (für GitHub Pages) ----------
+    // 1) Erstelle auf formspree.io ein Projekt, setze die Zieladresse auf deineagentur@neuraflow.net
+    // 2) Kopiere deinen Endpunkt (z. B. https://formspree.io/f/abcdwxyz) in die Konstante unten:
+    const FORM_ENDPOINT = "https://formspree.io/f/DEIN_FORM_ID"; // <-- HIER ersetzen
+
+    const form = document.getElementById('contact-form');
+    const statusEl = document.getElementById('form-status');
+
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      statusEl.textContent = "Wird gesendet…";
+
+      try{
+        const data = new FormData(form);
+        // Optional: Absenderadresse für direkte Antwort
+        if(!data.get("_replyto") && data.get("Email")) data.append("_replyto", data.get("Email"));
+
+        const res = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json" },
+          body: data
+        });
+
+        if(res.ok){
+          form.reset();
+          statusEl.style.color = "green";
+          statusEl.textContent = "Danke! Deine Nachricht wurde erfolgreich gesendet. Wir melden uns zeitnah.";
+        }else{
+          const out = await res.json().catch(()=>({}));
+          statusEl.style.color = "#b91c1c";
+          statusEl.textContent = out.errors && out.errors.length ? out.errors.map(e=>e.message).join(" ") : "Senden fehlgeschlagen. Bitte versuche es erneut oder schreibe an deineagentur@neuraflow.net.";
+        }
+      }catch(err){
+        statusEl.style.color = "#b91c1c";
+        statusEl.textContent = "Netzwerkfehler. Bitte später erneut versuchen oder direkt mailen an deineagentur@neuraflow.net.";
+      }
+    });
 
     // Barrierefreiheit: Focus-Styles
     const style = document.createElement('style');
