@@ -4,101 +4,92 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>NeuraFlow – KI Automations Agentur</title>
-  <meta name="description" content="NeuraFlow baut KI-Chatbots & Automatisierungen, die Leads qualifizieren, Onboarding beschleunigen und Vertragsprozesse verschlanken."/>
+  <meta name="description" content="NeuraFlow baut KI-Automationen & Chatbots, die Leads qualifizieren, Prozesse vereinfachen und dein Business skalieren."/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   <meta property="og:title" content="NeuraFlow – KI Automations Agentur">
-  <meta property="og:description" content="KI-Automatisierungen für Chatbots, Leadqualifizierung, Onboarding & Rechnungen. Schnell. Einfach. Sicher.">
+  <meta property="og:description" content="Chatbots, Automatisierungen & Workflows – einfach, messbar, DSGVO-konform.">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#ffffff" id="theme-color-meta">
-
-  <!-- Favicon -->
-  <link rel="icon" href="logo.png">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Crect width='100%25' height='100%25' rx='48' fill='%23ffffff'/%3E%3Cpath d='M70 170 L128 60 L186 170' fill='none' stroke='%23ff7a00' stroke-width='18' stroke-linecap='round'/%3E%3Ccircle cx='128' cy='150' r='10' fill='%23ff7a00'/%3E%3C/svg%3E"/>
 
   <style>
-    /* =========================
-       Design Tokens
-       ========================= */
+    /* ---- Design Tokens ---- */
     :root{
-      --bg:#ffffff;
-      --bg-2:#f6f7fb;
-      --card:#f9f9fb;
-      --ink:#111111;
-      --muted:#575b68;
-      --accent:#ff7a00;
-      --accent-2:#ff8f1f;
-      --accent-ghost:rgba(255,122,0,.12);
-      --line:rgba(0,0,0,.10);
-      --line-strong:rgba(0,0,0,.18);
+      --bg:#ffffff; --bg-2:#f6f7fb; --card:#f9f9fb;
+      --ink:#111111; --muted:#575b68;
+      --accent:#ff7a00; --accent-2:#ff8f1f; --accent-ghost:rgba(255,122,0,.12);
+      --line:rgba(0,0,0,.10); --line-strong:rgba(0,0,0,.18);
       --shadow:0 20px 60px rgba(0,0,0,.08);
-      --radius:18px;
-      --maxw:1200px;
+      --radius:18px; --maxw:1200px;
       --ring:0 0 0 6px rgba(255,122,0,.15);
       --glow:0 24px 80px rgba(255,122,0,.18);
-      --logo-size-mobile:50px;
-      --logo-size-desktop:60px;
-      --logo-size-footer:40px;
+      --logo-size-mobile:50px; --logo-size-desktop:60px; --logo-size-footer:40px;
     }
-
     *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,"Plus Jakarta Sans",system-ui;line-height:1.6;color:var(--ink);background:var(--bg)}
-
+    body{margin:0;font-family:Inter,"Plus Jakarta Sans",system-ui;line-height:1.6;color:var(--ink);background:var(--bg);}
     img{max-width:100%;display:block}
     a{text-decoration:none;color:inherit}
     .container{max-width:var(--maxw);margin:auto;padding:0 20px}
     .section{padding:84px 0}
-    .section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:28px;gap:16px}
     .section-head h2{margin:0;font-size:clamp(26px,3.4vw,40px)}
     .section-head p{margin:0;color:var(--muted)}
 
     /* Header */
-    header{position:sticky;top:0;background:#fffdd9;border-bottom:1px solid var(--line);z-index:50}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
-    .brand-logo{height:var(--logo-size-mobile);width:auto}
+    header{position:sticky;top:0;z-index:50;background:#ffffffd9;backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand-logo{height:var(--logo-size-mobile);width:auto;display:block}
     @media(min-width:1000px){.brand-logo{height:var(--logo-size-desktop)}}
-    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0}
+    nav ul{display:flex;gap:18px;list-style:none;margin:0;padding:0;align-items:center}
     nav a{padding:10px 12px;border-radius:10px}
     nav a:hover{background:var(--accent-ghost)}
+    .menu-btn{display:none}
+    @media(max-width:1000px){nav ul{display:none}.menu-btn{display:inline-flex}}
 
     /* Buttons */
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;font-weight:700;background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#fff}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;font-weight:700;background:linear-gradient(180deg,var(--accent),var(--accent-2));color:#fff;border:none}
+    .btn:hover{box-shadow:var(--glow);transform:translateY(-1px)}
     .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-    .btn--ghost:hover{background:var(--accent-ghost)}
+    .btn--chip{background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px}
 
     /* Hero */
-    .hero{padding:100px 0 64px}
-    .headline{font-size:clamp(34px,5.4vw,64px);font-weight:800;line-height:1.1}
-    .sub{font-size:18px;color:var(--muted);margin:14px 0 26px}
-    .hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}
-    .kpi{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg-2);text-align:center}
-    .kpi b{font-size:22px;color:var(--accent)}
+    .hero{padding:clamp(56px,10vw,120px) 0 64px}
+    .headline{font-weight:800;font-size:clamp(34px,5.4vw,64px);line-height:1.1}
+    .sub{color:var(--muted);font-size:clamp(16px,2vw,20px);margin:14px 0 26px}
+    .grid{display:grid;gap:28px;grid-template-columns:1.1fr .9fr}
+    @media(max-width:1000px){.grid{grid-template-columns:1fr}}
 
     /* Cards */
-    .cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
-    .card h3{margin:10px 0}
-    .list{margin:14px 0 0;padding:0;list-style:none}
-    .list li{margin:10px 0;padding-left:20px;position:relative}
+    .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+    .card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+    .card h3{margin-top:8px}
+    .card p{color:var(--muted)}
+    .list{list-style:none;padding:0;margin-top:10px}
+    .list li{margin:8px 0;padding-left:22px;position:relative}
     .list li::before{content:"✔";position:absolute;left:0;color:var(--accent)}
 
     /* Footer */
     footer{padding:36px 0 72px;border-top:1px solid var(--line);background:#fafafa}
-    .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-    .footer-brand-logo{height:var(--logo-size-footer);width:auto}
-    .footer-links{display:flex;gap:14px;flex-wrap:wrap}
-    .footer-links a{border-bottom:1px dotted rgba(0,0,0,.25)}
+    .foot{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+    .footer-links{display:flex;gap:14px;justify-content:flex-end;flex-wrap:wrap}
+    .footer-brand-logo{height:var(--logo-size-footer)}
   </style>
 </head>
 <body>
   <!-- Header -->
   <header>
     <div class="container nav">
-      <a href="#home"><img src="logo.png" alt="NeuraFlow Logo" class="brand-logo"></a>
+      <a href="#home" aria-label="NeuraFlow Startseite">
+        <img src="logo.png" alt="NeuraFlow Logo" class="brand-logo">
+      </a>
       <nav>
-        <ul>
+        <button class="btn btn--ghost menu-btn" id="menuToggle">Menü</button>
+        <ul id="desktopMenu">
           <li><a href="#leistungen">Leistungen</a></li>
-          <li><a href="#warum">Warum wir</a></li>
+          <li><a href="#prozess">Prozess</a></li>
+          <li><a href="#beispiele">Anwendungsbeispiele</a></li>
           <li><a href="#preise">Preise</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a class="btn" href="#kontakt">Erstgespräch →</a></li>
@@ -109,136 +100,132 @@
 
   <!-- Hero -->
   <main id="home" class="hero container">
-    <h1 class="headline">Automatisiere dein Business mit <span style="color:var(--accent)">KI-Workflows</span>.</h1>
-    <p class="sub">Wir bauen Chatbots & Automatisierungen, die Leads qualifizieren, Onboarding beschleunigen und Vertragsprozesse vereinfachen.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
-      <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
-      <a class="btn btn--ghost" href="#leistungen">Unsere Leistungen</a>
-    </div>
-    <div class="hero-kpis">
-      <div class="kpi"><b>−40%</b><div class="muted">Zeitaufwand</div></div>
-      <div class="kpi"><b>+30%</b><div class="muted">Mehr qual. Leads</div></div>
-      <div class="kpi"><b>14 Tage</b><div class="muted">Go-Live</div></div>
+    <div class="grid">
+      <div>
+        <h1 class="headline">Automatisiere dein Business mit <span style="color:var(--accent)">KI-Workflows</span></h1>
+        <p class="sub">Wir bauen Chatbots & Automatisierungen, die Leads qualifizieren, Onboarding erleichtern und Prozesse vereinfachen – sicher und DSGVO-konform.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
+          <a class="btn btn--ghost" href="#leistungen">Leistungen ansehen</a>
+        </div>
+      </div>
     </div>
   </main>
 
   <!-- Leistungen -->
   <section id="leistungen" class="section container">
     <div class="section-head">
-      <h2>Unsere Leistungen</h2><p>Einfach, verständlich, wirkungsvoll.</p>
+      <h2>Leistungen</h2>
+      <p>Einfach, klar und wirkungsvoll.</p>
     </div>
     <div class="cards">
       <article class="card">
         <h3>Chatbots</h3>
-        <p>24/7 erreichbar, personalisiert & DSGVO-konform.</p>
+        <p>24/7 digitale Assistenten für Support & Sales.</p>
         <ul class="list">
-          <li>Lead-Qualifizierung direkt im Chat</li>
-          <li>Support automatisieren</li>
-          <li>CRM-Anbindung</li>
+          <li>Kundensupport automatisieren</li>
+          <li>Lead-Fragen beantworten</li>
+          <li>Integration mit CRM</li>
         </ul>
       </article>
       <article class="card">
         <h3>Lead-Qualifizierung</h3>
-        <p>Automatisiert Interessenten prüfen & Termine buchen.</p>
+        <p>Automatisierte Vorqualifizierung von Anfragen.</p>
         <ul class="list">
-          <li>Schneller Sales-Prozess</li>
-          <li>Weniger No-Shows</li>
+          <li>Bedarfsanalyse per Chatbot</li>
+          <li>Automatische Terminbuchung</li>
+          <li>Nahtlose Übergabe an Sales</li>
         </ul>
       </article>
       <article class="card">
-        <h3>Onboarding</h3>
-        <p>Neue Kunden oder Mitarbeiter automatisch einführen.</p>
+        <h3>Onboarding & Prozesse</h3>
+        <p>Schnellere Abläufe für Kunden & Team.</p>
         <ul class="list">
-          <li>Willkommens-Prozesse</li>
-          <li>Dokumente & Infos automatisch</li>
-        </ul>
-      </article>
-      <article class="card">
-        <h3>Verträge & Rechnungen</h3>
-        <p>Digitale Verwaltung & Automatisierung von Dokumenten.</p>
-        <ul class="list">
-          <li>Verträge generieren</li>
-          <li>Rechnungen automatisch verschicken</li>
+          <li>Onboarding automatisieren</li>
+          <li>Verträge digital abwickeln</li>
+          <li>Rechnungsstellung vereinfachen</li>
         </ul>
       </article>
     </div>
   </section>
 
-  <!-- Warum wir -->
-  <section id="warum" class="section container">
+  <!-- Prozess -->
+  <section id="prozess" class="section container">
     <div class="section-head">
-      <h2>Warum NeuraFlow?</h2><p>Mehr Wert als nur Technik.</p>
+      <h2>Prozess</h2>
+      <p>In wenigen Schritten live.</p>
     </div>
     <div class="cards">
-      <article class="card">
-        <h3>Einfach starten</h3>
-        <p>Ergebnisse in wenigen Tagen – keine langen IT-Projekte.</p>
-      </article>
-      <article class="card">
-        <h3>Messbare Resultate</h3>
-        <p>Wir definieren klare KPIs und liefern nachweisbare Verbesserungen.</p>
-      </article>
-      <article class="card">
-        <h3>Skalierbar</h3>
-        <p>Unsere Lösungen wachsen mit deinem Business.</p>
-      </article>
+      <div class="card"><h3>1. Analyse</h3><p>Wir prüfen deine Ziele & Use-Cases.</p></div>
+      <div class="card"><h3>2. Umsetzung</h3><p>In 10–14 Tagen steht ein Prototyp bereit.</p></div>
+      <div class="card"><h3>3. Go-Live</h3><p>Rollout, Monitoring & Optimierung.</p></div>
+    </div>
+  </section>
+
+  <!-- Anwendungsbeispiele -->
+  <section id="beispiele" class="section container">
+    <div class="section-head">
+      <h2>Anwendungsbeispiele</h2>
+      <p>Typische Szenarien aus der Praxis.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>Lead-Bot</h3>
+        <p>Ein Chatbot, der Interessenten vorqualifiziert und automatisch Termine vergibt.</p>
+      </div>
+      <div class="card">
+        <h3>Support-Automatisierung</h3>
+        <p>Antwortvorschläge & Ticket-Routing sparen bis zu 40% Bearbeitungszeit.</p>
+      </div>
+      <div class="card">
+        <h3>Onboarding-Flow</h3>
+        <p>Neukunden erhalten automatisch alle Infos, Verträge & Rechnungen.</p>
+      </div>
     </div>
   </section>
 
   <!-- Preise -->
   <section id="preise" class="section container">
     <div class="section-head">
-      <h2>Preise</h2><p>Transparente Pakete. Monatlich kündbar.</p>
+      <h2>Preise</h2><p>Transparent & flexibel.</p>
     </div>
     <div class="cards">
-      <article class="card">
+      <div class="card">
         <h3>Starter</h3>
-        <p>1 Use-Case, schneller PoC.</p>
-        <div><b>€2.900</b> einmalig</div>
-      </article>
-      <article class="card">
+        <p>Ein Use-Case, einmalig.</p>
+        <p><b>2.900 €</b></p>
+      </div>
+      <div class="card">
         <h3>Scale</h3>
-        <p>Mehrere Automationen inkl. Monitoring.</p>
-        <div><b>€3.500</b>/Monat</div>
-      </article>
-      <article class="card">
+        <p>2–3 Workflows, monatlich.</p>
+        <p><b>3.500 € / Monat</b></p>
+      </div>
+      <div class="card">
         <h3>Enterprise</h3>
-        <p>Individuelle Lösungen für große Unternehmen.</p>
-        <div>Auf Anfrage</div>
-      </article>
+        <p>Individuelle Lösungen.</p>
+        <p><b>Auf Anfrage</b></p>
+      </div>
     </div>
   </section>
 
   <!-- FAQ -->
   <section id="faq" class="section container">
-    <div class="section-head">
-      <h2>FAQ</h2><p>Antworten auf häufige Fragen.</p>
-    </div>
-    <details>
-      <summary>Wie schnell liefert ihr Ergebnisse?</summary>
-      <p>Ein PoC ist oft in 10–14 Tagen live.</p>
-    </details>
-    <details>
-      <summary>Welche Systeme bindet ihr an?</summary>
-      <p>CRM, Support-Tools, HR-Systeme – flexibel nach Bedarf.</p>
-    </details>
-    <details>
-      <summary>Ist alles DSGVO-konform?</summary>
-      <p>Ja, wir achten auf EU-Datenhaltung, PII-Schutz und sichere Prozesse.</p>
-    </details>
+    <div class="section-head"><h2>FAQ</h2></div>
+    <details><summary>Wie schnell seid ihr?</summary><p>Ein erster Prototyp ist meist in 10–14 Tagen live.</p></details>
+    <details><summary>Welche Tools nutzt ihr?</summary><p>Wir integrieren gängige Systeme wie HubSpot, Slack oder Zendesk.</p></details>
+    <details><summary>Wie sieht es mit Datenschutz aus?</summary><p>Alles DSGVO-konform inkl. Datenminimierung & EU-Hosting.</p></details>
   </section>
 
   <!-- Kontakt -->
   <section id="kontakt" class="section container">
-    <div class="section-head">
-      <h2>Kontakt</h2><p>Schick uns kurz dein Anliegen – wir antworten in &lt;24h.</p>
-    </div>
+    <div class="section-head"><h2>Kontakt</h2><p>Schick uns dein Anliegen – wir antworten i. d. R. in &lt;24h.</p></div>
     <form onsubmit="submitForm(event)" style="display:grid;gap:12px;max-width:600px">
-      <label>Vorname* <input required name="firstName"></label>
-      <label>Nachname* <input required name="lastName"></label>
-      <label>E-Mail* <input required type="email" name="email"></label>
-      <label>Nachricht* <textarea required name="message" rows="4"></textarea></label>
+      <label>Vorname*<input required name="firstName"></label>
+      <label>Nachname*<input required name="lastName"></label>
+      <label>Email*<input required type="email" name="email"></label>
+      <label>Nachricht*<textarea required name="message" rows="5"></textarea></label>
       <button class="btn" type="submit">Absenden</button>
+      <span id="formStatus"></span>
     </form>
   </section>
 
@@ -250,14 +237,13 @@
         <small>© <span id="y"></span> NeuraFlow</small>
       </div>
       <div class="footer-links">
-        <a href="#impressum" onclick="openLegal('impressum')">Impressum</a>
-        <a href="#datenschutz" onclick="openLegal('datenschutz')">Datenschutz</a>
+        <a href="#impressum">Impressum</a>
+        <a href="#datenschutz">Datenschutz</a>
         <a href="#kontakt">Kontakt</a>
       </div>
     </div>
   </footer>
 
-  <!-- Scripts -->
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
     function submitForm(e){
@@ -268,28 +254,8 @@
         `Vorname: ${data.firstName}\nNachname: ${data.lastName}\nE-Mail: ${data.email}\n\nNachricht:\n${data.message}`
       );
       window.location.href = `mailto:hi@neuraflow.ai?subject=${subject}&body=${body}`;
+      document.getElementById('formStatus').textContent = "Danke! Dein E-Mail-Client öffnet sich.";
     }
-    function openLegal(which){
-      alert(which + " Text hier einfügen."); // Placeholder
-    }
-  </script>
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"NeuraFlow",
-    "url":"https://neuraflow.net",
-    "logo":"https://neuraflow.net/logo.png",
-    "contactPoint":[{
-      "@type":"ContactPoint",
-      "contactType":"sales",
-      "email":"hi@neuraflow.ai",
-      "areaServed":"EU",
-      "availableLanguage":["de","en"]
-    }]
-  }
   </script>
 </body>
 </html>
