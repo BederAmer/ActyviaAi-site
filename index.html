@@ -36,6 +36,7 @@
       --shadow:0 20px 60px rgba(0,0,0,.08);
 
       --radius:18px;
+      --radius-lg:22px;
       --maxw:1200px;
 
       --ring:0 0 0 6px rgba(255,122,0,.15);
@@ -45,11 +46,20 @@
       --logo-size-mobile:50px;
       --logo-size-desktop:60px;
       --logo-size-footer:40px;
+
+      /* Layout */
+      --container-pad: clamp(16px, 3vw, 28px);
+      --section-y: clamp(64px, 10vw, 96px);
+      --header-h: 72px;
     }
 
     /* Base */
     *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    html{
+      scroll-behavior:smooth;
+      -webkit-text-size-adjust:100%;
+      color-scheme: light;
+    }
     body{
       margin:0;
       font-family:Inter,"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
@@ -60,6 +70,9 @@
         var(--bg);
       line-height:1.6;
       position:relative; isolation:isolate;
+      text-rendering:optimizeLegibility;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
     body::after{
       content:""; pointer-events:none; position:fixed; inset:0; z-index:-1;
@@ -67,13 +80,20 @@
       background-size:160px 160px;
     }
 
-    img{max-width:100%;display:block}
+    img{max-width:100%;display:block;height:auto}
     a{color:inherit;text-decoration:none}
-    .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding:0 20px}
-    .section{padding:84px 0}
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid color-mix(in oklab, var(--accent) 70%, #0000); outline-offset: 2px; border-radius:12px }
+    .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--container-pad)}
+    .section{padding:var(--section-y) 0}
     .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px}
     .section-head h2{margin:0;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em}
     .section-head p{margin:0;color:var(--muted)}
+    .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
+    .skip-link{ position:fixed; left:50%; transform:translateX(-50%); top:-60px; background:var(--ink); color:#fff; padding:10px 14px; border-radius:12px; z-index:100; transition: top .2s ease }
+    .skip-link:focus{ top:12px }
+
+    /* Anchor target offset for sticky header */
+    :target{ scroll-margin-top: calc(var(--header-h) + 16px) }
 
     /* Header / Nav */
     header{
@@ -81,13 +101,14 @@
       backdrop-filter:saturate(180%) blur(12px);
       background:#ffffffd9;
       border-bottom:1px solid var(--line);
+      height:var(--header-h);
     }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 0}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0}
     .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.2px}
 
     /* ===== LOGO FIX ===== */
     .brand-logo{
-      height:var(--logo-size-mobile) !important;
+      height:var(--logo-size-mobile) !important;   /* überschreibt alte Werte */
       width:auto !important;
       display:block;
     }
@@ -95,11 +116,14 @@
       .brand-logo{ height:var(--logo-size-desktop) !important; }
     }
 
-    nav ul{display:flex;gap:18px;list-style:none;padding:0;margin:0;align-items:center}
-    nav a{padding:10px 12px;border-radius:10px;opacity:.95}
+    nav ul{display:flex;gap:8px;list-style:none;padding:0;margin:0;align-items:center}
+    nav a{padding:10px 12px;border-radius:10px;opacity:.95; display:inline-flex; align-items:center; min-height:40px}
     nav a:hover, nav a:focus-visible{background:var(--accent-ghost);outline:none}
     .menu-btn{display:none}
-    @media (max-width:1000px){nav ul{display:none}.menu-btn{display:inline-flex}}
+    @media (max-width:1000px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex}
+    }
 
     /* Buttons */
     .btn{
@@ -109,14 +133,16 @@
       border:1px solid color-mix(in oklab, var(--accent) 45%, #0000);
       background: linear-gradient(180deg, var(--accent), var(--accent-2));
       color:#fff;
+      min-height:44px;
       box-shadow:0 0 0 rgba(0,0,0,0); transition:transform .18s ease, filter .18s ease, box-shadow .3s ease;
     }
     .btn:hover{transform:translateY(-1px);filter:brightness(1.03);box-shadow:var(--glow)}
     .btn:active{transform:translateY(0) scale(.99)}
     .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
     .btn--ghost:hover{background:var(--accent-ghost);border-color:color-mix(in oklab, var(--accent) 40%, #0000)}
-    .btn--chip{background:transparent;border:1px solid var(--line);color:var(--ink)}
+    .btn--chip{background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 12px;border-radius:999px}
     .btn--chip:hover{box-shadow:var(--ring);border-color:color-mix(in oklab, var(--accent) 40%, #0000)}
+    .btn-group{ display:flex; gap:12px; flex-wrap:wrap; align-items:center }
 
     /* Hero */
     .hero{padding: clamp(56px, 10vw, 120px) 0 64px}
@@ -141,8 +167,8 @@
     .kpi b{font-size:22px;color:var(--accent)}
 
     /* Logo marquee */
-    .marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: var(--bg-2);}
-    .marquee-track{display:flex;gap:48px;align-items:center;animation:scroll 24s linear infinite;padding:16px 0;min-width:200%}
+    .marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: var(--bg-2);}
+    .marquee-track{display:flex;gap:48px;align-items:center;animation:scroll 24s linear infinite;padding:12px 0;min-width:200%; will-change: transform}
     .marquee svg{text-transform:uppercase; letter-spacing:.08em}
     @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -150,7 +176,9 @@
     .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
     .card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;transition:transform .18s ease, border-color .18s ease, background .18s ease; position:relative; overflow:hidden;}
     .card:hover{transform:translateY(-2px);border-color:var(--line-strong)}
-    .card .tag{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;width:max-content;background:var(--accent-ghost);color:var(--ink)}
+    .shadow{ box-shadow: var(--shadow) }
+    .cta-row{ display:flex; gap:12px; align-items:center; justify-content:flex-start }
+    .tag{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;width:max-content;background:var(--accent-ghost);color:var(--ink)}
     .card h3{margin:8px 0 10px;font-size:20px}
     .card p{margin:0;color:var(--muted)}
     .list{margin:14px 0 0;padding:0;list-style:none}
@@ -161,10 +189,12 @@
     .step{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg-2)}
     .bubble{min-width:34px;height:34px;border-radius:999px;display:grid;place-items:center;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line)}
 
-    /* Use-Cases / Templates */
-    .case{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--card)}
+    /* Cases */
+    .case{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px;background:var(--card)}
     .case+.case{margin-top:16px}
     .badge-mini{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2);color:var(--ink)}
+    .case figure{ margin:0 }
+    .case img{ border-radius:12px; border:1px solid var(--line); aspect-ratio: 16 / 9; object-fit: cover; width:100%; height:auto }
 
     /* Pricing */
     .pricing{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
@@ -177,21 +207,23 @@
     /* FAQ */
     details{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--bg-2)}
     details+details{margin-top:12px}
-    summary{cursor:pointer;font-weight:600}
+    summary{cursor:pointer;font-weight:600; list-style:none}
+    summary::-webkit-details-marker{ display:none }
     details p{color:var(--muted);margin:10px 0 0}
 
     /* Kontakt */
     input, textarea{
       width:100%;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);outline:none;
       transition:border-color .15s ease, box-shadow .15s ease;
+      font-size:16px;
     }
     input:focus, textarea:focus{border-color:color-mix(in oklab, var(--accent) 40%, #0000); box-shadow:var(--ring)}
     label{display:grid;gap:8px;font-weight:600}
     form{display:grid;gap:12px}
 
     /* Footer */
-    footer{padding:36px 0 72px;border-top:1px solid var(--line);background:linear-gradient(180deg, var(--bg), #fafafa)}
-    .foot{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    footer{padding:36px 0 max(72px, env(safe-area-inset-bottom) + 24px);border-top:1px solid var(--line);background:linear-gradient(180deg, var(--bg), #fafafa)}
+    .foot{display:grid;grid-template-columns:1fr 1fr;gap:16px; align-items:center}
     .foot small{color:var(--muted)}
     .footer-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
     .footer-links a{opacity:.95;border-bottom:1px dotted rgba(0,0,0,.25)}
@@ -204,18 +236,41 @@
     .spacer{height:18px}
 
     /* Responsive */
+    @media (max-width:1200px){
+      .container{ padding-inline: max(16px, 3vw) }
+    }
     @media (max-width:1000px){
       .grid{grid-template-columns:1fr}
       .cards .card, .pricing .plan{grid-column:span 12}
       .case{grid-template-columns:1fr}
+      .hero-kpis{ grid-template-columns: repeat(3, minmax(0,1fr)) }
+    }
+    @media (max-width:720px){
+      .headline{ font-size: clamp(28px, 7vw, 40px) }
+      .hero-kpis{ grid-template-columns: repeat(3, 1fr); gap:10px }
+      .kpi{ padding:12px }
+      .section{ padding: clamp(48px, 12vw, 72px) 0 }
+      .marquee-track{ gap:28px; padding:10px 0 }
     }
 
-    /* Animations */
+    /* Animations & micro-interactions */
     .reveal{opacity:0;transform:translateY(10px)}
     .tilt{transform-style:preserve-3d;will-change:transform}
     .tilt:hover{transform:translateY(-2px) rotateX(.6deg) rotateY(-.6deg)}
-    .float-cta{position:fixed;right:20px;bottom:20px;z-index:60;border-radius:999px;box-shadow:0 10px 30px rgba(255,122,0,.25); display:none;}
-    .to-top{position:fixed;right:20px;bottom:88px;z-index:60;border-radius:999px;display:none}
+    .float-cta{
+      position:fixed;right:20px;bottom:max(20px, env(safe-area-inset-bottom) + 20px);z-index:60;border-radius:999px;
+      box-shadow:0 10px 30px rgba(255,122,0,.25); display:none;}
+    .to-top{position:fixed;right:20px;bottom: calc(max(20px, env(safe-area-inset-bottom) + 20px) + 64px);z-index:60;border-radius:999px;display:none}
+    @media (max-width:640px){
+      .to-top{ bottom: calc(max(20px, env(safe-area-inset-bottom) + 20px) + 56px) }
+    }
+
+    /* Reduced motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      html{ scroll-behavior:auto }
+      .marquee-track{ animation: none }
+      .reveal, .tilt{ opacity:1 !important; transform:none !important }
+    }
   </style>
 
   <!-- Sicherheits-Header -->
@@ -224,32 +279,37 @@
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
   <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 </head>
+
 <body>
+  <a href="#home" class="skip-link">Zum Inhalt springen</a>
+
   <!-- Header -->
   <header aria-label="Hauptnavigation">
     <div class="container nav">
       <a class="brand" href="#home" aria-label="NeuraFlow Startseite">
         <!-- Logo: Datei unter assets/logo.png ablegen -->
-        <img src="logo.png" alt="NeuraFlow Logo" class="brand-logo">
+        <img src="logo.png" alt="NeuraFlow Logo" class="brand-logo" width="120" height="60" decoding="async" fetchpriority="high">
+        <span class="sr-only">NeuraFlow</span>
       </a>
       <nav>
-        <button class="btn btn--ghost menu-btn" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu">Menü</button>
+        <button class="btn btn--ghost menu-btn" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">Menü</button>
         <ul id="desktopMenu" aria-label="Primär">
           <li><a href="#leistungen">Leistungen</a></li>
           <li><a href="#prozess">Prozess</a></li>
-          <li><a href="#usecases">Use-Cases</a></li>
+          <li><a href="#cases">Case Studies</a></li>
           <li><a href="#preise">Preise</a></li>
           <li><a href="#faq">FAQ</a></li>
           <li><a class="btn" href="#kontakt" aria-label="Kostenloses Erstgespräch">Erstgespräch →</a></li>
         </ul>
       </nav>
     </div>
+
     <!-- Mobile Drawer -->
     <div id="mobileMenu" hidden class="container" style="padding-bottom:12px">
-      <div style="display:grid; gap:8px">
+      <div class="btn-group" style="display:grid; gap:10px">
         <a class="btn btn--chip" href="#leistungen">Leistungen</a>
         <a class="btn btn--chip" href="#prozess">Prozess</a>
-        <a class="btn btn--chip" href="#usecases">Use-Cases</a>
+        <a class="btn btn--chip" href="#cases">Case Studies</a>
         <a class="btn btn--chip" href="#preise">Preise</a>
         <a class="btn btn--chip" href="#faq">FAQ</a>
         <a class="btn" href="#kontakt">Erstgespräch</a>
@@ -265,8 +325,8 @@
         <h1 class="headline reveal">
           Automatisiere dein Business mit <span class="grad">Agent-Workflows</span>, die messbar liefern.
         </h1>
-        <p class="sub reveal">Chatbots & schlanke Automationen, die Leads qualifizieren, Onboarding abwickeln sowie Vertrags- & Rechnungsprozesse übernehmen – sicher, skalierbar, DSGVO-konform.</p>
-        <div class="reveal" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+        <p class="sub reveal">Chatbots, Orchestrierungen und Integrationen, die Leads qualifizieren, Support entlasten und Ops beschleunigen – sicher, skalierbar, DSGVO-konform.</p>
+        <div class="reveal btn-group">
           <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
           <a class="btn btn--ghost" href="#leistungen">Leistungen ansehen</a>
           <span class="muted">⏱️ Antwort i. d. R. <b>&lt;24h</b></span>
@@ -283,7 +343,7 @@
         <h3>Agent „Nova“</h3>
         <p class="muted">Leads anlegen, Termine buchen, Antworten aus Wissensbasis generieren – voll automatisiert.</p>
         <div style="margin-top:12px;border:1px dashed var(--line);border-radius:12px;padding:12px;background:var(--bg-2)">
-<pre style="margin:0;white-space:pre-wrap;color:var(--ink)"><code>// Intent: Termin buchen
+          <pre style="margin:0;white-space:pre-wrap;color:var(--ink)"><code>// Intent: Termin buchen
 Agent.plan([
   "Verfügbarkeit prüfen",
   "Kalenderlink generieren",
@@ -299,72 +359,52 @@ Agent.plan([
   <!-- Logo-Marquee -->
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
       <!-- duplicated for seamless loop -->
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
-      <svg viewBox="0 0 160 24"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
     </div>
   </div>
 
   <!-- Leistungen -->
   <section id="leistungen" class="section container">
     <div class="section-head">
-      <h2>Leistungen</h2><p>Fokus: schnell Mehrwert, simpel erklärt, sauber integriert.</p>
+      <h2>Leistungen</h2><p>Time-to-Value, saubere Integrationen, messbare KPIs.</p>
     </div>
     <div class="cards">
       <article class="card reveal tilt">
         <span class="tag">Chatbots</span>
-        <h3>Website- & Support-Bots</h3>
-        <p>Antworten aus deiner Wissensbasis – on brand & moderiert.</p>
+        <h3>Sales & Support GPTs</h3>
+        <p>On-Brand Chatbots mit RAG & Guardrails.</p>
         <ul class="list">
-          <li>RAG-Wissensbasis</li>
-          <li>CRM-Anlage (HubSpot/Salesforce)</li>
-          <li>Handover an Sales/Support</li>
+          <li>Wissensbasis & Retrieval</li><li>CRM-Connect (HubSpot, Salesforce)</li><li>Brand-Ton, Moderation</li>
         </ul>
         <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Kurzberatung buchen →</a>
       </article>
-
       <article class="card reveal tilt">
-        <span class="tag">Leads</span>
-        <h3>Lead-Qualifizierung</h3>
-        <p>Automatisch prüfen, priorisieren & Termine buchen.</p>
+        <span class="tag">Automations</span>
+        <h3>Ops-Workflows & Agenten</h3>
+        <p>End-to-End Automationen – von Trigger bis Outcome.</p>
         <ul class="list">
-          <li>Formular/Chat → ICP-Check</li>
-          <li>Kalender-Buchung & Follow-ups</li>
-          <li>Routing nach Score (CRM/Slack)</li>
+          <li>Webhooks/Events, Queueing, Retries</li><li>Function-Calling / Toolformer</li><li>Observability & SLAs</li>
         </ul>
         <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Use-Case prüfen →</a>
       </article>
-
       <article class="card reveal tilt">
-        <span class="tag">Onboarding</span>
-        <h3>Onboarding automatisieren</h3>
-        <p>Willkommen, Checklisten, Zugänge – alles im Flow.</p>
+        <span class="tag">Data & Safety</span>
+        <h3>Evals & Monitoring</h3>
+        <p>Qualität, Compliance, DSGVO.</p>
         <ul class="list">
-          <li>Willkommens-E-Mails & Aufgaben</li>
-          <li>Zugangserstellung (z. B. Slack/Notion)</li>
-          <li>Status-Updates & Eskalationen</li>
+          <li>Eval-Pipelines & Feedback-Loops</li><li>PII-Redaction, Policies</li><li>Dashboards & Alerts</li>
         </ul>
-        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Ablauf besprechen →</a>
-      </article>
-
-      <article class="card reveal tilt">
-        <span class="tag">Ops</span>
-        <h3>Verträge & Rechnungen</h3>
-        <p>Erstellung, Signatur & Übergabe an Buchhaltung.</p>
-        <ul class="list">
-          <li>Vorlagen & eSign (z. B. DocuSign)</li>
-          <li>Autom. Rechnung & Verbuchung</li>
-          <li>Reminder & Mahnläufe</li>
-        </ul>
-        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Kurzcall vereinbaren →</a>
+        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Audit anfragen →</a>
       </article>
     </div>
   </section>
@@ -382,51 +422,53 @@ Agent.plan([
     <div class="center" style="margin-top:22px"><a class="btn" href="#kontakt">Kostenloses Erstgespräch</a></div>
   </section>
 
-  <!-- Use-Cases / Templates (statt Case Studies) -->
-  <section id="usecases" class="section container">
+  <!-- Case Studies -->
+  <section id="cases" class="section container">
     <div class="section-head">
-      <h2>Use-Cases & Starter-Templates</h2><p>Direkt einsetzbar. Später leicht zu echten Case Studies erweiterbar.</p>
+      <h2>Case Studies</h2><p>Konkrete Ergebnisse (anonymisiert).</p>
     </div>
 
     <article class="case reveal tilt">
       <div>
-        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">Leads</span><span class="badge-mini">HubSpot</span></div>
-        <h3>Inbound-Bot qualifiziert & bucht Termine</h3>
-        <p class="muted">ICP-Check, Kontaktanlage & Terminierung in einem Flow.</p>
+        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">B2B SaaS</span><span class="badge-mini">HubSpot</span></div>
+        <h3>Inbound-Bot qualifiziert Leads & bucht Termine</h3>
+        <p class="muted">ICP-Qualifizierung, Kontaktanlage & Terminierung in einem Flow.</p>
         <ul class="list">
-          <li>Demo-Template verfügbar</li><li>Go-Live in 14 Tagen</li><li>Kalender + CRM integriert</li>
+          <li>+31% SQL-Rate in 6 Wochen</li><li>−22% No-Shows</li><li>Go-Live in 12 Tagen</li>
         </ul>
       </div>
       <figure>
-        <img loading="lazy" alt="Lead-Flow Vorschau" src="https://images.unsplash.com/photo-1551281044-8d8d8a067a3b?q=80&w=1200&auto=format&fit=crop" style="border-radius:12px;border:1px solid var(--line)">
+        <img
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="675"
+          sizes="(max-width: 700px) 100vw, 50vw"
+          alt="Dashboard Vorschau"
+          src="https://images.unsplash.com/photo-1551281044-8d8d8a067a3b?q=80&w=1200&auto=format&fit=crop"
+          style="border-radius:12px;border:1px solid var(--line)">
       </figure>
     </article>
 
     <article class="case reveal tilt">
       <div>
-        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">Onboarding</span><span class="badge-mini">Slack &amp; Notion</span></div>
-        <h3>Customer-Onboarding im Autopilot</h3>
-        <p class="muted">Willkommens-Sequenzen, Aufgaben, Status-Updates – automatisch.</p>
+        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">E-Commerce</span><span class="badge-mini">Zendesk</span></div>
+        <h3>Support-Automationen mit Antwortvorschlägen</h3>
+        <p class="muted">Automatisierte Triages & Drafts verkürzen Bearbeitungszeiten.</p>
         <ul class="list">
-          <li>Checklisten & Erinnerungen</li><li>Stakeholder-Updates in Slack</li><li>Vorlagen sofort nutzbar</li>
+          <li>−42% Bearbeitungszeit</li><li>CSAT 4,1 → 4,5</li><li>30+ Intent-Flows</li>
         </ul>
       </div>
       <figure>
-        <img loading="lazy" alt="Onboarding Flow" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" style="border-radius:12px;border:1px solid var(--line)">
-      </figure>
-    </article>
-
-    <article class="case reveal tilt">
-      <div>
-        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">Ops</span><span class="badge-mini">DocuSign &amp; Accounting</span></div>
-        <h3>Verträge & Rechnungen automatisiert</h3>
-        <p class="muted">Dokumente erzeugen, signieren und direkt verbuchen.</p>
-        <ul class="list">
-          <li>eSign + PDF-Ablage</li><li>Rechnungserstellung & Übergabe</li><li>Reminder & Mahnwesen</li>
-        </ul>
-      </div>
-      <figure>
-        <img loading="lazy" alt="Contract & Billing Automation" src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop" style="border-radius:12px;border:1px solid var(--line)">
+        <img
+          loading="lazy"
+          decoding="async"
+          width="1200"
+          height="675"
+          sizes="(max-width: 700px) 100vw, 50vw"
+          alt="Automation Flow"
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"
+          style="border-radius:12px;border:1px solid var(--line)">
       </figure>
     </article>
   </section>
@@ -517,7 +559,7 @@ Agent.plan([
   <footer>
     <div class="container foot">
       <div style="display:flex;align-items:center;gap:10px">
-        <img src="logo.png?v=2" alt="NeuraFlow Logo" class="footer-brand-logo">
+        <img src="logo.png?v=2" alt="NeuraFlow Logo" class="footer-brand-logo" width="100" height="40" decoding="async">
         <small>© <span id="y"></span> NeuraFlow – KI Automations Agentur</small>
       </div>
       <div class="footer-links">
@@ -529,8 +571,8 @@ Agent.plan([
   </footer>
 
   <!-- Floating CTA + Back to top -->
-  <a href="#kontakt" class="btn float-cta">Kostenloses Erstgespräch</a>
-  <a href="#home" class="btn btn--ghost to-top">↑ Nach oben</a>
+  <a href="#kontakt" class="btn float-cta" aria-label="Kostenloses Erstgespräch öffnen">Kostenloses Erstgespräch</a>
+  <a href="#home" class="btn btn--ghost to-top" aria-label="Nach oben">↑ Nach oben</a>
 
   <!-- Minimal Legal Modals -->
   <dialog id="modal-impressum" style="max-width:800px;border:none;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.25);background:#fff;color:#111">
@@ -557,16 +599,41 @@ Agent.plan([
     // Jahr im Footer
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Mobile Menu Toggle
+    // Mobile Menu Toggle + accessibility niceties
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
+    let lastFocus = null;
+
+    function setBodyLock(locked){
+      document.body.style.overflow = locked ? 'hidden' : '';
+    }
+
     menuToggle?.addEventListener('click', () => {
       const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
       menuToggle.setAttribute('aria-expanded', String(!expanded));
       mobileMenu.hidden = expanded;
+      setBodyLock(!expanded);
+      if(!expanded){ lastFocus = document.activeElement; mobileMenu.querySelector('a,button')?.focus(); }
+      else { lastFocus?.focus?.(); }
     });
+
+    // close on ESC
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && mobileMenu && !mobileMenu.hidden){
+        menuToggle.click();
+      }
+    });
+
+    // close menu when a link is clicked
     document.querySelectorAll('#mobileMenu a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', ()=>{ mobileMenu.hidden = true; menuToggle?.setAttribute('aria-expanded','false'); });
+      a.addEventListener('click', ()=>{ mobileMenu.hidden = true; setBodyLock(false); menuToggle?.setAttribute('aria-expanded','false'); });
+    });
+
+    // close mobile menu if viewport grows
+    window.addEventListener('resize', ()=>{
+      if(window.innerWidth >= 1000 && mobileMenu && !mobileMenu.hidden){
+        mobileMenu.hidden = true; menuToggle?.setAttribute('aria-expanded','false'); setBodyLock(false);
+      }
     });
 
     // Reveal on scroll
@@ -611,16 +678,19 @@ Agent.plan([
     }
     window.openLegal = openLegal;
 
-    // Subtile Micro-Parallax (Light)
+    // Subtile Micro-Parallax (Light) – disabled if prefers-reduced-motion
     let rafId=null; const parallaxEl=document.body;
-    window.addEventListener('mousemove', (e)=>{
-      if(rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(()=>{
-        const x = (e.clientX / window.innerWidth - .5) * 1.2;
-        const y = (e.clientY / window.innerHeight - .5) * 1.2;
-        parallaxEl.style.backgroundPosition = `${50 + x}% ${50 + y}% , ${50 - x}% ${50 - y}%`;
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(!reduceMotion){
+      window.addEventListener('mousemove', (e)=>{
+        if(rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(()=>{
+          const x = (e.clientX / window.innerWidth - .5) * 1.2;
+          const y = (e.clientY / window.innerHeight - .5) * 1.2;
+          parallaxEl.style.backgroundPosition = `${50 + x}% ${50 + y}% , ${50 - x}% ${50 - y}%`;
+        });
       });
-    });
+    }
   </script>
 
   <!-- JSON-LD -->
@@ -629,7 +699,7 @@ Agent.plan([
     "@context":"https://schema.org",
     "@type":"Organization",
     "name":"NeuraFlow",
-    "url":"https://neuraflow.ai/",
+    "url":"https://example.com/",
     "logo":"https://neuraflow.net/logo.png",
     "sameAs":[],
     "contactPoint":[{
