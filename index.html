@@ -731,6 +731,11 @@
             <label for="message">Kurzbeschreibung</label>
             <textarea id="message" name="message" rows="5" placeholder="Was möchtet ihr automatisieren? Welche Tools nutzt ihr bereits?" required></textarea>
           </div>
+          
+<!-- Erfolg-Weiterleitung (falls du JS deaktivierst oder Fallback brauchst) -->
+<input type="hidden" name="_redirect" value="https://neuraflow.net/#kontakt?sent=1" />
+<!-- Antispam-Honeypot (wird von Formspree ignoriert, hilft Bots filtern) -->
+<input type="text" name="_gotcha" class="hide" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
           <input type="hidden" name="_subject" value="Neue Anfrage über neuraflow.net" />
           <input type="hidden" name="website" value="neuraflow.net" />
