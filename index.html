@@ -1,667 +1,809 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NeuraFlow – KI-Automatisierungsagentur</title>
-  <meta name="description" content="NeuraFlow ist deine KI-Automatisierungsagentur: Chatbots, Lead-Qualifizierung, Onboarding, Verträge & Rechnungen – alles automatisiert und messbar. Spezialisiert auf Coaches, Berater, Mentoren und Agenturen." />
-  <meta name="theme-color" content="#ff7a18" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- ===================================================================
+       Meta & Head
+  =================================================================== -->
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>NeuraFlow – KI Automations Agentur</title>
+  <meta name="description" content="NeuraFlow baut KI-Automationen, Chatbots und Workflows, die Leads qualifizieren, Onboarding beschleunigen sowie Vertrags- & Rechnungsprozesse automatisieren. Sicher, messbar, schnell."/>
+  <link rel="canonical" href="https://neuraflow.net/"/>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NeuraFlow – KI Automations Agentur">
+  <meta property="og:description" content="Agent-Workflows, Chatbots & Integrationen. Schnell. Skalierbar. Sicher.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://neuraflow.net/">
+  <meta property="og:image" content="https://neuraflow.net/logo.png">
+
+  <!-- Theme color -->
+  <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+
+  <!-- Performance: preconnect & fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Performance: preload largest image (Logo) to improve LCP -->
+  <link rel="preload" as="image" href="logo.png" imagesizes="(min-width:1000px) 60px, 50px">
+
+  <!-- Favicon (weiß + orange) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Crect width='100%25' height='100%25' rx='48' fill='%23ffffff'/%3E%3Cpath d='M70 170 L128 60 L186 170' fill='none' stroke='%23ff7a00' stroke-width='18' stroke-linecap='round'/%3E%3Ccircle cx='128' cy='150' r='10' fill='%23ff7a00'/%3E%3C/svg%3E"/>
+
+  <!-- ===================================================================
+       Styles
+  =================================================================== -->
   <style>
+    /* =========================
+       Design Tokens (Light, Orange Accent)
+       ========================= */
     :root{
+      /* Surfaces & Text */
       --bg:#ffffff;
-      --text:#0f172a;           /* slate-900 */
-      --muted:#475569;          /* slate-600 */
-      --border:#e2e8f0;         /* slate-200 */
-      --accent:#ff7a18;         /* lebendiges Orange */
-      --accent-600:#ff6a00;
-      --accent-700:#e05600;
-      --card:#ffffff;
-      --shadow: 0 6px 24px rgba(15,23,42,0.08);
-      --radius: 16px;
-      --radius-lg: 22px;
-      --maxw: 1200px;
+      --bg-2:#f6f7fb;
+      --card:#f9f9fb;
+      --ink:#111111;
+      --muted:#575b68;
+
+      /* Accent */
+      --accent:#ff7a00;
+      --accent-2:#ff8f1f;
+      --accent-ghost:rgba(255,122,0,.12);
+
+      /* Lines & Effects */
+      --line:rgba(0,0,0,.10);
+      --line-strong:rgba(0,0,0,.18);
+      --shadow:0 20px 60px rgba(0,0,0,.08);
+
+      /* Radii / Layout */
+      --radius:18px;
+      --maxw:1200px;
+
+      /* Fancy */
+      --ring:0 0 0 6px rgba(255,122,0,.15);
+      --glow:0 24px 80px rgba(255,122,0,.18);
+
+      /* Logo-Größe zentral steuerbar */
+      --logo-size-mobile:50px;
+      --logo-size-desktop:60px;
+      --logo-size-footer:40px;
+
+      /* Spacing scale */
+      --s-1:6px;
+      --s-2:10px;
+      --s-3:14px;
+      --s-4:18px;
+      --s-5:22px;
+      --s-6:28px;
+      --s-7:36px;
+      --s-8:48px;
+      --s-9:64px;
     }
-    *{box-sizing:border-box}
+
+    /* =========================
+       Base / Reset-ish
+       ========================= */
+    *,*::before,*::after{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
-      color:var(--text);
-      background:var(--bg);
+      font-family:Inter,"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(1000px 360px at 80% -10%, rgba(0,0,0,.03), transparent 50%),
+        radial-gradient(800px 280px at 10% 0%, rgba(0,0,0,.02), transparent 45%),
+        var(--bg);
       line-height:1.6;
+      position:relative; isolation:isolate;
+      -webkit-text-size-adjust:100%;
+      text-rendering:optimizeLegibility;
     }
-    a{color:var(--accent); text-decoration:none}
-    img{max-width:100%; display:block}
-    .container{max-width:var(--maxw); margin:0 auto; padding:0 20px}
-    /* Header */
-    header{
-      position:sticky; top:0; z-index:1000;
-      background:#fff; border-bottom:1px solid var(--border);
-      box-shadow:0 2px 16px rgba(0,0,0,0.04);
-      transition:box-shadow .2s ease, transform .2s ease;
+    /* Subtiles Noise-Overlay */
+    body::after{
+      content:""; pointer-events:none; position:fixed; inset:0; z-index:-1;
+      background-image:url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22 viewBox=%220 0 160 160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filters%3E%3Crect width=%22160%22 height=%22160%22 filter=%22url(%23n)%22 opacity=%220.018%22/%3E%3C/svg%3E');
+      background-size:160px 160px;
     }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px; height:86px; /* größerer Header für größeres Logo */
-      transition:height .2s ease;
-    }
-    header.scrolled{box-shadow:0 6px 22px rgba(0,0,0,0.06)}
-    header.scrolled .nav{height:64px} /* sanftes Shrinking beim Scrollen */
-    .brand{display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:0.2px}
-    .brand img{height:54px; width:auto; border-radius:10px; transition:height .2s ease} /* Logo größer */
-    header.scrolled .brand img{height:40px}
-    .nav a{color:var(--text); font-weight:600; opacity:0.9; position:relative; padding-bottom:4px}
-    .nav a:hover{opacity:1}
-    /* Klick-/Scroll-Effekt in der Navigation */
-    .menu{display:flex; align-items:center; gap:22px; flex-wrap:wrap}
-    .menu a::after{
-      content:""; position:absolute; left:0; right:0; bottom:-6px; height:2px; width:0; margin:auto;
-      background:var(--accent); transition:width .2s ease;
-    }
-    .menu a:hover::after{width:100%}
-    .menu a.active{color:var(--accent)}
-    .menu a.active::after{width:100%}
-    .cta{
-      background:linear-gradient(180deg,var(--accent),var(--accent-600));
-      color:#fff; padding:12px 18px; border-radius:12px; font-weight:700;
-      box-shadow:0 8px 18px rgba(255,122,24,0.25); border:0;
-      transition:transform .12s ease, box-shadow .12s ease, filter .2s ease;
-      cursor:pointer;
-    }
-    .cta:hover{transform:translateY(-1px); box-shadow:0 12px 26px rgba(255,122,24,0.3); filter:saturate(1.1)}
-    .cta.ghost{background:transparent; color:var(--accent); border:2px solid var(--accent); box-shadow:none}
-    /* Hero */
-    .hero{padding:80px 0}
-    .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:36px; align-items:center}
-    .eyebrow{display:inline-block; font-weight:700; color:#fff; background:var(--accent); padding:6px 12px; border-radius:999px}
-    h1{font-size:clamp(32px,4.2vw,56px); line-height:1.08; margin:14px 0}
-    .lead{font-size:clamp(16px,1.5vw,20px); color:var(--muted); margin:8px 0 26px}
-    .hero-card{
-      background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
-      padding:20px; box-shadow:var(--shadow);
-    }
-    .hero-img{
-      border-radius:14px; overflow:hidden; border:1px solid var(--border)
-    }
-    /* Sections */
-    section{padding:80px 0; position:relative; scroll-margin-top:100px} /* verhindert Überdeckung durch Sticky-Header */
-    .section-title{font-size:clamp(26px,3vw,36px); margin:0 0 14px}
-    .section-lead{color:var(--muted); margin-bottom:38px}
-    section:target .section-title{box-shadow:0 8px 0 -6px var(--accent); display:inline-block} /* dezenter Effekt beim Anspringen */
-    /* Grid cards */
-    .grid{display:grid; gap:20px}
-    .grid-3{grid-template-columns:repeat(3,1fr)}
-    .grid-4{grid-template-columns:repeat(4,1fr)}
-    @media (max-width:1024px){
-      .hero-grid{grid-template-columns:1fr}
-      .grid-4{grid-template-columns:repeat(2,1fr)}
-      .menu{gap:14px; flex-wrap:wrap}
-      .nav{height:auto}
-    }
-    @media (max-width:768px){
-      .grid-3{grid-template-columns:1fr}
-      .menu{gap:12px}
-      .cta{padding:10px 14px}
-    }
-    .card{
-      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
-      padding:22px; box-shadow:var(--shadow); height:100%;
-    }
-    .card h3{margin:8px 0 8px}
-    .badge{display:inline-block; font-size:12px; font-weight:700; color:var(--accent);
-      background:rgba(255,122,24,0.08); border:1px dashed var(--accent); padding:6px 10px; border-radius:999px}
-    .icon{width:28px; height:28px}
-    /* Prozesse Timeline */
-    .timeline{position:relative; margin-left:12px}
-    .timeline::before{
-      content:""; position:absolute; left:16px; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), var(--accent-700));
-      opacity:.3
-    }
-    .step{position:relative; padding-left:54px; margin-bottom:26px}
-    .dot{position:absolute; left:6px; top:4px; width:20px; height:20px; border-radius:50%;
-      background:var(--accent); box-shadow:0 0 0 6px rgba(255,122,24,0.15)}
-    .step h4{margin:0 0 6px}
-    /* Pricing */
-    .pricing{align-items:stretch}
-    .price{font-size:32px; font-weight:800; margin:6px 0 14px}
-    .price small{font-size:14px; color:var(--muted); font-weight:600}
-    .feature{display:flex; align-items:flex-start; gap:10px; margin:8px 0}
-    .feature svg{flex:0 0 auto}
-    .popular{outline:3px solid rgba(255,122,24,0.2)}
-    /* FAQ */
-    .faq-item{border:1px solid var(--border); border-radius:14px; padding:16px 18px; margin-bottom:12px; background:#fff}
-    .faq-q{display:flex; justify-content:space-between; align-items:center; cursor:pointer; font-weight:700}
-    .faq-a{max-height:0; overflow:hidden; transition:max-height .25s ease}
-    .faq-item.open .faq-a{max-height:300px}
-    /* Kontakt */
-    form{display:grid; gap:12px}
-    input, textarea, select{
-      width:100%; padding:12px 14px; border:1px solid var(--border); border-radius:12px; font:inherit; background:#fff
-    }
-    textarea{min-height:140px; resize:vertical}
-    /* Footer */
-    footer{
-      background:#fff; border-top:1px solid var(--border); margin-top:60px
-    }
-    .foot{
-      display:grid; gap:18px; grid-template-columns:2fr 1fr 1fr;
-      padding:36px 0
-    }
-    .foot a{color:var(--muted)}
-    .subfoot{border-top:1px solid var(--border); padding:14px 0; color:var(--muted); font-size:14px}
-    @media (max-width:900px){ .foot{grid-template-columns:1fr} }
-    /* Subtle reveal animations */
-    [data-reveal]{opacity:0; transform:translateY(12px); transition:all .4s ease}
-    [data-reveal].visible{opacity:1; transform:none}
-  </style>
-</head>
-<body>
 
-  <!-- Header -->
-  <header id="site-header">
+    img{max-width:100%;display:block;height:auto}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit}
+    .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding:0 var(--s-4)}
+    .section{padding:var(--s-8) 0}
+    @media (min-width:1000px){ .section{padding:var(--s-9) 0} }
+
+    .section-head{
+      display:flex;justify-content:space-between;align-items:end;gap:var(--s-3);margin-bottom:var(--s-4)
+    }
+    .section-head h2{margin:0;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em}
+    .section-head p{margin:0;color:var(--muted)}
+
+    /* Visually-hidden for a11y */
+    .sr-only{
+      position:absolute !important; width:1px !important; height:1px !important;
+      padding:0 !important; margin:-1px !important; overflow:hidden !important;
+      clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important;
+    }
+
+    /* =========================
+       Header / Nav
+       ========================= */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(180%) blur(12px);
+      background:#ffffffd9;
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);padding:var(--s-3) 0}
+    .brand{display:flex;gap:var(--s-2);align-items:center}
+    /* Logo-Optimierung: Fixe Abmessungen gegen CLS, fetchpriority erhöht */
+    .brand-logo{
+      height:var(--logo-size-mobile) !important;
+      width:auto !important;
+      display:block;
+      aspect-ratio:auto;
+    }
+    .brand-logo[width][height]{height:auto} /* falls width/height gesetzt sind */
+    @media (min-width:1000px){
+      .brand-logo{ height:var(--logo-size-desktop) !important; }
+    }
+
+    /* Desktop-Navigation */
+    nav ul{display:flex;gap:var(--s-3);list-style:none;padding:0;margin:0;align-items:center}
+    nav a{padding:10px 12px;border-radius:10px;opacity:.95}
+    nav a:hover, nav a:focus-visible{background:var(--accent-ghost);outline:none}
+
+    /* Mobile Navigation (Drawer) */
+    .menu-btn{display:none}
+    @media (max-width:1000px){
+      nav ul{display:none}
+      .menu-btn{
+        display:inline-flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;
+        border:1px solid var(--line); background:transparent; cursor:pointer;
+      }
+      #mobileMenu{
+        display:grid; gap:8px; padding-bottom:12px;
+        transition:max-height .28s ease, opacity .28s ease;
+      }
+      #mobileMenu[hidden]{display:grid; max-height:0; opacity:0; overflow:hidden}
+      #mobileMenu:not([hidden]){max-height:360px; opacity:1}
+    }
+
+    /* =========================
+       Buttons
+       ========================= */
+    .btn{
+      --pad:12px 16px;
+      display:inline-flex;align-items:center;gap:10px;padding:var(--pad);
+      border-radius:14px;font-weight:700;letter-spacing:.2px;
+      border:1px solid color-mix(in oklab, var(--accent) 45%, #0000);
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      color:#fff;
+      box-shadow:0 0 0 rgba(0,0,0,0); transition:transform .18s ease, filter .18s ease, box-shadow .3s ease;
+      will-change:transform, filter;
+    }
+    .btn:hover{transform:translateY(-1px);filter:brightness(1.03);box-shadow:var(--glow)}
+    .btn:active{transform:translateY(0) scale(.99)}
+    .btn:focus-visible{box-shadow:var(--ring);outline:none}
+    .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+    .btn--ghost:hover{background:var(--accent-ghost);border-color:color-mix(in oklab, var(--accent) 40%, #0000)}
+    .btn--chip{background:transparent;border:1px solid var(--line);color:var(--ink)}
+    .btn--chip:hover{box-shadow:var(--ring);border-color:color-mix(in oklab, var(--accent) 40%, #0000)}
+
+    /* =========================
+       Hero
+       ========================= */
+    .hero{padding: clamp(56px, 10vw, 120px) 0 var(--s-7)}
+    .badge{
+      display:inline-flex;align-items:center;gap:10px;padding:7px 12px;border-radius:999px;
+      font-size:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink)
+    }
+    .grid{display:grid;gap:var(--s-5);grid-template-columns:1.1fr .9fr}
+    .headline{font-weight:800;font-size: clamp(34px,5.4vw,64px);line-height:1.05;letter-spacing:-.02em;margin:0}
+    .headline .grad{
+      background:linear-gradient(90deg, var(--ink), #6b6b6b, var(--ink));
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    .sub{font-size: clamp(16px,2.1vw,20px);color:var(--muted);margin:14px 0 26px}
+
+    .hero-card{
+      background: var(--card);
+      border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden
+    }
+    .hero-card::after{
+      content:"";position:absolute;inset:-30% -10% auto auto;width:220px;height:220px;border-radius:50%;
+      background: radial-gradient(closest-side, rgba(255,122,0,.12), transparent); filter:blur(10px);pointer-events:none;
+    }
+    .hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-3);margin-top:var(--s-3)}
+    .kpi{padding:var(--s-3);border:1px solid var(--line);border-radius:14px;background:var(--bg-2);text-align:center}
+    .kpi b{font-size:22px;color:var(--accent)}
+
+    /* Mobile Optimierungen für Hero */
+    @media (max-width:1000px){
+      .grid{grid-template-columns:1fr}
+      .hero{padding-top: clamp(36px, 8vw, 72px)}
+      .hero .badge{margin-bottom:var(--s-3)}
+      .hero-kpis{grid-template-columns:repeat(3, minmax(0,1fr))}
+    }
+
+    /* =========================
+       Logo marquee
+       ========================= */
+    .marquee{
+      display:flex;overflow:hidden;mask-image:linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+      border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: var(--bg-2);
+    }
+    .marquee-track{display:flex;gap:48px;align-items:center;animation:scroll 24s linear infinite;padding:16px 0;min-width:200%}
+    .marquee svg{text-transform:uppercase; letter-spacing:.08em}
+    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* =========================
+       Cards / Layout
+       ========================= */
+    .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-3)}
+    .card{
+      grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:var(--s-4);
+      transition:transform .18s ease, border-color .18s ease, background .18s ease; position:relative; overflow:hidden;
+    }
+    .card:hover{transform:translateY(-2px);border-color:var(--line-strong)}
+    .card:focus-within{outline:2px solid rgba(0,0,0,0); box-shadow:var(--ring)}
+    .card .tag{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;width:max-content;background:var(--accent-ghost);color:var(--ink)}
+    .card h3{margin:8px 0 10px;font-size:20px}
+    .card p{margin:0;color:var(--muted)}
+    .list{margin:14px 0 0;padding:0;list-style:none}
+    .list li{padding-left:24px;margin:10px 0;position:relative}
+    .list li::before{content:"✔";position:absolute;left:0;color:var(--accent);opacity:.95}
+    @media (max-width:1000px){
+      .cards{grid-template-columns:repeat(12,1fr)}
+      .cards .card{grid-column:span 12}
+    }
+
+    /* =========================
+       Process steps
+       ========================= */
+    .step{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg-2)}
+    .bubble{min-width:34px;height:34px;border-radius:999px;display:grid;place-items:center;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line)}
+
+    /* =========================
+       Cases (legacy styles – belassen für spätere Aktivierung)
+       ========================= */
+    .case{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--card)}
+    .case+.case{margin-top:16px}
+    .badge-mini{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2);color:var(--ink)}
+    @media (max-width:1000px){ .case{grid-template-columns:1fr} }
+
+    /* =========================
+       Pricing
+       ========================= */
+    .pricing{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s-3)}
+    .plan{grid-column:span 4;border:1px solid var(--line);border-radius:20px;background:var(--bg-2);padding:22px;position:relative}
+    .plan--pro{outline:2px solid rgba(255,122,0,.15);box-shadow:var(--shadow)}
+    .price{font-size:36px;font-weight:800;color:var(--ink)}
+    .per{font-size:14px;color:var(--muted)}
+    .plan .tag{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--accent-ghost);color:var(--ink)}
+    @media (max-width:1000px){ .pricing .plan{grid-column:span 12} }
+
+    /* =========================
+       FAQ
+       ========================= */
+    details{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--bg-2)}
+    details+details{margin-top:12px}
+    summary{cursor:pointer;font-weight:600;list-style:none}
+    summary::-webkit-details-marker{display:none}
+    details p{color:var(--muted);margin:10px 0 0}
+
+    /* =========================
+       Kontakt
+       ========================= */
+    input, textarea{
+      width:100%;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);outline:none;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+    input:focus, textarea:focus{border-color:color-mix(in oklab, var(--accent) 40%, #0000); box-shadow:var(--ring)}
+    label{display:grid;gap:8px;font-weight:600}
+    form{display:grid;gap:12px}
+
+    /* =========================
+       Footer
+       ========================= */
+    footer{padding:36px 0 72px;border-top:1px solid var(--line);background:linear-gradient(180deg, var(--bg), #fafafa)}
+    .foot{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
+    .foot small{color:var(--muted)}
+    .footer-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+    .footer-links a{opacity:.95;border-bottom:1px dotted rgba(0,0,0,.25)}
+    .footer-links a:hover{opacity:1;border-bottom-color:rgba(0,0,0,.55)}
+    .footer-brand-logo{
+      height:var(--logo-size-footer) !important; width:auto !important; display:block;
+    }
+    @media (max-width:760px){
+      .foot{grid-template-columns:1fr;gap:12px}
+      .footer-links{justify-content:flex-start}
+    }
+
+    /* =========================
+       Utilities
+       ========================= */
+    .muted{color:var(--muted)}
+    .center{text-align:center}
+    .spacer{height:18px}
+
+    /* =========================
+       Responsive extra tweaks
+       ========================= */
+    @media (max-width:420px){
+      .headline{font-size: clamp(28px,9vw,40px)}
+      .sub{font-size:15px}
+      .btn{padding:10px 14px;border-radius:12px}
+    }
+
+    /* =========================
+       Animations
+       ========================= */
+    .reveal{opacity:0;transform:translateY(10px)}
+    .tilt{transform-style:preserve-3d;will-change:transform}
+    .tilt:hover{transform:translateY(-2px) rotateX(.6deg) rotateY(-.6deg)}
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important; transition:none !important}
+      .reveal{opacity:1 !important; transform:none !important}
+      .tilt:hover{transform:none !important}
+    }
+
+    /* Floating CTA + Back to top */
+    .float-cta{
+      position:fixed;right:20px;bottom:20px;z-index:60;border-radius:999px;box-shadow:0 10px 30px rgba(255,122,0,.25); display:none;
+    }
+    .to-top{position:fixed;right:20px;bottom:88px;z-index:60;border-radius:999px;display:none}
+  </style>
+
+  <!-- ===================================================================
+       Sicherheits-Header (HTML-meta kompatibel)
+  =================================================================== -->
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+</head>
+
+<body>
+  <!-- ===================================================================
+       Header
+  =================================================================== -->
+  <header aria-label="Hauptnavigation">
     <div class="container nav">
-      <a class="brand" href="#top" aria-label="NeuraFlow Startseite">
-        <img src="logo.png" alt="NeuraFlow Logo" />
+      <a class="brand" href="#home" aria-label="NeuraFlow Startseite">
+        <!-- Logo liegt im Root als logo.png -->
+        <img src="logo.png" alt="NeuraFlow Logo" class="brand-logo" fetchpriority="high" width="120" height="60">
+        <span class="sr-only">NeuraFlow</span>
       </a>
-      <nav class="menu" aria-label="Hauptnavigation">
-        <a href="#leistungen">Leistungen</a>
-        <a href="#prozesse">Prozesse</a>
-        <a href="#warum">Warum NeuraFlow</a>
-        <a href="#preise">Preise</a>
-        <a href="#faq">FAQ</a>
-        <a href="#kontakt">Kontakt</a>
-        <a class="cta" href="#kontakt">Kostenloses Erstgespräch</a>
+      <nav>
+        <button class="btn btn--ghost menu-btn" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">Menü</button>
+        <ul id="desktopMenu" aria-label="Primär">
+          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#prozess">Prozess</a></li>
+          <li><a href="#warum">Warum wir</a></li>
+          <li><a href="#preise">Preise</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a class="btn" href="#kontakt" aria-label="Kostenloses Erstgespräch">Erstgespräch →</a></li>
+        </ul>
       </nav>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobileMenu" hidden class="container" style="padding-bottom:12px">
+      <div style="display:grid; gap:8px">
+        <a class="btn btn--chip" href="#leistungen">Leistungen</a>
+        <a class="btn btn--chip" href="#prozess">Prozess</a>
+        <a class="btn btn--chip" href="#warum">Warum wir</a>
+        <a class="btn btn--chip" href="#preise">Preise</a>
+        <a class="btn btn--chip" href="#faq">FAQ</a>
+        <a class="btn" href="#kontakt">Erstgespräch</a>
+      </div>
     </div>
   </header>
 
-  <main id="top">
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <span class="eyebrow">KI-Automatisierung · neuraflow.net</span>
-          <h1>Skalier&nbsp;dein Business mit <span style="background:linear-gradient(90deg,#ff7a18,#ff6a00); -webkit-background-clip:text; background-clip:text; color:transparent;">NeuraFlow</span></h1>
-          <p class="lead">Wir bauen Automationen, die <strong>Umsatz steigern</strong>, <strong>Kosten senken</strong> und <strong>Zeit sparen</strong> — von Chatbots über Lead-Qualifizierung bis zu Onboarding, Verträgen & Rechnungen. <br><strong>Spezialisiert auf Coaches, Berater, Mentoren und Agenturen.</strong></p>
-          <div style="display:flex; gap:12px; flex-wrap:wrap">
-            <a class="cta" href="#kontakt">Jetzt Projekt anfragen</a>
-            <!-- "Preise ansehen" entfernt -->
-          </div>
-          <div class="hero-card" style="margin-top:18px" data-reveal>
-            <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap">
-              <span class="badge">Durchschnittlich 30–60% Prozesszeit gespart</span>
-              <span class="badge">Go-Live oft in 2–4 Wochen</span>
-            </div>
-          </div>
+  <!-- ===================================================================
+       Hero
+  =================================================================== -->
+  <main id="home" class="hero container">
+    <div class="badge reveal">⚡ Klar. Orange Akzent. Performance-optimiert.</div>
+    <div class="grid" style="margin-top:18px">
+      <div>
+        <h1 class="headline reveal">
+          Automatisiere dein Business mit <span class="grad">Agent-Workflows</span>, die messbar liefern.
+        </h1>
+        <p class="sub reveal">Chatbots und Automatisierungen, die Leads qualifizieren, Onboarding beschleunigen und Vertrags- & Rechnungsprozesse vereinfachen – sicher, skalierbar, DSGVO-konform.</p>
+        <div class="reveal" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+          <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
+          <a class="btn btn--ghost" href="#leistungen">Leistungen ansehen</a>
+          <span class="muted">⏱️ Antwort i. d. R. <b>&lt;24h</b></span>
         </div>
-        <div class="hero-img" data-reveal>
-          <!-- HERO-BILD LOKAL EINBINDEN:
-               1) Lade dieses Bild herunter: https://unsplash.com/photos/a-computer-generated-image-of-a-network-and-a-laptop-f0JGorLOkw0
-               2) Speichere es als "hero.jpg" in dein Repo-Root (gleiches Verzeichnis wie index.html und logo.png).
-               3) Commit & Push. -->
-          <img src="hero.jpg" alt="Automatisierung & Robotic Process Workflows" loading="lazy" />
+        <div class="hero-kpis">
+          <div class="kpi reveal" aria-label="Support"><b>−42%</b><div class="muted">Supportaufwand</div></div>
+          <div class="kpi reveal" aria-label="SQL Rate"><b>+31%</b><div class="muted">Mehr qual. Leads</div></div>
+          <div class="kpi reveal" aria-label="Go Live"><b>14 Tage</b><div class="muted">Go-Live</div></div>
         </div>
       </div>
-    </section>
 
-    <!-- Logos/Trust (optional mini) -->
-    <section aria-label="Trust" style="padding-top:0">
-      <div class="container" data-reveal>
-        <div class="card" style="display:flex; gap:18px; align-items:center; justify-content:space-between; flex-wrap:wrap">
-          <span class="muted" style="color:var(--muted); font-weight:600">Bewährt für Vertrieb · Support · Backoffice</span>
-          <div style="display:flex; gap:16px; align-items:center; opacity:.75">
-            <!-- kleine Inline-Icons -->
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2"/></svg>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/></svg>
-            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
-          </div>
+      <aside class="hero-card shadow reveal" aria-label="Live-Demo">
+        <div class="tag">Live-Snippet</div>
+        <h3>Agent „Nova“</h3>
+        <p class="muted">Leads anlegen, Termine buchen, Antworten aus Wissensbasis generieren – voll automatisiert.</p>
+        <div style="margin-top:12px;border:1px dashed var(--line);border-radius:12px;padding:12px;background:var(--bg-2)">
+<pre style="margin:0;white-space:pre-wrap;color:var(--ink)"><code>// Intent: Termin buchen
+Agent.plan([
+  "Verfügbarkeit prüfen",
+  "Kalenderlink generieren",
+  "Bestätigung senden"
+]) ✅</code></pre>
         </div>
-      </div>
-    </section>
-
-    <!-- Leistungen -->
-    <section id="leistungen">
-      <div class="container">
-        <h2 class="section-title">Unsere Leistungen</h2>
-        <p class="section-lead">Modulare Lösungen – einzeln buchbar oder als End-to-End-Flow.</p>
-
-        <div class="grid grid-4">
-          <div class="card" data-reveal>
-            <div class="badge">Automatisierte Chatbots</div>
-            <h3>24/7 Support & Vertrieb</h3>
-            <p>Intelligente Chatbots für Website, WhatsApp & E-Mail. Markenstimme, Eskalation an Menschen, KPI-Tracking.</p>
-            <ul>
-              <li>Wissensbasis & Dokumentenanbindung</li>
-              <li>CRM-Sync (z. B. HubSpot, Pipedrive)</li>
-              <li>Mehrsprachig & DSGVO-konform</li>
-            </ul>
-          </div>
-
-          <div class="card" data-reveal>
-            <div class="badge">Lead-Qualifizierung automatisiert</div>
-            <h3>Mehr Pipeline, weniger Aufwand</h3>
-            <p>Automatisiertes Scoring & Routing – Prioritäten erkennen, Termine buchen, Team entlasten.</p>
-            <ul>
-              <li>Formular- & Chat-Scoring</li>
-              <li>Kalender-Automatisierung</li>
-              <li>Sales Alerts in Echtzeit</li>
-            </ul>
-          </div>
-
-          <div class="card" data-reveal>
-            <div class="badge">Onboarding-Prozess automatisiert</div>
-            <h3>Schnell zu „Time-to-Value“</h3>
-            <p>Schritt-für-Schritt-Guides, automatische Aufgaben, E-Mail/SMS-Sequenzen & Self-Service Portale.</p>
-            <ul>
-              <li>Workflow-Engine & Trigger</li>
-              <li>LMS/Docs-Integration</li>
-              <li>Health-Scores & Check-ins</li>
-            </ul>
-          </div>
-
-          <div class="card" data-reveal>
-            <div class="badge">Rechnungen & Verträge automatisiert</div>
-            <h3>Dokumente ohne Friktion</h3>
-            <p>Automatisierte Vertragserstellung, E-Sign, Rechnungsversand & Mahnwesen – audit-sicher.</p>
-            <ul>
-              <li>Vorlagen mit Variablen</li>
-              <li>Buchhaltungsschnittstellen</li>
-              <li>Revisionssichere Ablage</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Prozesse -->
-    <section id="prozesse">
-      <div class="container">
-        <h2 class="section-title">Unser Prozess</h2>
-        <p class="section-lead">Klar strukturiert – von der Idee bis zum messbaren Ergebnis.</p>
-
-        <div class="grid grid-3">
-          <div class="card" data-reveal>
-            <span class="badge">1 · Discovery</span>
-            <h3>Analyse & Zielbild</h3>
-            <p>Workshop, KPI-Definition, Daten- & Tool-Audit. Wir priorisieren Quick Wins und Langfrist-Potenziale.</p>
-            <div class="timeline">
-              <div class="step"><span class="dot"></span><h4>Use-Cases auswählen</h4><p>Wert/Komplexität abwägen</p></div>
-              <div class="step"><span class="dot"></span><h4>Roadmap</h4><p>MVP → Roll-out</p></div>
-            </div>
-          </div>
-
-          <div class="card" data-reveal>
-            <span class="badge">2 · Build</span>
-            <h3>Implementierung</h3>
-            <p>Datenanbindung, Automations-Flows, Tests. Wir arbeiten iterativ & transparent.</p>
-            <div class="timeline">
-              <div class="step"><span class="dot"></span><h4>Integrationen</h4><p>CRM, Helpdesk, DMS, ERP</p></div>
-              <div class="step"><span class="dot"></span><h4>Qualität</h4><p>Guardrails, Ausfallsicherheit</p></div>
-            </div>
-          </div>
-
-          <div class="card" data-reveal>
-            <span class="badge">3 · Scale</span>
-            <h3>Roll-out & Optimierung</h3>
-            <p>Monitoring, A/B-Tests und laufendes Feintuning. Wir skalieren, was messbar Wert schafft.</p>
-            <div class="timeline">
-              <div class="step"><span class="dot"></span><h4>KPIs</h4><p>CSAT, Conversion, TTV</p></div>
-              <div class="step"><span class="dot"></span><h4>Enablement</h4><p>Training & Playbooks</p></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Warum NeuraFlow -->
-    <section id="warum">
-      <div class="container">
-        <h2 class="section-title">Warum NeuraFlow?</h2>
-        <p class="section-lead">Technisch stark, geschäftsorientiert, kompromisslos in Qualität & Datenschutz.</p>
-
-        <div class="grid grid-3">
-          <div class="card" data-reveal>
-            <h3>Business-Impact zuerst</h3>
-            <p>Wir denken in KPIs, nicht in Features. Jeder Flow zahlt auf Umsatz, Effizienz oder Kundenerlebnis ein.</p>
-          </div>
-          <div class="card" data-reveal>
-            <h3>Enterprise-Ready</h3>
-            <p>Roles & Permissions, Audit-Logs, DSGVO, Data Residency. Saubere Architektur & Dokumentation.</p>
-          </div>
-          <div class="card" data-reveal>
-            <h3>Schnell in die Umsetzung</h3>
-            <p>MVP in Wochen – nicht Monaten. Transparentes Projektmanagement & klare Meilensteine.</p>
-          </div>
-        </div>
-
-        <div class="hero-img" style="margin-top:22px" data-reveal>
-          <!-- Bild thematisch KI & Digitalisierung -->
-          <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1600&auto=format&fit=crop" alt="Abstrakte KI & Digitalisierung" loading="lazy" />
-        </div>
-      </div>
-    </section>
-
-    <!-- Preise -->
-    <section id="preise">
-      <div class="container">
-        <h2 class="section-title">Preise</h2>
-      <p class="section-lead">Alles auf Anfrage – wir erstellen ein Angebot passend zu deinem Geschäftsmodell.</p>
-
-        <div class="grid grid-3 pricing">
-          <div class="card" data-reveal>
-            <h3>Starter</h3>
-            <p class="price">Auf Anfrage</p>
-            <p>Perfekt für den ersten Use-Case oder MVP.</p>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>1 Automations-Flow</span>
-            </div>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Standard-Integrationen</span>
-            </div>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Go-Live in 2–3 Wochen</span>
-            </div>
-            <a href="#kontakt" class="cta" style="margin-top:10px; display:inline-block">Anfragen</a>
-          </div>
-
-          <div class="card popular" data-reveal>
-            <div class="badge">Am beliebtesten</div>
-            <h3>Growth</h3>
-            <p class="price">Auf Anfrage</p>
-            <p>Kontinuierlicher Ausbau & Optimierung.</p>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>3–5 Flows + Iterationen</span>
-            </div>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Priorisierter Support</span>
-            </div>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Monatliches KPI-Reporting</span>
-            </div>
-            <a href="#kontakt" class="cta" style="margin-top:10px; display:inline-block">Anfragen</a>
-          </div>
-
-          <div class="card" data-reveal>
-            <h3>Enterprise</h3>
-            <p class="price">Auf Anfrage</p>
-            <p>Komplexe Integrationen, Rollenmodelle, SLAs.</p>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Custom-Stacks & Data Residency</span>
-            </div>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Security & Compliance-Review</span>
-            </div>
-            <div class="feature">
-              <svg class="icon" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2"/></svg>
-              <span>Dedizierter Technical PM</span>
-            </div>
-            <a href="#kontakt" class="cta" style="margin-top:10px; display:inline-block">Anfragen</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq">
-      <div class="container">
-        <h2 class="section-title">FAQ</h2>
-        <p class="section-lead">Antworten auf häufige Fragen.</p>
-
-        <div class="faq-item" data-reveal>
-          <div class="faq-q">
-            <span>Wie schnell sind erste Ergebnisse sichtbar?</span>
-            <button aria-label="FAQ umschalten" class="cta ghost" style="padding:6px 10px">+</button>
-          </div>
-          <div class="faq-a">
-            <p>Meist innerhalb von 2–4 Wochen nach Kick-off. Wir starten mit einem MVP und erweitern dann iterativ.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" data-reveal>
-          <div class="faq-q">
-            <span>Wie sieht es mit Datenschutz & DSGVO aus?</span>
-            <button aria-label="FAQ umschalten" class="cta ghost" style="padding:6px 10px">+</button>
-          </div>
-          <div class="faq-a">
-            <p>Wir implementieren Datenminimierung, Auftragsverarbeitung, Zugriffs-/Rollenmodelle und – falls nötig – EU-Hosting bzw. Data Residency.</p>
-          </div>
-        </div>
-
-        <div class="faq-item" data-reveal>
-          <div class="faq-q">
-            <span>Welche Tools & Stacks nutzt ihr?</span>
-            <button aria-label="FAQ umschalten" class="cta ghost" style="padding:6px 10px">+</button>
-          </div>
-          <div class="faq-a">
-            <p>Wir sind vendor-neutral. Ob Zapier/Make, n8n, LangChain, interne Services oder Enterprise-Stacks – wir wählen, was zum Ziel & Budget passt.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Kontakt -->
-    <section id="kontakt">
-      <div class="container">
-        <h2 class="section-title">Kontakt</h2>
-        <p class="section-lead">Kostenloses Erstgespräch sichern. Wir melden uns in der Regel innerhalb von 24 Stunden.</p>
-
-        <div class="grid" style="grid-template-columns:1.1fr 0.9fr; gap:24px">
-          <div class="card" data-reveal>
-            <!-- Formspree: Ersetze im Script unten FORM_ENDPOINT mit deinem Endpunkt (z. B. https://formspree.io/f/abcdwxyz) -->
-<form
-  action="https://formspree.io/f/mzzvlawv"
-  method="POST"
->
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
-                <div>
-                  <label for="fname" style="display:block; font-weight:600; margin:4px 0">Vorname</label>
-                  <input id="fname" name="Vorname" required />
-                </div>
-                <div>
-                  <label for="lname" style="display:block; font-weight:600; margin:4px 0">Nachname</label>
-                  <input id="lname" name="Nachname" required />
-                </div>
-              </div>
-              <div>
-                <label for="email" style="display:block; font-weight:600; margin:4px 0">E-Mail</label>
-                <input id="email" name="Email" type="email" required />
-              </div>
-              <input type="hidden" name="_subject" value="Neue Anfrage über neuraflow.net" />
-              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-              <div>
-                <label for="msg" style="display:block; font-weight:600; margin:4px 0">Projektbeschreibung</label>
-                <textarea id="msg" name="Nachricht" placeholder="Was soll automatisiert werden? Welche Systeme nutzt ihr heute?"></textarea>
-              </div>
-              <button class="cta" type="submit">Nachricht senden</button>
-              <p id="form-status" role="status" aria-live="polite" style="color:var(--muted); font-size:14px; margin-top:8px"></p>
-              <p style="color:var(--muted); font-size:14px">Oder direkt per E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
-            </form>
-          </div>
-
-          <div class="card" data-reveal>
-            <h3>Kontaktinformationen</h3>
-            <p><strong>NeuraFlow</strong><br/>KI-Automatisierungsagentur</p>
-            <p><a href="https://neuraflow.net" target="_blank" rel="noopener">neuraflow.net</a></p>
-            <p>E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
-            <p>Standort: Berlin </p>
-            <div style="height:1px; background:var(--border); margin:10px 0"></div>
-            <p style="color:var(--muted); font-size:14px">Hinweis: Mit dem Absenden stimmst du der Verarbeitung deiner Daten zum Zweck der Kontaktaufnahme zu. Details siehe Datenschutz.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Rechtliches -->
-    <section id="rechtliches" aria-label="Rechtliches" style="padding-top:30px">
-      <div class="container">
-        <div class="card" data-reveal>
-          <div style="display:flex; gap:18px; flex-wrap:wrap">
-            <a href="#impressum">Impressum</a>
-            <a href="#datenschutz">Datenschutz</a>
-            <a href="#kontakt">Kontakt</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Impressum / Datenschutz (einfach gehalten; bitte bei Bedarf anpassen) -->
-    <section id="impressum">
-      <div class="container">
-        <h2 class="section-title">Impressum</h2>
-        <div class="card" data-reveal>
-          <p><strong>NeuraFlow</strong> · Vertretungsberechtigt: —<br/>Adresse: —<br/>E-Mail: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a></p>
-          <p>Inhaltlich verantwortlich nach § 18 Abs. 2 MStV: —</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="datenschutz">
-      <div class="container">
-        <h2 class="section-title">Datenschutz</h2>
-        <div class="card" data-reveal>
-          <p>Wir verarbeiten personenbezogene Daten ausschließlich gemäß DSGVO. Zwecke: Kontaktaufnahme, Angebotserstellung, Projektabwicklung. Rechtsgrundlagen: Art. 6 Abs. 1 lit. a, b DSGVO. Speicherdauer: bis Zweckerfüllung bzw. gesetzlicher Aufbewahrung.</p>
-          <p>Betroffenenrechte: Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit. Kontakt: <a href="mailto:deineagentur@neuraflow.net">deineagentur@neuraflow.net</a>.</p>
-        </div>
-      </div>
-    </section>
+        <div class="spacer"></div>
+        <div class="cta-row"><a class="btn" href="#kontakt">Demo anfragen</a></div>
+      </aside>
+    </div>
   </main>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container foot">
-      <div>
-        <div class="brand" style="margin-bottom:8px">
-          <img src="logo.png" alt="NeuraFlow Logo" />
-          <span>NeuraFlow</span>
-        </div>
-        <p style="color:var(--muted)">Wir automatisieren, was dich ausbremst – präzise, messbar, sicher.</p>
+  <!-- ===================================================================
+       Logo-Marquee
+  =================================================================== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="HubSpot"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Slack"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Zendesk"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Salesforce"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Make"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
+
+      <!-- Doppelt für Endlosschleife -->
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="HubSpot"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Slack"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Zendesk"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Salesforce"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
+      <svg viewBox="0 0 160 24" width="160" height="24" role="img" aria-label="Make"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Leistungen
+  =================================================================== -->
+  <section id="leistungen" class="section container">
+    <div class="section-head">
+      <h2>Leistungen</h2><p>Einfach, klar, mit Impact.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal tilt">
+        <span class="tag">Chatbots</span>
+        <h3>Sales & Support Bots</h3>
+        <p>On-Brand Chatbots mit RAG & Guardrails.</p>
+        <ul class="list">
+          <li>Lead-Qualifizierung im Chat</li>
+          <li>Antworten aus Wissensbasis</li>
+          <li>CRM-Connect (HubSpot, Salesforce)</li>
+        </ul>
+        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Kurzberatung buchen →</a>
+      </article>
+
+      <article class="card reveal tilt">
+        <span class="tag">Automations</span>
+        <h3>Lead-Qualifizierung</h3>
+        <p>Interessenten automatisch prüfen & Termine buchen.</p>
+        <ul class="list">
+          <li>Scoring & Übergabe an Sales</li>
+          <li>No-Shows reduzieren</li>
+          <li>Kalender-Integration</li>
+        </ul>
+        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Use-Case prüfen →</a>
+      </article>
+
+      <article class="card reveal tilt">
+        <span class="tag">Ops</span>
+        <h3>Onboarding automatisieren</h3>
+        <p>Kunden- & Mitarbeiter-Onboarding ohne Reibung.</p>
+        <ul class="list">
+          <li>Checklisten & Aufgaben</li>
+          <li>Dokumente & Infos automatisch</li>
+          <li>Alerts & Eskalationen</li>
+        </ul>
+        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Flow skizzieren →</a>
+      </article>
+
+      <article class="card reveal tilt" style="grid-column:span 12">
+        <span class="tag">Finance</span>
+        <h3>Verträge & Rechnungen</h3>
+        <p>Dokumente digital verwalten & automatisch versenden.</p>
+        <ul class="list">
+          <li>Verträge generieren & signieren</li>
+          <li>Rechnungen erstellen & verschicken</li>
+          <li>Belege & Status tracken</li>
+        </ul>
+        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Kurz abstimmen →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       Prozess
+  =================================================================== -->
+  <section id="prozess" class="section container">
+    <div class="section-head">
+      <h2>Prozess</h2><p>Transparente Steps, klare Deliverables.</p>
+    </div>
+    <div class="cards" style="grid-template-columns:repeat(12,1fr)">
+      <div class="step reveal" style="grid-column:span 4">
+        <div class="bubble">1</div>
+        <div><b>Discovery</b><p class="muted" style="margin:.4rem 0 0">Use-Cases, Ziele, Datenquellen, KPIs. Priorisierung nach Impact.</p></div>
       </div>
-      <div>
-        <h4 style="margin:0 0 8px">Navigation</h4>
-        <div style="display:flex; flex-direction:column; gap:6px">
-          <a href="#leistungen">Leistungen</a>
-          <a href="#prozesse">Prozesse</a>
-          <a href="#preise">Preise</a>
-          <a href="#faq">FAQ</a>
-          <a href="#kontakt">Kontakt</a>
-        </div>
+      <div class="step reveal" style="grid-column:span 4">
+        <div class="bubble">2</div>
+        <div><b>Sprint & PoC</b><p class="muted" style="margin:.4rem 0 0">In 10–14 Tagen ein klickbarer PoC mit echten Daten.</p></div>
       </div>
-      <div>
-        <h4 style="margin:0 0 8px">Rechtliches</h4>
-        <div style="display:flex; flex-direction:column; gap:6px">
-          <a href="#impressum">Impressum</a>
-          <a href="#datenschutz">Datenschutz</a>
-        </div>
+      <div class="step reveal" style="grid-column:span 4">
+        <div class="bubble">3</div>
+        <div><b>Rollout</b><p class="muted" style="margin:.4rem 0 0">Enablement, Monitoring, SLAs. Optional Retainer.</p></div>
       </div>
     </div>
-    <div class="container subfoot">
-      <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
-        <span>© <span id="y"></span> NeuraFlow</span>
-        <span>Made with ❤️ & Automations</span>
+    <div class="center" style="margin-top:22px"><a class="btn" href="#kontakt">Kostenloses Erstgespräch</a></div>
+  </section>
+
+  <!-- ===================================================================
+       Warum wir (ersetzt die früheren Case Studies)
+  =================================================================== -->
+  <section id="warum" class="section container">
+    <div class="section-head">
+      <h2>Warum NeuraFlow</h2><p>Bis die ersten Case Studies live sind: klare Mehrwerte.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal tilt">
+        <span class="tag">Schnell</span>
+        <h3>Time-to-Value</h3>
+        <p>Von Idee zu Ergebnis in 10–14 Tagen.</p>
+      </article>
+      <article class="card reveal tilt">
+        <span class="tag">Messbar</span>
+        <h3>KPIs im Fokus</h3>
+        <p>SQL-Rate, AHT, CSAT – wir optimieren auf Zahlen.</p>
+      </article>
+      <article class="card reveal tilt">
+        <span class="tag">Sicher</span>
+        <h3>DSGVO & Guardrails</h3>
+        <p>PII-Redaction, Policies, EU-Datenhaltung auf Wunsch.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       Preise
+  =================================================================== -->
+  <section id="preise" class="section container">
+    <div class="section-head">
+      <h2>Preise</h2><p>Transparente Pakete. Monatlich kündbar.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan reveal">
+        <span class="tag">Starter</span>
+        <h3>PoC Sprint</h3>
+        <p class="muted">Ein Use-Case, klare Messung.</p>
+        <div class="price">€2.900<span class="per"> / einmalig</span></div>
+        <ul class="list"><li>Discovery & Architektur</li><li>PoC mit echten Daten</li><li>Handover & Doku</li></ul>
+        <div class="spacer"></div><a class="btn" href="#kontakt">Sprint starten</a>
+      </div>
+      <div class="plan plan--pro reveal">
+        <span class="tag">Beliebt</span>
+        <h3>Scale</h3>
+        <p class="muted">2–3 Workflows + Monitoring.</p>
+        <div class="price">€3.500<span class="per"> / Monat</span></div>
+        <ul class="list"><li>Rollout & Trainings</li><li>Evals, Dashboards</li><li>SLAs & Priorisierung</li></ul>
+        <div class="spacer"></div><a class="btn" href="#kontakt">Erstgespräch</a>
+      </div>
+      <div class="plan reveal">
+        <span class="tag">Enterprise</span>
+        <h3>Custom</h3>
+        <p class="muted">Security, Compliance, Scale.</p>
+        <div class="price">Auf Anfrage</div>
+        <ul class="list"><li>SSO, Policies, Audit</li><li>Mehrsprachig, Multi-Brand</li><li>Dedicated Team</li></ul>
+        <div class="spacer"></div><a class="btn" href="#kontakt">Anfrage senden</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       FAQ
+  =================================================================== -->
+  <section id="faq" class="section container">
+    <div class="section-head">
+      <h2>FAQ</h2><p>Antworten auf die häufigsten Fragen.</p>
+    </div>
+    <details class="reveal">
+      <summary>Welche Tools & Stacks nutzt ihr?</summary>
+      <p>Moderne LLM-Stacks, Retrieval-Layer (Vektor-DBs), Orchestrierung (Workflows/Queues) und sichere Integrationen (z. B. HubSpot, Slack, Zendesk). Wir wählen, was zu deinem Kontext passt.</p>
+    </details>
+    <details class="reveal">
+      <summary>Wie messt ihr Erfolg?</summary>
+      <p>Zu Projektstart KPIs definieren (AHT, CSAT, SQL-Rate, Conversion), Evals & Dashboards aufsetzen.</p>
+    </details>
+    <details class="reveal">
+      <summary>Wie sieht es mit Datenschutz aus?</summary>
+      <p>DSGVO-konform: Datenminimierung, PII-Redaction, Zugriffskontrollen. Auf Wunsch EU-Datenhaltung.</p>
+    </details>
+  </section>
+
+  <!-- ===================================================================
+       Kontakt
+  =================================================================== -->
+  <section id="kontakt" class="section container">
+    <div class="section-head">
+      <h2>Sprich mit uns</h2><p>Schick uns 3 Stichworte zu deinem Use-Case – wir melden uns i. d. R. &lt;24h.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal" style="grid-column: span 7">
+        <form class="reveal" onsubmit="submitForm(event)" aria-label="Kontaktformular">
+          <div style="display:grid; gap:12px; grid-template-columns:1fr 1fr">
+            <label>Vorname* <input required name="firstName" autocomplete="given-name" placeholder="Alex"/></label>
+            <label>Nachname* <input required name="lastName" autocomplete="family-name" placeholder="Müller"/></label>
+          </div>
+          <div style="display:grid; gap:12px; grid-template-columns:1fr 1fr">
+            <label>E-Mail* <input required type="email" name="email" autocomplete="email" placeholder="du@firma.com"/></label>
+            <label>Firma <input name="company" placeholder="Deine Firma"/></label>
+          </div>
+          <label>Use-Case / Nachricht* <textarea required name="message" rows="5" placeholder="z. B. Inbound-Bot für Lead-Qualifizierung, Anbindung an HubSpot…"></textarea></label>
+          <label style="display:flex; gap:8px; align-items:center"><input type="checkbox" required/> <span class="muted" style="font-size:14px">Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu.</span></label>
+          <div style="display:flex;gap:12px;align-items:center"><button class="btn" type="submit">Absenden</button><span id="formStatus" class="muted" role="status" aria-live="polite"></span></div>
+        </form>
+      </div>
+      <aside class="card reveal" style="grid-column: span 5">
+        <h3>Direkt buchen</h3><p class="muted">Gleich einen Termin wählen.</p>
+        <a class="btn" href="#" onclick="alert('Füge hier deinen echten Kalenderlink ein (Cal/Calendly).');return false;">15-Min-Call buchen</a>
+        <div class="spacer"></div>
+        <div style="display:flex; gap:10px; align-items:center"><span class="btn btn--chip">📍 Remote-first (EU)</span><span class="btn btn--chip">⏱️ Mo–Fr 9–18 Uhr</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       Footer
+  =================================================================== -->
+  <footer>
+    <div class="container foot">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="logo.png" alt="NeuraFlow Logo" class="footer-brand-logo" width="100" height="50" loading="lazy">
+        <small>© <span id="y"></span> NeuraFlow – KI Automations Agentur</small>
+      </div>
+      <div class="footer-links">
+        <a href="#impressum" onclick="openLegal('impressum')">Impressum</a>
+        <a href="#datenschutz" onclick="openLegal('datenschutz')">Datenschutz</a>
+        <a href="#kontakt">Kontakt</a>
       </div>
     </div>
   </footer>
 
+  <!-- Floating CTA + Back to top -->
+  <a href="#kontakt" class="btn float-cta">Kostenloses Erstgespräch</a>
+  <a href="#home" class="btn btn--ghost to-top" aria-label="Nach oben springen">↑ Nach oben</a>
+
+  <!-- ===================================================================
+       Minimal Legal Modals
+  =================================================================== -->
+  <dialog id="modal-impressum" style="max-width:800px;border:none;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.25);background:#fff;color:#111">
+    <div style="padding:24px">
+      <h3 style="margin:0 0 8px">Impressum</h3>
+      <p><b>NeuraFlow</b><br>Musterstraße 1, 12345 Musterstadt, Deutschland<br>E-Mail: hi@neuraflow.ai</p>
+      <p>Vertreten durch: Max Mustermann · USt-IdNr.: DE123456789</p>
+      <div style="text-align:right;margin-top:12px"><button class="btn btn--ghost" onclick="this.closest('dialog').close()">Schließen</button></div>
+    </div>
+  </dialog>
+  <dialog id="modal-datenschutz" style="max-width:800px;border:none;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.25);background:#fff;color:#111">
+    <div style="padding:24px">
+      <h3 style="margin:0 0 8px">Datenschutzerklärung</h3>
+      <p><b>Verantwortlicher:</b> NeuraFlow, Musterstraße 1, 12345 Musterstadt, hi@neuraflow.ai</p>
+      <p><b>Daten:</b> Kontaktangaben aus Formularen/E-Mails; Logs (IP, Zeitstempel).</p>
+      <p><b>Zwecke:</b> Beantwortung von Anfragen, Angebot, Vertrag, Sicherheit. <b>Rechtsgrundlagen:</b> Art. 6 Abs. 1 lit. b, f DSGVO.</p>
+      <p><b>Rechte:</b> Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit.</p>
+      <div style="text-align:right;margin-top:12px"><button class="btn btn--ghost" onclick="this.closest('dialog').close()">Schließen</button></div>
+    </div>
+  </dialog>
+
+  <!-- ===================================================================
+       Scripts
+  =================================================================== -->
   <script>
     // Jahr im Footer
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // FAQ Toggle
-    document.querySelectorAll('.faq-item').forEach(item=>{
-      const btn = item.querySelector('button');
-      btn.addEventListener('click', ()=>{
-        item.classList.toggle('open');
-        btn.textContent = item.classList.contains('open') ? '–' : '+';
-      });
+    // Mobile Menu Toggle (mit ARIA Pflege)
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle?.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+      menuToggle.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.hidden = expanded;
+      menuToggle.setAttribute('aria-label', expanded ? 'Menü öffnen' : 'Menü schließen');
+    });
+    // Auto-close Mobile Menu on link click
+    document.querySelectorAll('#mobileMenu a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', ()=>{ mobileMenu.hidden = true; menuToggle?.setAttribute('aria-expanded','false'); });
     });
 
-    // Reveal on scroll
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
-      });
-    }, {threshold:0.12});
-    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-
-    // Header-Shrink beim Scrollen + Scrollspy für aktive Navlinks
-    const header = document.getElementById('site-header');
-    const navLinks = Array.from(document.querySelectorAll('.menu a')).filter(a=>a.getAttribute('href').startsWith('#'));
-    const sections = navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
-
-    window.addEventListener('scroll', ()=>{
-      if(window.scrollY > 10){ header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
-    });
-
-    const spy = new IntersectionObserver((entries)=>{
-      entries.forEach(entry=>{
-        const id = '#' + entry.target.id;
-        const link = navLinks.find(a=>a.getAttribute('href') === id);
-        if(link){
-          if(entry.isIntersecting){
-            navLinks.forEach(l=>l.classList.remove('active'));
-            link.classList.add('active');
+    // Reveal on scroll (staggered)
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReduced && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries)=>{
+        for(const e of entries){
+          if(e.isIntersecting){
+            e.target.animate(
+              [{opacity:0, transform:'translateY(10px)'}, {opacity:1, transform:'none'}],
+              {duration:520, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards', delay: Math.random()*120}
+            );
+            io.unobserve(e.target);
           }
         }
-      });
-    }, {rootMargin:'-50% 0px -49% 0px', threshold:0});
+      }, {threshold:.12});
+      document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
+    }
 
-    sections.forEach(sec=>spy.observe(sec));
-
-    // -------- Kontaktformular: Formspree Anbindung (für GitHub Pages) ----------
-    // 1) Erstelle auf formspree.io ein Projekt, setze die Zieladresse auf deineagentur@neuraflow.net
-    // 2) Kopiere deinen Endpunkt (z. B. https://formspree.io/f/abcdwxyz) in die Konstante unten:
-    const FORM_ENDPOINT = "https://formspree.io/f/mzzvlawv"; // <-- HIER ersetzt
-
-    const form = document.getElementById('contact-form');
-    const statusEl = document.getElementById('form-status');
-
-    form.addEventListener('submit', async (e)=>{
-      e.preventDefault();
-      statusEl.textContent = "Wird gesendet…";
-
-      try{
-        const data = new FormData(form);
-        // Optional: Absenderadresse für direkte Antwort
-        if(!data.get("_replyto") && data.get("Email")) data.append("_replyto", data.get("Email"));
-
-        const res = await fetch(FORM_ENDPOINT, {
-          method: "POST",
-          headers: { "Accept": "application/json" },
-          body: data
-        });
-
-        if(res.ok){
-          form.reset();
-          statusEl.style.color = "green";
-          statusEl.textContent = "Danke! Deine Nachricht wurde erfolgreich gesendet. Wir melden uns zeitnah.";
-        }else{
-          const out = await res.json().catch(()=>({}));
-          statusEl.style.color = "#b91c1c";
-          statusEl.textContent = out.errors && out.errors.length ? out.errors.map(e=>e.message).join(" ") : "Senden fehlgeschlagen. Bitte versuche es erneut oder schreibe an deineagentur@neuraflow.net.";
-        }
-      }catch(err){
-        statusEl.style.color = "#b91c1c";
-        statusEl.textContent = "Netzwerkfehler. Bitte später erneut versuchen oder direkt mailen an deineagentur@neuraflow.net.";
-      }
+    // Floating CTA + Back to top
+    const floatCta = document.querySelector('.float-cta');
+    const toTop = document.querySelector('.to-top');
+    window.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      if(y > 500){ floatCta.style.display='inline-flex'; toTop.style.display='inline-flex'; }
+      else { floatCta.style.display='none'; toTop.style.display='none'; }
     });
 
-    // Barrierefreiheit: Focus-Styles
-    const style = document.createElement('style');
-    style.textContent = `
-      a:focus, button:focus, input:focus, textarea:focus, select:focus { outline: 3px solid rgba(255,122,24,0.6); outline-offset:2px }
-    `;
-    document.head.appendChild(style);
+    // Simple mailto form
+    function submitForm(e){
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(e.target).entries());
+      const subject = encodeURIComponent('Kontaktanfrage NeuraFlow');
+      const body = encodeURIComponent(
+        `Vorname: ${data.firstName}\nNachname: ${data.lastName}\nFirma: ${data.company||'-'}\nE-Mail: ${data.email}\n\nNachricht:\n${data.message}`
+      );
+      window.location.href = `mailto:hi@neuraflow.ai?subject=${subject}&body=${body}`;
+      const status = document.getElementById('formStatus');
+      status?.replaceChildren('Danke! Dein E-Mail-Client öffnet sich gleich.');
+    }
+    window.submitForm = submitForm;
+
+    // Legal modals
+    function openLegal(which){
+      const id = which === 'impressum' ? 'modal-impressum' : 'modal-datenschutz';
+      document.getElementById(id).showModal();
+    }
+    window.openLegal = openLegal;
+
+    // Subtile Micro-Parallax (Light)
+    let rafId=null; const parallaxEl=document.body;
+    window.addEventListener('mousemove', (e)=>{
+      if(rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(()=>{
+        const x = (e.clientX / window.innerWidth - .5) * 1.2;
+        const y = (e.clientY / window.innerHeight - .5) * 1.2;
+        parallaxEl.style.backgroundPosition = `${50 + x}% ${50 + y}% , ${50 - x}% ${50 - y}%`;
+      });
+    }, { passive:true });
+  </script>
+
+  <!-- ===================================================================
+       JSON-LD
+  =================================================================== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Organization",
+    "name":"NeuraFlow",
+    "url":"https://neuraflow.net/",
+    "logo":"https://neuraflow.net/logo.png",
+    "sameAs":[],
+    "contactPoint":[{
+      "@type":"ContactPoint",
+      "contactType":"sales",
+      "email":"hi@neuraflow.ai",
+      "areaServed":"EU",
+      "availableLanguage":["de","en"]
+    }]
+  }
   </script>
 </body>
 </html>
-
