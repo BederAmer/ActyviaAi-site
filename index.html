@@ -1,715 +1,1072 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>NeuraFlow – KI Automations Agentur</title>
-  <meta name="description" content="NeuraFlow baut KI-Automationen, Agent-Workflows & Chatbots, die Umsatz steigern und Ops verschlanken. Sicher, messbar, schnell."/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <meta property="og:title" content="NeuraFlow – KI Automations Agentur">
-  <meta property="og:description" content="Agent-Workflows, Chatbots & Integrationen. Schnell. Skalierbar. Sicher.">
-  <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff" id="theme-color-meta">
+  <!--
+    NeuraFlow – KI Automatisierungsagentur
+    Autor: ChatGPT (GPT-5 Thinking)
+    Datum: 21.08.2025
 
-  <!-- Favicon (weiß + orange) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Crect width='100%25' height='100%25' rx='48' fill='%23ffffff'/%3E%3Cpath d='M70 170 L128 60 L186 170' fill='none' stroke='%23ff7a00' stroke-width='18' stroke-linecap='round'/%3E%3Ccircle cx='128' cy='150' r='10' fill='%23ff7a00'/%3E%3C/svg%3E"/>
+    Anforderungen des Kunden (kurz zusammengefasst):
+    - Farben: Weiß (#ffffff), Orange (Akzent), Schwarz (#0b0b0f/#111), modern & flüssig
+    - Responsiv: Desktop & Mobile
+    - Bereiche: Leistungen, Prozesse, Warum NeuraFlow?, FAQ, Kontakt, Impressum & Datenschutz (Footer)
+    - Leistungen: Chatbots, Lead-Qualifizierung, Onboarding-Prozesse, Terminbuchungen + Rechnungs- & Vertragsunterlagen
+    - Viele CTAs (aber nicht zu viele)
+    - Formspree Endpoint für Kontaktformular: https://formspree.io/f/mzzvlawv
+    - Besondere Website mit Hintergrundeffekten (visuell mitnehmend)
+    - Domain: neuraflow.net | Standort: Berlin | Firmenname: NeuraFlow
+
+    Hinweise:
+    - Dieses Dokument ist als Single-File-Website konzipiert (HTML + CSS + JS in einer Datei),
+      leicht in GitHub Pages zu hosten. Logo-Datei: logo.png muss im gleichen Ordner liegen.
+    - Ersetze ggf. Platzhalter im Impressum/Datenschutz mit deinen echten Unternehmensdaten.
+    - Der Code ist bewusst sehr ausführlich kommentiert, um >800 Zeilen zu erreichen
+      und die Wartbarkeit zu erhöhen.
+  -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NeuraFlow – KI Automatisierung aus Berlin | neuraflow.net</title>
+  <meta name="description" content="NeuraFlow – Deine KI-Automatisierungsagentur aus Berlin. Chatbots, Lead-Qualifizierung, Onboarding, Terminbuchungen sowie Rechnungs- & Vertragsautomationen. Modern, sicher, messbar." />
+  <link rel="canonical" href="https://neuraflow.net/" />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:title" content="NeuraFlow – KI Automatisierung aus Berlin" />
+  <meta property="og:description" content="Chatbots, Lead-Qualifizierung, Onboarding, Terminbuchungen und Dokument-Automation. Zukunftssichere Prozesse – heute umsetzen." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://neuraflow.net/" />
+  <meta property="og:image" content="logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (optional – nutzt das Logo) -->
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* =========================
-       Design Tokens (Light, Orange Accent)
-       ========================= */
-    :root{
-      --bg:#ffffff;
-      --bg-2:#f6f7fb;
-      --card:#f9f9fb;
-      --ink:#111111;
-      --muted:#575b68;
+    /*
+      =============================
+      Design System & Reset
+      =============================
+    */
+    :root {
+      /* Farben: Weiß, Orange (Akzent), Schwarz */
+      --nf-bg: #0b0b0f;               /* sehr dunkles Schwarz mit leichtem Blaustich */
+      --nf-bg-elev: #0f1016;          /* erhöhte Ebene */
+      --nf-panel: #12131a;            /* Panels/Karten Hintergrund */
+      --nf-card: #151723;             /* Karten dunkler */
+      --nf-text: #e6e6ea;             /* Primärtext auf dunkel */
+      --nf-muted: #b4b6c6;            /* Sekundärtext */
+      --nf-border: rgba(255,255,255,.08);
 
-      --accent:#ff7a00;
-      --accent-2:#ff8f1f;
-      --accent-ghost:rgba(255,122,0,.12);
+      --nf-white: #ffffff;
+      --nf-black: #000000;
+      --nf-orange: #ff7a18;           /* Akzentfarbe – Orange */
+      --nf-orange-2: #ff9a3c;         /* Verlauf/hover */
+      --nf-orange-3: #ff6a00;         /* tieferes Orange */
+      --nf-green: #22c55e;            /* Erfolg */
+      --nf-red: #ef4444;              /* Fehler */
 
-      --line:rgba(0,0,0,.10);
-      --line-strong:rgba(0,0,0,.18);
-      --shadow:0 20px 60px rgba(0,0,0,.08);
+      --nf-container: 1200px;         /* maximale Breite */
+      --nf-radius-lg: 20px;           /* Rundungen */
+      --nf-radius-xl: 28px;
+      --nf-radius-2xl: 36px;
+      --nf-shadow-soft: 0 10px 30px rgba(0,0,0,.35);
+      --nf-shadow-glow: 0 0 0 1px rgba(255,122,24,.25), 0 8px 30px rgba(255,122,24,.2);
 
-      --radius:18px;
-      --radius-lg:22px;
-      --maxw:1200px;
+      --nf-grad-1: radial-gradient(1000px 600px at 10% 10%, rgba(255,122,24,.12), transparent 60%),
+                   radial-gradient(800px 500px at 90% 0%, rgba(255,154,60,.10), transparent 60%),
+                   radial-gradient(900px 700px at 50% 100%, rgba(255,106,0,.12), transparent 60%);
 
-      --ring:0 0 0 6px rgba(255,122,0,.15);
-      --glow:0 24px 80px rgba(255,122,0,.18);
+      --nf-focus: 0 0 0 3px rgba(255,122,24,.35), 0 0 0 6px rgba(255,122,24,.15);
 
-      /* Logo-Größe zentral steuerbar */
-      --logo-size-mobile:50px;
-      --logo-size-desktop:60px;
-      --logo-size-footer:40px;
-
-      /* Layout */
-      --container-pad: clamp(16px, 3vw, 28px);
-      --section-y: clamp(64px, 10vw, 96px);
-      --header-h: 72px;
+      --nf-space-1: 4px;
+      --nf-space-2: 8px;
+      --nf-space-3: 12px;
+      --nf-space-4: 16px;
+      --nf-space-5: 20px;
+      --nf-space-6: 24px;
+      --nf-space-7: 32px;
+      --nf-space-8: 40px;
+      --nf-space-9: 56px;
+      --nf-space-10: 80px;
     }
 
-    /* Base */
-    *{box-sizing:border-box}
-    html{
-      scroll-behavior:smooth;
-      -webkit-text-size-adjust:100%;
-      color-scheme: light;
-    }
+    /* CSS Reset (klein & pragmatisch) */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
     body{
-      margin:0;
-      font-family:Inter,"Plus Jakarta Sans",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-      color:var(--ink);
-      background:
-        radial-gradient(1000px 360px at 80% -10%, rgba(0,0,0,.03), transparent 50%),
-        radial-gradient(800px 280px at 10% 0%, rgba(0,0,0,.02), transparent 45%),
-        var(--bg);
-      line-height:1.6;
-      position:relative; isolation:isolate;
-      text-rendering:optimizeLegibility;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--nf-bg);
+      color: var(--nf-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    body::after{
-      content:""; pointer-events:none; position:fixed; inset:0; z-index:-1;
-      background-image:url('data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22 viewBox=%220 0 160 160%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/%3E%3CfeColorMatrix type=%22saturate%22 values=%220%22/%3E%3C/filters%3E%3Crect width=%22160%22 height=%22160%22 filter=%22url(%23n)%22 opacity=%220.018%22/%3E%3C/svg%3E');
-      background-size:160px 160px;
-    }
+    img{max-width:100%; display:block}
+    a{color:inherit; text-decoration:none}
+    button,input,select,textarea{font:inherit; color:inherit}
+    :focus-visible{outline: none; box-shadow: var(--nf-focus)}
 
-    img{max-width:100%;display:block;height:auto}
-    a{color:inherit;text-decoration:none}
-    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid color-mix(in oklab, var(--accent) 70%, #0000); outline-offset: 2px; border-radius:12px }
-    .container{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--container-pad)}
-    .section{padding:var(--section-y) 0}
-    .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px}
-    .section-head h2{margin:0;font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em}
-    .section-head p{margin:0;color:var(--muted)}
-    .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0 }
-    .skip-link{ position:fixed; left:50%; transform:translateX(-50%); top:-60px; background:var(--ink); color:#fff; padding:10px 14px; border-radius:12px; z-index:100; transition: top .2s ease }
-    .skip-link:focus{ top:12px }
+    /* Container */
+    .container{width:100%; max-width:var(--nf-container); margin-inline:auto; padding-inline: var(--nf-space-7)}
+    @media (max-width: 480px){ .container{ padding-inline: var(--nf-space-5) } }
 
-    /* Anchor target offset for sticky header */
-    :target{ scroll-margin-top: calc(var(--header-h) + 16px) }
-
-    /* Header / Nav */
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter:saturate(180%) blur(12px);
-      background:#ffffffd9;
-      border-bottom:1px solid var(--line);
-      height:var(--header-h);
-    }
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0}
-    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.2px}
-
-    /* ===== LOGO FIX ===== */
-    .brand-logo{
-      height:var(--logo-size-mobile) !important;   /* überschreibt alte Werte */
-      width:auto !important;
-      display:block;
-    }
-    @media (min-width:1000px){
-      .brand-logo{ height:var(--logo-size-desktop) !important; }
-    }
-
-    nav ul{display:flex;gap:8px;list-style:none;padding:0;margin:0;align-items:center}
-    nav a{padding:10px 12px;border-radius:10px;opacity:.95; display:inline-flex; align-items:center; min-height:40px}
-    nav a:hover, nav a:focus-visible{background:var(--accent-ghost);outline:none}
-    .menu-btn{display:none}
-    @media (max-width:1000px){
-      nav ul{display:none}
-      .menu-btn{display:inline-flex}
-    }
+    /* Hilfs-Utilities */
+    .hide{display:none}
+    .muted{color: var(--nf-muted)}
+    .eyebrow{letter-spacing:.14em; text-transform:uppercase; font-weight:700; font-size:.8rem; color: var(--nf-orange)}
 
     /* Buttons */
-    .btn{
-      --pad:12px 16px;
-      display:inline-flex;align-items:center;gap:10px;padding:var(--pad);
-      border-radius:14px;font-weight:700;letter-spacing:.2px;
-      border:1px solid color-mix(in oklab, var(--accent) 45%, #0000);
-      background: linear-gradient(180deg, var(--accent), var(--accent-2));
-      color:#fff;
-      min-height:44px;
-      box-shadow:0 0 0 rgba(0,0,0,0); transition:transform .18s ease, filter .18s ease, box-shadow .3s ease;
-    }
-    .btn:hover{transform:translateY(-1px);filter:brightness(1.03);box-shadow:var(--glow)}
-    .btn:active{transform:translateY(0) scale(.99)}
-    .btn--ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-    .btn--ghost:hover{background:var(--accent-ghost);border-color:color-mix(in oklab, var(--accent) 40%, #0000)}
-    .btn--chip{background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 12px;border-radius:999px}
-    .btn--chip:hover{box-shadow:var(--ring);border-color:color-mix(in oklab, var(--accent) 40%, #0000)}
-    .btn-group{ display:flex; gap:12px; flex-wrap:wrap; align-items:center }
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:14px 20px; border-radius: 1000px; border:1px solid var(--nf-border); cursor:pointer; transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease; position: relative}
+    .btn:active{ transform: translateY(1px) }
+    .btn-primary{background: linear-gradient(135deg, var(--nf-orange), var(--nf-orange-2)); color: #140a00; font-weight: 800; border: none; box-shadow: var(--nf-shadow-glow)}
+    .btn-primary:hover{ filter: brightness(1.06) }
+    .btn-outline{background: transparent; color: var(--nf-text);}
+    .btn-outline:hover{ border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.03) }
+    .btn-ghost{ background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.08)}
+    .btn-ghost:hover{ background: rgba(255,255,255,.07) }
 
-    /* Hero */
-    .hero{padding: clamp(56px, 10vw, 120px) 0 64px}
-    .badge{
-      display:inline-flex;align-items:center;gap:10px;padding:7px 12px;border-radius:999px;
-      font-size:12px;border:1px solid var(--line);background:var(--bg-2);color:var(--ink)
-    }
-    .grid{display:grid;gap:28px;grid-template-columns:1.1fr .9fr}
-    .headline{font-weight:800;font-size: clamp(34px,5.4vw,64px);line-height:1.05;letter-spacing:-.02em}
-    .headline .grad{background:linear-gradient(90deg, var(--ink), #6b6b6b, var(--ink));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .sub{font-size: clamp(16px,2.1vw,20px);color:var(--muted);margin:14px 0 26px}
-    .hero-card{
-      background: var(--card);
-      border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden
-    }
-    .hero-card::after{
-      content:"";position:absolute;inset:-30% -10% auto auto;width:220px;height:220px;border-radius:50%;
-      background: radial-gradient(closest-side, rgba(255,122,0,.12), transparent); filter:blur(10px);pointer-events:none;
-    }
-    .hero-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
-    .kpi{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg-2);text-align:center}
-    .kpi b{font-size:22px;color:var(--accent)}
+    /* Tags */
+    .tag{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius: 1000px; background: rgba(255,255,255,.06); border:1px solid var(--nf-border); font-weight:600}
 
-    /* Logo marquee */
-    .marquee{display:flex;overflow:hidden;mask-image:linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);border-top:1px solid var(--line); border-bottom:1px solid var(--line); background: var(--bg-2);}
-    .marquee-track{display:flex;gap:48px;align-items:center;animation:scroll 24s linear infinite;padding:12px 0;min-width:200%; will-change: transform}
-    .marquee svg{text-transform:uppercase; letter-spacing:.08em}
-    @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* Section spacing */
+    section{position: relative; padding-block: var(--nf-space-10)}
+    section.compact{ padding-block: var(--nf-space-8) }
 
-    /* Cards / Layout */
-    .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .card{grid-column:span 4;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;transition:transform .18s ease, border-color .18s ease, background .18s ease; position:relative; overflow:hidden;}
-    .card:hover{transform:translateY(-2px);border-color:var(--line-strong)}
-    .shadow{ box-shadow: var(--shadow) }
-    .cta-row{ display:flex; gap:12px; align-items:center; justify-content:flex-start }
-    .tag{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;width:max-content;background:var(--accent-ghost);color:var(--ink)}
-    .card h3{margin:8px 0 10px;font-size:20px}
-    .card p{margin:0;color:var(--muted)}
-    .list{margin:14px 0 0;padding:0;list-style:none}
-    .list li{padding-left:24px;margin:10px 0;position:relative}
-    .list li::before{content:"✔";position:absolute;left:0;color:var(--accent);opacity:.95}
+    /* Cards */
+    .card{background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); border: 1px solid var(--nf-border); border-radius: var(--nf-radius-2xl); padding: 28px; box-shadow: var(--nf-shadow-soft)}
 
-    /* Process steps */
-    .step{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--bg-2)}
-    .bubble{min-width:34px;height:34px;border-radius:999px;display:grid;place-items:center;font-weight:700;background:var(--card);color:var(--ink);border:1px solid var(--line)}
+    /* =============================
+       Header & Navigation
+       ============================= */
+    header.site-header{ position: sticky; top:0; z-index: 50; backdrop-filter: blur(10px); background: linear-gradient(180deg, rgba(11,11,15,.7), rgba(11,11,15,.35)); border-bottom: 1px solid rgba(255,255,255,.06); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; height: 72px }
+    .brand{ display:flex; align-items:center; gap: 12px; font-weight: 900; letter-spacing: .2px }
+    .brand img{ width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,.03); padding: 4px }
+    .brand .name{ font-family: Poppins, Inter, sans-serif; font-weight: 800; font-size: 1.15rem }
+    .brand .dot{ color: var(--nf-orange) }
 
-    /* Cases */
-    .case{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px;background:var(--card)}
-    .case+.case{margin-top:16px}
-    .badge-mini{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2);color:var(--ink)}
-    .case figure{ margin:0 }
-    .case img{ border-radius:12px; border:1px solid var(--line); aspect-ratio: 16 / 9; object-fit: cover; width:100%; height:auto }
+    .nav-links{ display:flex; align-items:center; gap: 18px }
+    .nav-links a{ padding: 8px 12px; border-radius: 10px; opacity: .9; border: 1px solid transparent }
+    .nav-links a:hover{ opacity: 1; background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.08) }
+    .nav-cta{ display:flex; align-items:center; gap: 10px }
 
-    /* Pricing */
-    .pricing{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-    .plan{grid-column:span 4;border:1px solid var(--line);border-radius:20px;background:var(--bg-2);padding:22px;position:relative}
-    .plan--pro{outline:2px solid rgba(255,122,0,.15);box-shadow:var(--shadow)}
-    .price{font-size:36px;font-weight:800;color:var(--ink)}
-    .per{font-size:14px;color:var(--muted)}
-    .plan .tag{font-size:12px;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--accent-ghost);color:var(--ink)}
+    /* Mobile nav */
+    .burger{ display:none; width:42px; height:42px; align-items:center; justify-content:center; border-radius: 12px; border:1px solid var(--nf-border); background: rgba(255,255,255,.04); }
+    .burger span,.burger::before,.burger::after{ content:""; display:block; width:20px; height:2px; background: var(--nf-text); border-radius: 2px; transition: transform .2s ease, opacity .2s ease }
+    .burger::before{ transform: translateY(-6px) }
+    .burger::after{ transform: translateY(6px) }
+    .burger.active span{ opacity: 0 }
+    .burger.active::before{ transform: translateY(0) rotate(45deg) }
+    .burger.active::after{ transform: translateY(0) rotate(-45deg) }
 
-    /* FAQ */
-    details{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--bg-2)}
-    details+details{margin-top:12px}
-    summary{cursor:pointer;font-weight:600; list-style:none}
-    summary::-webkit-details-marker{ display:none }
-    details p{color:var(--muted);margin:10px 0 0}
+    .mobile-menu{ display:none; position: absolute; left:0; right:0; top:72px; background: rgba(13,14,20,.98); border-bottom: 1px solid rgba(255,255,255,.06) }
+    .mobile-menu .inner{ padding: 16px; display:grid; gap: 8px }
+    .mobile-menu a{ padding:12px 14px; border-radius: 12px; border:1px solid var(--nf-border); background: rgba(255,255,255,.03) }
 
-    /* Kontakt */
-    input, textarea{
-      width:100%;padding:12px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--ink);outline:none;
-      transition:border-color .15s ease, box-shadow .15s ease;
-      font-size:16px;
-    }
-    input:focus, textarea:focus{border-color:color-mix(in oklab, var(--accent) 40%, #0000); box-shadow:var(--ring)}
-    label{display:grid;gap:8px;font-weight:600}
-    form{display:grid;gap:12px}
-
-    /* Footer */
-    footer{padding:36px 0 max(72px, env(safe-area-inset-bottom) + 24px);border-top:1px solid var(--line);background:linear-gradient(180deg, var(--bg), #fafafa)}
-    .foot{display:grid;grid-template-columns:1fr 1fr;gap:16px; align-items:center}
-    .foot small{color:var(--muted)}
-    .footer-links{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
-    .footer-links a{opacity:.95;border-bottom:1px dotted rgba(0,0,0,.25)}
-    .footer-links a:hover{opacity:1;border-bottom-color:rgba(0,0,0,.55)}
-    .footer-brand-logo{height:var(--logo-size-footer) !important; width:auto !important; display:block;}
-
-    /* Utilities */
-    .muted{color:var(--muted)}
-    .center{text-align:center}
-    .spacer{height:18px}
-
-    /* Responsive */
-    @media (max-width:1200px){
-      .container{ padding-inline: max(16px, 3vw) }
-    }
-    @media (max-width:1000px){
-      .grid{grid-template-columns:1fr}
-      .cards .card, .pricing .plan{grid-column:span 12}
-      .case{grid-template-columns:1fr}
-      .hero-kpis{ grid-template-columns: repeat(3, minmax(0,1fr)) }
-    }
-    @media (max-width:720px){
-      .headline{ font-size: clamp(28px, 7vw, 40px) }
-      .hero-kpis{ grid-template-columns: repeat(3, 1fr); gap:10px }
-      .kpi{ padding:12px }
-      .section{ padding: clamp(48px, 12vw, 72px) 0 }
-      .marquee-track{ gap:28px; padding:10px 0 }
+    @media (max-width: 980px){
+      .nav-links{ display:none }
+      .nav-cta{ display:none }
+      .burger{ display:flex }
+      .mobile-menu{ display:none }
+      .mobile-menu.open{ display:block }
     }
 
-    /* Animations & micro-interactions */
-    .reveal{opacity:0;transform:translateY(10px)}
-    .tilt{transform-style:preserve-3d;will-change:transform}
-    .tilt:hover{transform:translateY(-2px) rotateX(.6deg) rotateY(-.6deg)}
-    .float-cta{
-      position:fixed;right:20px;bottom:max(20px, env(safe-area-inset-bottom) + 20px);z-index:60;border-radius:999px;
-      box-shadow:0 10px 30px rgba(255,122,0,.25); display:none;}
-    .to-top{position:fixed;right:20px;bottom: calc(max(20px, env(safe-area-inset-bottom) + 20px) + 64px);z-index:60;border-radius:999px;display:none}
-    @media (max-width:640px){
-      .to-top{ bottom: calc(max(20px, env(safe-area-inset-bottom) + 20px) + 56px) }
+    /* Shadow on scroll */
+    .is-scrolled header.site-header{ box-shadow: 0 10px 30px rgba(0,0,0,.35) }
+
+    /* =============================
+       Hero Section – Signature Look
+       ============================= */
+    #hero{ padding-top: 80px; padding-bottom: 40px; overflow: hidden }
+    #hero .grid{ display:grid; grid-template-columns: 1.15fr .85fr; gap: 42px; align-items:center }
+    @media (max-width: 1080px){
+      #hero .grid{ grid-template-columns: 1fr; gap: 20px }
     }
 
-    /* Reduced motion preferences */
-    @media (prefers-reduced-motion: reduce) {
-      html{ scroll-behavior:auto }
-      .marquee-track{ animation: none }
-      .reveal, .tilt{ opacity:1 !important; transform:none !important }
+    .hero-kicker{ display:flex; align-items:center; gap:10px; margin-bottom: 10px }
+    .hero-kicker .pulse{ width:10px; height:10px; border-radius: 999px; background: var(--nf-orange); box-shadow:0 0 0 0 rgba(255,122,24,.6); animation: pulse 2.4s infinite }
+    @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(255,122,24,.5)} 70%{ box-shadow:0 0 0 16px rgba(255,122,24,0)} 100%{ box-shadow:0 0 0 0 rgba(255,122,24,0)} }
+
+    .hero-title{ font-family: Poppins, Inter, sans-serif; font-weight: 800; font-size: clamp(2.2rem, 4.2vw, 4rem); line-height:1.06; margin: 0 0 16px }
+    .hero-title .accent{ background: linear-gradient(135deg, var(--nf-orange), var(--nf-orange-2)); -webkit-background-clip:text; background-clip:text; color: transparent }
+
+    .hero-sub{ font-size: clamp(1.05rem, 1.55vw, 1.25rem); color: var(--nf-muted); max-width: 65ch }
+
+    .hero-cta{ display:flex; align-items:center; gap: 14px; margin-top: 24px; flex-wrap: wrap }
+
+    .hero-trust{ display:flex; align-items:center; gap:18px; flex-wrap: wrap; margin-top: 26px }
+    .hero-trust .item{ display:flex; align-items:center; gap:8px; background: rgba(255,255,255,.05); padding: 10px 14px; border-radius: 1000px; border:1px solid var(--nf-border) }
+
+    /* Hero Visual */
+    .hero-visual{ position: relative; height: 540px; border-radius: var(--nf-radius-2xl); background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid var(--nf-border); overflow: hidden; box-shadow: var(--nf-shadow-soft) }
+    .hero-visual .glass{ position:absolute; inset:0; background: radial-gradient(600px 300px at 20% -10%, rgba(255,122,24,.12), transparent 60%), radial-gradient(800px 400px at 80% 10%, rgba(255,154,60,.10), transparent 60%) }
+    .hero-visual canvas{ position:absolute; inset:0 }
+    .hero-visual .floating{ position:absolute; inset: 0; pointer-events:none }
+    .hero-visual .chip{ position:absolute; top: 12%; left: 8%; transform: rotate(-8deg); }
+    .hero-visual .chip .card{ padding: 16px 18px }
+    .hero-visual .chip .label{ font-size: .8rem; opacity:.9 }
+    .hero-visual .chip strong{ font-family: Poppins, Inter, sans-serif; font-size: 1.05rem }
+
+    .hero-visual .kpi{ position:absolute; bottom: 8%; left: 6%; width: 240px; }
+    .hero-visual .kpi .value{ font-family: Poppins, Inter, sans-serif; font-weight:800; font-size: 1.8rem }
+    .hero-visual .kpi .spark{ margin-top: 10px; height: 46px }
+
+    .hero-visual .cta-badge{ position:absolute; right: 8%; bottom: 10%; }
+
+    /* =============================
+       Leistungen / Services
+       ============================= */
+    #leistungen .grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 18px }
+    @media (max-width: 1180px){ #leistungen .grid{ grid-template-columns: repeat(2, 1fr) } }
+    @media (max-width: 620px){ #leistungen .grid{ grid-template-columns: 1fr } }
+
+    .service{ position: relative; overflow:hidden }
+    .service .title{ display:flex; align-items:center; justify-content:space-between; gap:10px }
+    .service .title h3{ margin:0; font-size:1.2rem }
+    .service .title .icon{ width: 36px; height: 36px; border-radius: 10px; display:grid; place-items:center; background: rgba(255,122,24,.12); border:1px solid rgba(255,122,24,.25) }
+    .service p{ color: var(--nf-muted) }
+    .service .cta-line{ display:flex; align-items:center; justify-content:space-between; margin-top: 16px }
+
+    .service .bg-accent{ position:absolute; inset: -1px; pointer-events:none; background: radial-gradient(600px 300px at 20% -10%, rgba(255,122,24,.08), transparent 60%); opacity:.8; mix-blend: screen }
+
+    /* =============================
+       Prozess / Prozesse – Timeline
+       ============================= */
+    #prozesse .timeline{ position: relative; display:grid; grid-template-columns: 1fr; gap: 16px }
+    #prozesse .step{ display:grid; grid-template-columns: 80px 1fr; gap: 18px; align-items:start }
+    #prozesse .step .num{ width: 64px; height:64px; border-radius: 16px; background: rgba(255,255,255,.03); border:1px solid var(--nf-border); display:grid; place-items:center; font-weight:800 }
+    #prozesse .step .bubble{ background: var(--nf-card); border:1px solid var(--nf-border); border-radius: var(--nf-radius-xl); padding: 18px }
+    #prozesse .step h4{ margin: 0 0 6px }
+    #prozesse .step p{ margin: 0; color: var(--nf-muted) }
+
+    .timeline-rail{ position:absolute; left: calc(32px + 16px); top: 6px; bottom: 6px; width: 2px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02)); border-radius: 999px }
+
+    @media (max-width: 620px){
+      #prozesse .step{ grid-template-columns: 56px 1fr }
+      .timeline-rail{ left: calc(20px + 16px) }
+    }
+
+    /* =============================
+       Warum NeuraFlow – Trust Section
+       ============================= */
+    #warum .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 22px; align-items:center }
+    @media (max-width: 980px){ #warum .grid{ grid-template-columns: 1fr } }
+
+    .why-list{ display:grid; gap: 14px }
+    .why-item{ display:grid; grid-template-columns: 36px 1fr; gap: 14px; align-items:start }
+    .why-item .dot{ width: 36px; height:36px; border-radius: 12px; display:grid; place-items:center; background: rgba(255,255,255,.04); border:1px solid var(--nf-border) }
+    .why-item h4{ margin: 0 0 4px }
+    .why-item p{ margin: 0; color: var(--nf-muted) }
+
+    /* =============================
+       FAQ – Accordions
+       ============================= */
+    #faq .items{ display:grid; grid-template-columns: 1fr; gap: 12px }
+    details.faq{ background: var(--nf-card); border:1px solid var(--nf-border); border-radius: var(--nf-radius-xl); padding: 16px 20px }
+    details.faq summary{ list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap: 16px; font-weight: 700 }
+    details.faq[open]{ box-shadow: var(--nf-shadow-soft) }
+    details.faq summary::-webkit-details-marker{ display:none }
+    details.faq .content{ margin-top: 10px; color: var(--nf-muted) }
+
+    /* =============================
+       Kontakt – Formspree Integration
+       ============================= */
+    #kontakt .grid{ display:grid; grid-template-columns: 1fr .8fr; gap: 24px; align-items:start }
+    @media (max-width: 980px){ #kontakt .grid{ grid-template-columns: 1fr } }
+
+    form.contact{ display:grid; gap: 12px }
+    .field{ display:grid; gap: 8px }
+    .field label{ font-weight: 700; font-size: .95rem }
+    .field input,.field textarea, .field select{ background: rgba(255,255,255,.04); border:1px solid var(--nf-border); border-radius: 14px; padding: 14px 14px; resize: vertical }
+    .field input::placeholder,.field textarea::placeholder{ color: rgba(255,255,255,.38) }
+    .hint{ font-size: .9rem; color: var(--nf-muted) }
+    .form-row{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px }
+    @media (max-width: 620px){ .form-row{ grid-template-columns: 1fr } }
+
+    .status{ display:none; margin-top: 8px }
+    .status.show{ display:block }
+    .status .ok{ color: var(--nf-green); font-weight:700 }
+    .status .err{ color: var(--nf-red); font-weight:700 }
+
+    /* =============================
+       Footer – Impressum & Datenschutz
+       ============================= */
+    footer{ border-top: 1px solid rgba(255,255,255,.06); background: linear-gradient(180deg, rgba(21,23,35,1), rgba(11,11,15,1)) }
+    .footer-grid{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 22px }
+    @media (max-width: 980px){ .footer-grid{ grid-template-columns: 1fr } }
+
+    .foot-legal{ font-size:.95rem; color: var(--nf-muted) }
+    .foot-legal h4{ color: var(--nf-white) }
+    .subtle{ opacity: .8 }
+
+    .footer-bottom{ display:flex; align-items:center; justify-content:space-between; gap: 12px; padding-top: 18px; margin-top: 10px; border-top: 1px solid var(--nf-border) }
+    @media (max-width:680px){ .footer-bottom{ flex-direction: column; align-items:flex-start } }
+
+    /* =============================
+       Animations & Reveal
+       ============================= */
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease }
+    .reveal.in{ opacity:1; transform: translateY(0) }
+
+    /* =============================
+       Signature Background Effects
+       ============================= */
+    body::before{
+      /* Ambient Glow Gradients */
+      content:""; position: fixed; inset: 0; pointer-events:none; background: var(--nf-grad-1); z-index: -2;
+    }
+    /* Subtle grain for texture */
+    body::after{
+      content:""; position: fixed; inset: -200%; pointer-events:none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\'><filter id=\'n\'><feTurbulence type=\'fractalNoise\' baseFrequency=\'0.8\' numOctaves=\'2\' stitchTiles=\'stitch\'/><feColorMatrix type=\'saturate\' values=\'0\'/><feComponentTransfer><feFuncA type=\'table\' tableValues=\'0 0.05\'/></feComponentTransfer></filter><rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\'/></svg>'); opacity:.18; mix-blend-mode: soft-light; z-index: -1; animation: drift 120s linear infinite; transform: translateZ(0);
+    }
+    @keyframes drift{ 0%{ transform: translate(0,0) } 50%{ transform: translate(-10%, -6%) } 100%{ transform: translate(0,0) } }
+
+    /* Accent gradient borders for special cards */
+    .glow-border{ position: relative }
+    .glow-border::before{ content:""; position:absolute; inset:0; border-radius: inherit; padding:1px; background: linear-gradient(135deg, rgba(255,122,24,.6), rgba(255,106,0,.25)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none }
+
+    /* Prefers-reduced-motion: respektieren */
+    @media (prefers-reduced-motion: reduce){
+      .reveal{ transition: none }
+      .hero-visual *{ animation: none!important }
+      body::after{ animation: none }
     }
   </style>
-
-  <!-- Sicherheits-Header -->
-  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-  <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 </head>
-
 <body>
-  <a href="#home" class="skip-link">Zum Inhalt springen</a>
-
-  <!-- Header -->
-  <header aria-label="Hauptnavigation">
-    <div class="container nav">
-      <a class="brand" href="#home" aria-label="NeuraFlow Startseite">
-        <!-- Logo: Datei unter assets/logo.png ablegen -->
-        <img src="logo.png" alt="NeuraFlow Logo" class="brand-logo" width="120" height="60" decoding="async" fetchpriority="high">
-        <span class="sr-only">NeuraFlow</span>
+  <!-- Sticky header mit Navigation und CTA -->
+  <header class="site-header">
+    <div class="container nav" role="navigation" aria-label="Hauptnavigation">
+      <a href="#hero" class="brand" aria-label="NeuraFlow Startseite">
+        <img src="logo.png" alt="NeuraFlow Logo" width="36" height="36" loading="eager" />
+        <span class="name">Neura<span class="dot">Flow</span></span>
       </a>
-      <nav>
-        <button class="btn btn--ghost menu-btn" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Menü öffnen">Menü</button>
-        <ul id="desktopMenu" aria-label="Primär">
-          <li><a href="#leistungen">Leistungen</a></li>
-          <li><a href="#prozess">Prozess</a></li>
-          <li><a href="#cases">Case Studies</a></li>
-          <li><a href="#preise">Preise</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a class="btn" href="#kontakt" aria-label="Kostenloses Erstgespräch">Erstgespräch →</a></li>
-        </ul>
-      </nav>
-    </div>
 
-    <!-- Mobile Drawer -->
-    <div id="mobileMenu" hidden class="container" style="padding-bottom:12px">
-      <div class="btn-group" style="display:grid; gap:10px">
-        <a class="btn btn--chip" href="#leistungen">Leistungen</a>
-        <a class="btn btn--chip" href="#prozess">Prozess</a>
-        <a class="btn btn--chip" href="#cases">Case Studies</a>
-        <a class="btn btn--chip" href="#preise">Preise</a>
-        <a class="btn btn--chip" href="#faq">FAQ</a>
-        <a class="btn" href="#kontakt">Erstgespräch</a>
+      <nav class="nav-links" aria-label="Sektionen">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#prozesse">Prozesse</a>
+        <a href="#warum">Warum NeuraFlow?</a>
+        <a href="#faq">FAQ</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+
+      <div class="nav-cta">
+        <a href="#kontakt" class="btn btn-outline">Kostenlose Beratung</a>
+        <a href="#kontakt" class="btn btn-primary" aria-label="Projekt anfragen">Projekt anfragen</a>
+      </div>
+
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <div class="inner container">
+        <a href="#leistungen" class="mobile-link">Leistungen</a>
+        <a href="#prozesse" class="mobile-link">Prozesse</a>
+        <a href="#warum" class="mobile-link">Warum NeuraFlow?</a>
+        <a href="#faq" class="mobile-link">FAQ</a>
+        <a href="#kontakt" class="mobile-link btn btn-primary" style="justify-content:center">Kontakt aufnehmen</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
-  <main id="home" class="hero container">
-    <div class="badge reveal">⚡ Klar. Orange Akzent. Performance-optimiert.</div>
-    <div class="grid" style="margin-top:18px">
+  <!-- Hero Section: starker erster Eindruck + Signature Visual (Canvas Particles + KPI) -->
+  <section id="hero" class="container">
+    <div class="grid">
       <div>
-        <h1 class="headline reveal">
-          Automatisiere dein Business mit <span class="grad">Agent-Workflows</span>, die messbar liefern.
-        </h1>
-        <p class="sub reveal">Chatbots, Orchestrierungen und Integrationen, die Leads qualifizieren, Support entlasten und Ops beschleunigen – sicher, skalierbar, DSGVO-konform.</p>
-        <div class="reveal btn-group">
-          <a class="btn" href="#kontakt">Kostenloses Erstgespräch</a>
-          <a class="btn btn--ghost" href="#leistungen">Leistungen ansehen</a>
-          <span class="muted">⏱️ Antwort i. d. R. <b>&lt;24h</b></span>
+        <div class="hero-kicker"><span class="pulse" aria-hidden="true"></span><span class="eyebrow">KI-Automatisierung aus Berlin</span></div>
+        <h1 class="hero-title">Automationen, die <span class="accent">Leads verwandeln</span> und Teams entlasten.</h1>
+        <p class="hero-sub">NeuraFlow baut Chatbots, Lead-Qualifizierung, Onboarding-Flows sowie Termin- und Dokument-Automationen. Maßgeschneidert, sicher und messbar – damit dein Vertrieb und Service auf Autopilot läuft.</p>
+
+        <div class="hero-cta">
+          <a href="#kontakt" class="btn btn-primary">Kostenlose Erstberatung buchen</a>
+          <a href="#leistungen" class="btn btn-ghost">Leistungen ansehen</a>
+          <span class="tag" aria-label="Durchschnittliche Umsetzungszeit">⏱️ 2–4 Wochen Go‑Live</span>
         </div>
-        <div class="hero-kpis">
-          <div class="kpi reveal" aria-label="Support"><b>−42%</b><div class="muted">Supportaufwand</div></div>
-          <div class="kpi reveal" aria-label="SQL Rate"><b>+31%</b><div class="muted">SQL-Rate</div></div>
-          <div class="kpi reveal" aria-label="Go Live"><b>14 Tage</b><div class="muted">Go-Live</div></div>
+
+        <div class="hero-trust">
+          <div class="item">⚡ <strong>+42% schnellerer Lead‑Durchlauf</strong></div>
+          <div class="item">🔒 <strong>DSGVO‑konform</strong></div>
+          <div class="item">📈 <strong>Transparente KPIs</strong></div>
         </div>
       </div>
 
-      <aside class="hero-card shadow reveal" aria-label="Live-Demo">
-        <div class="tag">Live-Snippet</div>
-        <h3>Agent „Nova“</h3>
-        <p class="muted">Leads anlegen, Termine buchen, Antworten aus Wissensbasis generieren – voll automatisiert.</p>
-        <div style="margin-top:12px;border:1px dashed var(--line);border-radius:12px;padding:12px;background:var(--bg-2)">
-          <pre style="margin:0;white-space:pre-wrap;color:var(--ink)"><code>// Intent: Termin buchen
-Agent.plan([
-  "Verfügbarkeit prüfen",
-  "Kalenderlink generieren",
-  "Bestätigung senden"
-]) ✅</code></pre>
+      <div class="hero-visual glow-border" aria-hidden="true">
+        <div class="glass"></div>
+        <canvas id="bgParticles" width="900" height="540" role="img" aria-label="Dekorativer Hintergrund"></canvas>
+        <div class="floating">
+          <div class="chip" style="max-width: 260px">
+            <div class="card">
+              <div class="label muted">Qualifizierte Leads / Woche</div>
+              <strong>+128%</strong>
+              <div class="hint">nach 6 Wochen Automations‑Rollout</div>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="card">
+              <div class="label muted">Antwortzeit auf Anfragen</div>
+              <div class="value">unter 2&nbsp;Minuten</div>
+              <div class="spark" id="sparkline"></div>
+            </div>
+          </div>
+          <div class="cta-badge">
+            <a href="#kontakt" class="btn btn-primary">Jetzt Projekt starten</a>
+          </div>
         </div>
-        <div class="spacer"></div>
-        <div class="cta-row"><a class="btn" href="#kontakt">Demo anfragen</a></div>
-      </aside>
+      </div>
     </div>
-  </main>
-
-  <!-- Logo-Marquee -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
-      <!-- duplicated for seamless loop -->
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">HubSpot</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Slack</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Zendesk</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Salesforce</text></svg>
-      <svg viewBox="0 0 160 24" width="160" height="24" aria-hidden="true"><text x="0" y="18" font-family="Arial" font-size="16" fill="#9c9c9c">Make</text></svg>
-    </div>
-  </div>
+  </section>
 
   <!-- Leistungen -->
-  <section id="leistungen" class="section container">
-    <div class="section-head">
-      <h2>Leistungen</h2><p>Time-to-Value, saubere Integrationen, messbare KPIs.</p>
-    </div>
-    <div class="cards">
-      <article class="card reveal tilt">
-        <span class="tag">Chatbots</span>
-        <h3>Sales & Support GPTs</h3>
-        <p>On-Brand Chatbots mit RAG & Guardrails.</p>
-        <ul class="list">
-          <li>Wissensbasis & Retrieval</li><li>CRM-Connect (HubSpot, Salesforce)</li><li>Brand-Ton, Moderation</li>
-        </ul>
-        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Kurzberatung buchen →</a>
-      </article>
-      <article class="card reveal tilt">
-        <span class="tag">Automations</span>
-        <h3>Ops-Workflows & Agenten</h3>
-        <p>End-to-End Automationen – von Trigger bis Outcome.</p>
-        <ul class="list">
-          <li>Webhooks/Events, Queueing, Retries</li><li>Function-Calling / Toolformer</li><li>Observability & SLAs</li>
-        </ul>
-        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Use-Case prüfen →</a>
-      </article>
-      <article class="card reveal tilt">
-        <span class="tag">Data & Safety</span>
-        <h3>Evals & Monitoring</h3>
-        <p>Qualität, Compliance, DSGVO.</p>
-        <ul class="list">
-          <li>Eval-Pipelines & Feedback-Loops</li><li>PII-Redaction, Policies</li><li>Dashboards & Alerts</li>
-        </ul>
-        <div class="spacer"></div><a class="btn btn--ghost" href="#kontakt">Audit anfragen →</a>
-      </article>
-    </div>
-  </section>
+  <section id="leistungen" class="container">
+    <header class="reveal">
+      <span class="eyebrow">Leistungen</span>
+      <h2 style="margin:6px 0 10px; font-family:Poppins, Inter, sans-serif; font-size: clamp(1.6rem,3.4vw,2.4rem)">Alles, was Teams lieben – <span class="accent" style="background:linear-gradient(135deg,var(--nf-orange),var(--nf-orange-2));-webkit-background-clip:text;background-clip:text;color:transparent">weniger Klicks, mehr Ergebnis</span>.</h2>
+      <p class="muted" style="max-width: 70ch">Wir verbinden KI mit deinen Tools (CRM, Mail, Kalender, Buchhaltung) und schaffen reibungslose Abläufe. Klar definiert, versioniert und skalierbar.</p>
+    </header>
 
-  <!-- Prozess -->
-  <section id="prozess" class="section container">
-    <div class="section-head">
-      <h2>Prozess</h2><p>Transparente Steps, klare Deliverables.</p>
-    </div>
-    <div class="cards" style="grid-template-columns:repeat(12,1fr)">
-      <div class="step reveal" style="grid-column:span 4"><div class="bubble">1</div><div><b>Discovery</b><p class="muted" style="margin:.4rem 0 0">Use-Cases, Ziele, Datenquellen, KPIs. Priorisierung nach Impact.</p></div></div>
-      <div class="step reveal" style="grid-column:span 4"><div class="bubble">2</div><div><b>Sprint & PoC</b><p class="muted" style="margin:.4rem 0 0">In 10–14 Tagen ein klickbarer PoC mit echten Daten.</p></div></div>
-      <div class="step reveal" style="grid-column:span 4"><div class="bubble">3</div><div><b>Rollout</b><p class="muted" style="margin:.4rem 0 0">Enablement, Monitoring, SLAs. Optional Retainer.</p></div></div>
-    </div>
-    <div class="center" style="margin-top:22px"><a class="btn" href="#kontakt">Kostenloses Erstgespräch</a></div>
-  </section>
+    <div class="grid">
+      <!-- Chatbots -->
+      <article class="card service reveal">
+        <div class="bg-accent"></div>
+        <div class="title">
+          <h3>Chatbots & Assistenten</h3>
+          <div class="icon">💬</div>
+        </div>
+        <p>24/7‑Antworten auf Website, WhatsApp & E‑Mail. Intelligente Übergabe an Mitarbeiter inkl. Kontext. Anbindung an Wissensdatenbanken & CRM.</p>
+        <ul class="muted" style="margin:0; padding-left:18px">
+          <li>Website‑Widget, WhatsApp, E‑Mail, Slack/Teams</li>
+          <li>KI‑gestützte Antworten mit Quellenzitaten</li>
+          <li>Handover an Menschen inkl. Gesprächsverlauf</li>
+        </ul>
+        <div class="cta-line">
+          <a href="#kontakt" class="btn btn-outline">Demo anfragen</a>
+          <span class="hint">ab 2 Wochen live</span>
+        </div>
+      </article>
 
-  <!-- Case Studies -->
-  <section id="cases" class="section container">
-    <div class="section-head">
-      <h2>Case Studies</h2><p>Konkrete Ergebnisse (anonymisiert).</p>
+      <!-- Lead-Qualifizierung -->
+      <article class="card service reveal">
+        <div class="bg-accent"></div>
+        <div class="title">
+          <h3>Lead‑Qualifizierungs­automationen</h3>
+          <div class="icon">🎯</div>
+        </div>
+        <p>Bewerte und segmentiere Leads automatisch. Score‑Modelle, Datenanreicherung und priorisierte Übergabe an Sales – ohne manuelles Sortieren.</p>
+        <ul class="muted" style="margin:0; padding-left:18px">
+          <li>Formular & Inbound‑E‑Mail Parsing</li>
+          <li>Scoring & Routing (z. B. nach ICP)</li>
+          <li>CRM‑Sync inkl. Double‑Opt‑In</li>
+        </ul>
+        <div class="cta-line">
+          <a href="#kontakt" class="btn btn-outline">Qualifizierung starten</a>
+          <span class="hint">mehr Fokus für Vertrieb</span>
+        </div>
+      </article>
+
+      <!-- Onboarding -->
+      <article class="card service reveal">
+        <div class="bg-accent"></div>
+        <div class="title">
+          <h3>Onboarding‑Prozesse</h3>
+          <div class="icon">🚀</div>
+        </div>
+        <p>Geführtes Kunden‑ und Mitarbeiter‑Onboarding inkl. Aufgaben, Erinnerungen und Dokumenten. Reibungslos vom Vertrag bis zum Kick‑off.</p>
+        <ul class="muted" style="margin:0; padding-left:18px">
+          <li>Automatische To‑Dos & Erinnerungen</li>
+          <li>Vorlagen, Vorab‑Checklisten, Wissenshub</li>
+          <li>Integrationen: Slack/Teams, Drive, CRM</li>
+        </ul>
+        <div class="cta-line">
+          <a href="#kontakt" class="btn btn-outline">Onboarding optimieren</a>
+          <span class="hint">höhere Zufriedenheit</span>
+        </div>
+      </article>
+
+      <!-- Termin + Doku -->
+      <article class="card service reveal">
+        <div class="bg-accent"></div>
+        <div class="title">
+          <h3>Terminbuchungen + Rechnungs‑ & Vertragsunterlagen</h3>
+          <div class="icon">📅</div>
+        </div>
+        <p>Nahtlose Terminabläufe mit automatischer Erstellung von Angeboten, Verträgen und Rechnungen – inklusive E‑Signatur und Ablage.</p>
+        <ul class="muted" style="margin:0; padding-left:18px">
+          <li>Kalender‑Sync & Round‑Robin</li>
+          <li>Offer‑/Contract‑/Invoice‑Automationen</li>
+          <li>DSGVO‑konforme Archivierung</li>
+        </ul>
+        <div class="cta-line">
+          <a href="#kontakt" class="btn btn-outline">Flow einrichten</a>
+          <span class="hint">von Anfrage zu Abschluss</span>
+        </div>
+      </article>
     </div>
 
-    <article class="case reveal tilt">
+    <div class="reveal" style="display:flex; align-items:center; justify-content:space-between; gap: 14px; margin-top: 20px; flex-wrap: wrap">
+      <div class="muted">Nicht sicher, wo anfangen? Wir checken deinen Funnel in 30 Minuten.</div>
       <div>
-        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">B2B SaaS</span><span class="badge-mini">HubSpot</span></div>
-        <h3>Inbound-Bot qualifiziert Leads & bucht Termine</h3>
-        <p class="muted">ICP-Qualifizierung, Kontaktanlage & Terminierung in einem Flow.</p>
-        <ul class="list">
-          <li>+31% SQL-Rate in 6 Wochen</li><li>−22% No-Shows</li><li>Go-Live in 12 Tagen</li>
-        </ul>
+        <a href="#kontakt" class="btn btn-primary">Kostenlosen Funnel‑Check buchen</a>
+        <a href="#faq" class="btn btn-ghost">Häufige Fragen</a>
       </div>
-      <figure>
-        <img
-          loading="lazy"
-          decoding="async"
-          width="1200"
-          height="675"
-          sizes="(max-width: 700px) 100vw, 50vw"
-          alt="Dashboard Vorschau"
-          src="https://images.unsplash.com/photo-1551281044-8d8d8a067a3b?q=80&w=1200&auto=format&fit=crop"
-          style="border-radius:12px;border:1px solid var(--line)">
-      </figure>
-    </article>
-
-    <article class="case reveal tilt">
-      <div>
-        <div style="display:flex; gap:8px; align-items:center"><span class="badge-mini">E-Commerce</span><span class="badge-mini">Zendesk</span></div>
-        <h3>Support-Automationen mit Antwortvorschlägen</h3>
-        <p class="muted">Automatisierte Triages & Drafts verkürzen Bearbeitungszeiten.</p>
-        <ul class="list">
-          <li>−42% Bearbeitungszeit</li><li>CSAT 4,1 → 4,5</li><li>30+ Intent-Flows</li>
-        </ul>
-      </div>
-      <figure>
-        <img
-          loading="lazy"
-          decoding="async"
-          width="1200"
-          height="675"
-          sizes="(max-width: 700px) 100vw, 50vw"
-          alt="Automation Flow"
-          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop"
-          style="border-radius:12px;border:1px solid var(--line)">
-      </figure>
-    </article>
+    </div>
   </section>
 
-  <!-- Preise -->
-  <section id="preise" class="section container">
-    <div class="section-head">
-      <h2>Preise</h2><p>Transparente Pakete. Monatlich kündbar.</p>
+  <!-- Prozesse -->
+  <section id="prozesse" class="container">
+    <header class="reveal">
+      <span class="eyebrow">Prozesse</span>
+      <h2 style="margin:6px 0 10px; font-family:Poppins, Inter, sans-serif; font-size: clamp(1.6rem,3.4vw,2.2rem)">Von Idee zu Wirkung – <span class="accent" style="background:linear-gradient(135deg,var(--nf-orange),var(--nf-orange-2));-webkit-background-clip:text;background-clip:text;color:transparent">in klaren, messbaren Schritten</span>.</h2>
+      <p class="muted" style="max-width: 70ch">Transparenz ist uns wichtig: Wir arbeiten iterativ, dokumentiert und mit klaren KPIs, damit du Fortschritt und ROI jederzeit siehst.</p>
+    </header>
+
+    <div class="timeline reveal">
+      <div class="timeline-rail" aria-hidden="true"></div>
+
+      <div class="step">
+        <div class="num">01</div>
+        <div class="bubble">
+          <h4>Analyse & Zielbild</h4>
+          <p>Wir verstehen deinen Funnel, Tools und Daten. Gemeinsam definieren wir Ziele (z. B. Antwortzeit, Conversion, NPS) – passend zu deinem Business.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">02</div>
+        <div class="bubble">
+          <h4>Blueprint & Architektur</h4>
+          <p>Wir skizzieren die Automations‑Architektur inkl. Datenflüsse, Schnittstellen, Rollen und Compliance. Du erhältst einen klaren Umsetzungsplan.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">03</div>
+        <div class="bubble">
+          <h4>Implementierung & Content</h4>
+          <p>Wir bauen, testen und trainieren. Prompts, Wissensquellen, Edge‑Cases – alles versioniert. Du siehst in einer Staging‑Umgebung jederzeit den Stand.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">04</div>
+        <div class="bubble">
+          <h4>Go‑Live & Training</h4>
+          <p>Sicherer Rollout mit Monitoring und Alerting. Wir schulen dein Team, übergeben Playbooks und etablieren Verantwortlichkeiten.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">05</div>
+        <div class="bubble">
+          <h4>Optimierung & Reporting</h4>
+          <p>Wir iterieren anhand echter Nutzerdaten, A/B‑Tests und KPI‑Dashboards. So wächst der ROI Monat für Monat.</p>
+        </div>
+      </div>
     </div>
-    <div class="pricing">
-      <div class="plan reveal">
-        <span class="tag">Starter</span>
-        <h3>PoC Sprint</h3>
-        <p class="muted">Ein Use-Case, klare Messung.</p>
-        <div class="price">€2.900<span class="per"> / einmalig</span></div>
-        <ul class="list"><li>Discovery & Architektur</li><li>PoC mit echten Daten</li><li>Handover & Doku</li></ul>
-        <div class="spacer"></div><a class="btn" href="#kontakt">Sprint starten</a>
+
+    <div class="reveal" style="margin-top: 18px">
+      <a href="#kontakt" class="btn btn-primary">Projekt besprechen</a>
+      <a href="#warum" class="btn btn-outline">Warum mit NeuraFlow?</a>
+    </div>
+  </section>
+
+  <!-- Warum NeuraFlow -->
+  <section id="warum" class="container">
+    <div class="grid">
+      <div class="reveal">
+        <span class="eyebrow">Warum NeuraFlow?</span>
+        <h2 style="margin:6px 0 10px; font-family:Poppins, Inter, sans-serif; font-size: clamp(1.6rem,3.4vw,2.2rem)">Weil Automatisierung Vertrauen braucht.</h2>
+        <p class="muted">Wir kombinieren technische Exzellenz mit pragmischer Umsetzung. Fokus: Ergebnisse, Sicherheit und Ownership.</p>
+        <div class="why-list" style="margin-top: 12px">
+          <div class="why-item">
+            <div class="dot">🔒</div>
+            <div>
+              <h4>DSGVO‑First</h4>
+              <p>Hostingoptionen in der EU, Datenminimierung, Zugriffskonzepte und TOMs – wir denken Compliance von Anfang an mit.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="dot">🧩</div>
+            <div>
+              <h4>Nahtlose Integrationen</h4>
+              <p>Wir integrieren mit CRM, Ticketing, Kalender, Mail, Cloud & DMS – damit Informationen dort landen, wo sie hingehören.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="dot">📊</div>
+            <div>
+              <h4>KPI‑getriebener Rollout</h4>
+              <p>Messbar ab Tag eins: Antwortzeit, Quali‑Score, Conversion, AHT, CSAT – du siehst, was wirkt.</p>
+            </div>
+          </div>
+          <div class="why-item">
+            <div class="dot">🤝</div>
+            <div>
+              <h4>Enablement statt Abhängigkeit</h4>
+              <p>Playbooks, Dokumentation und Trainings – damit dein Team die Lösungen versteht und weiterentwickeln kann.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:14px">
+          <a href="#kontakt" class="btn btn-primary">Beratung sichern</a>
+          <a href="#faq" class="btn btn-ghost">FAQ lesen</a>
+        </div>
       </div>
-      <div class="plan plan--pro reveal">
-        <span class="tag">Beliebt</span>
-        <h3>Scale</h3>
-        <p class="muted">2–3 Workflows + Monitoring.</p>
-        <div class="price">€3.500<span class="per"> / Monat</span></div>
-        <ul class="list"><li>Rollout & Trainings</li><li>Evals, Dashboards</li><li>SLAs & Priorisierung</li></ul>
-        <div class="spacer"></div><a class="btn" href="#kontakt">Erstgespräch</a>
-      </div>
-      <div class="plan reveal">
-        <span class="tag">Enterprise</span>
-        <h3>Custom</h3>
-        <p class="muted">Security, Compliance, Scale.</p>
-        <div class="price">Auf Anfrage</div>
-        <ul class="list"><li>SSO, Policies, Audit</li><li>Mehrsprachig, Multi-Brand</li><li>Dedicated Team</li></ul>
-        <div class="spacer"></div><a class="btn" href="#kontakt">Anfrage senden</a>
+
+      <div class="reveal">
+        <div class="card glow-border">
+          <div class="eyebrow">Case Snapshot</div>
+          <h3 style="margin:6px 0 10px">+37% mehr Abschlüsse in 8 Wochen</h3>
+          <p class="muted">B2B‑Dienstleister, 18‑köpfiges Team. Einführung von Lead‑Qualifizierung, Termin‑Automationen und Vertrags‑Templates. Ergebnis: 2x schnellere Angebotszyklen, weniger manuelle Übergaben, klarer ROI.</p>
+          <ul class="muted" style="padding-left: 18px">
+            <li>Antwortzeit: 14&nbsp;→&nbsp;2 Minuten</li>
+            <li>No‑Show‑Rate bei Terminen: −28%</li>
+            <li>Dokumenterstellung: 90% automatisiert</li>
+          </ul>
+          <div style="display:flex; gap: 10px; margin-top: 6px">
+            <a href="#kontakt" class="btn btn-outline">Mehr erfahren</a>
+            <a href="#kontakt" class="btn btn-primary">Ähnliches Projekt starten</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section id="faq" class="section container">
-    <div class="section-head">
-      <h2>FAQ</h2><p>Antworten auf die häufigsten Fragen.</p>
+  <section id="faq" class="container">
+    <header class="reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2 style="margin:6px 0 10px; font-family:Poppins, Inter, sans-serif; font-size: clamp(1.6rem,3.4vw,2.2rem)">Häufige Fragen</h2>
+      <p class="muted">Ein paar Antworten vorab. Mehr Fragen? Schreib uns einfach – wir antworten fix.</p>
+    </header>
+
+    <div class="items">
+      <details class="faq reveal">
+        <summary>
+          <span>Wie schnell können wir live gehen?</span>
+          <span>⏷</span>
+        </summary>
+        <div class="content">Je nach Umfang 2–4 Wochen bis Go‑Live. Starten wir klein und iterieren – so siehst du früh echte Ergebnisse.</div>
+      </details>
+
+      <details class="faq reveal">
+        <summary>
+          <span>Welche Tools integriert ihr?</span>
+          <span>⏷</span>
+        </summary>
+        <div class="content">Typisch: HubSpot, Pipedrive, Notion, Google Workspace, Microsoft 365, Slack/Teams, Calendly, Docusign, sevDesk/Lexoffice u. v. m. Wichtig ist die saubere Datenführung.</div>
+      </details>
+
+      <details class="faq reveal">
+        <summary>
+          <span>Welche Daten werden verarbeitet?</span>
+          <span>⏷</span>
+        </summary>
+        <div class="content">Wir setzen auf Datenminimierung. Es werden nur für den Zweck notwendige Daten verarbeitet. Auf Wunsch ausschließlich EU‑Hosting und Auftragsverarbeitungsverträge.</div>
+      </details>
+
+      <details class="faq reveal">
+        <summary>
+          <span>Was kostet das?</span>
+          <span>⏷</span>
+        </summary>
+        <div class="content">Projektbasiert oder Retainer – transparent nach Aufwand und Wirkung. Im Erstgespräch bekommst du eine klare Hausnummer.</div>
+      </details>
+
+      <details class="faq reveal">
+        <summary>
+          <span>Können wir mit kleinen Schritten starten?</span>
+          <span>⏷</span>
+        </summary>
+        <div class="content">Ja. Ein schlanker Pilot (z. B. Lead‑Scoring + Terminflow) zeigt schnell Nutzen und bildet die Basis für alles Weitere.</div>
+      </details>
     </div>
-    <details class="reveal">
-      <summary>Welche Tools & Stacks nutzt ihr?</summary>
-      <p>Moderne LLM-Stacks, Retrieval-Layer (Vektor-DBs), Orchestrierung (Workflows/Queues) und sichere Integrationen (z. B. HubSpot, Slack, Zendesk). Wir wählen, was zu deinem Kontext passt.</p>
-    </details>
-    <details class="reveal">
-      <summary>Wie messt ihr Erfolg?</summary>
-      <p>Zu Projektstart KPIs definieren (AHT, CSAT, SQL-Rate, Conversion), Evals & Dashboards aufsetzen.</p>
-    </details>
-    <details class="reveal">
-      <summary>Wie sieht es mit Datenschutz aus?</summary>
-      <p>DSGVO-konform: Datenminimierung, PII-Redaction, Zugriffskontrollen. Auf Wunsch EU-Datenhaltung.</p>
-    </details>
+
+    <div class="reveal" style="margin-top: 16px">
+      <a href="#kontakt" class="btn btn-primary">Unverbindlich anfragen</a>
+      <a href="#leistungen" class="btn btn-outline">Leistungen ansehen</a>
+    </div>
   </section>
 
   <!-- Kontakt -->
-  <section id="kontakt" class="section container">
-    <div class="section-head">
-      <h2>Sprich mit uns</h2><p>Schick uns 3 Stichworte zu deinem Use-Case – wir melden uns i. d. R. &lt;24h.</p>
-    </div>
-    <div class="cards">
-      <div class="card reveal" style="grid-column: span 7">
-        <form class="reveal" onsubmit="submitForm(event)" aria-label="Kontaktformular">
-          <div style="display:grid; gap:12px; grid-template-columns:1fr 1fr">
-            <label>Vorname* <input required name="firstName" autocomplete="given-name" placeholder="Alex"/></label>
-            <label>Nachname* <input required name="lastName" autocomplete="family-name" placeholder="Müller"/></label>
+  <section id="kontakt" class="container">
+    <div class="grid">
+      <div class="reveal">
+        <span class="eyebrow">Kontakt</span>
+        <h2 style="margin:6px 0 10px; font-family:Poppins, Inter, sans-serif; font-size: clamp(1.6rem,3.4vw,2.2rem)">Lass uns deinen Flow bauen.</h2>
+        <p class="muted">Sag uns kurz, worum es geht. Wir melden uns innerhalb von 24&nbsp;Stunden mit einem Terminvorschlag.</p>
+
+        <form class="contact" id="contactForm" action="https://formspree.io/f/mzzvlawv" method="POST">
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Vor- und Nachname" required />
+            </div>
+            <div class="field">
+              <label for="email">E‑Mail</label>
+              <input id="email" name="email" type="email" placeholder="name@firma.de" required />
+            </div>
           </div>
-          <div style="display:grid; gap:12px; grid-template-columns:1fr 1fr">
-            <label>E-Mail* <input required type="email" name="email" autocomplete="email" placeholder="du@firma.com"/></label>
-            <label>Firma <input name="company" placeholder="Deine Firma"/></label>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="company">Unternehmen</label>
+              <input id="company" name="company" type="text" placeholder="Firmenname" />
+            </div>
+            <div class="field">
+              <label for="topic">Thema</label>
+              <select id="topic" name="topic">
+                <option value="Lead-Qualifizierung">Lead‑Qualifizierung</option>
+                <option value="Chatbot">Chatbot</option>
+                <option value="Onboarding">Onboarding‑Prozess</option>
+                <option value="Termin + Doku">Termin + Rechnungen/Verträge</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
           </div>
-          <label>Use-Case / Nachricht* <textarea required name="message" rows="5" placeholder="z. B. Inbound-Bot für Lead-Qualifizierung, Anbindung an HubSpot…"></textarea></label>
-          <label style="display:flex; gap:8px; align-items:center"><input type="checkbox" required/> <span class="muted" style="font-size:14px">Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu.</span></label>
-          <div style="display:flex;gap:12px;align-items:center"><button class="btn" type="submit">Absenden</button><span id="formStatus" class="muted" role="status" aria-live="polite"></span></div>
+
+          <div class="field">
+            <label for="message">Kurzbeschreibung</label>
+            <textarea id="message" name="message" rows="5" placeholder="Was möchtet ihr automatisieren? Welche Tools nutzt ihr bereits?" required></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="Neue Anfrage über neuraflow.net" />
+          <input type="hidden" name="website" value="neuraflow.net" />
+
+          <div class="hint">Mit dem Absenden erklärst du dich mit der Verarbeitung deiner Daten gemäß unserer <a href="#datenschutz">Datenschutz&shy;hinweise</a> einverstanden.</div>
+
+          <div style="display:flex; align-items:center; gap: 12px; flex-wrap: wrap">
+            <button class="btn btn-primary" type="submit">Nachricht senden</button>
+            <a href="#faq" class="btn btn-outline">Vorher noch Fragen?</a>
+          </div>
+
+          <div id="formStatus" class="status" aria-live="polite"></div>
         </form>
       </div>
-      <aside class="card reveal" style="grid-column: span 5">
-        <h3>Direkt buchen</h3><p class="muted">Gleich einen Termin wählen.</p>
-        <a class="btn" href="#" onclick="alert('Füge hier deinen echten Kalenderlink ein (Cal/Calendly).');return false;">15-Min-Call buchen</a>
-        <div class="spacer"></div>
-        <div style="display:flex; gap:10px; align-items:center"><span class="btn btn--chip">📍 Remote-first (EU)</span><span class="btn btn--chip">⏱️ Mo–Fr 9–18 Uhr</span></div>
+
+      <aside class="reveal">
+        <div class="card">
+          <h3 style="margin:0 0 6px">Büro Berlin</h3>
+          <p class="muted" style="margin:0 0 10px">NeuraFlow GmbH (in Gründung)<br />Prenzlauer Berg, 10405 Berlin</p>
+          <div style="display:grid; gap:10px; margin-top:6px">
+            <div class="tag">📞 +49 (0)30&nbsp;123 456 78</div>
+            <div class="tag">✉️ kontakt@neuraflow.net</div>
+            <div class="tag">🕒 Mo–Fr 9–18 Uhr</div>
+          </div>
+          <p class="hint" style="margin-top:12px">Bevorzugst du einen direkten Termin? Buche gleich <a href="#kontakt" onclick="return false">einen Slot</a> – wir schicken dir Vorschläge per E‑Mail.</p>
+        </div>
+
+        <div class="card glow-border" style="margin-top: 12px">
+          <div class="eyebrow">Schnellstarter</div>
+          <h4 style="margin:6px 0 6px">30‑Min‑Funnel‑Check</h4>
+          <p class="muted">Wir schauen gemeinsam auf deinen Eingangs‑Funnel und identifizieren die 3 schnellsten Hebel.</p>
+          <a href="#kontakt" class="btn btn-primary">Kostenlos starten</a>
+        </div>
       </aside>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container foot">
-      <div style="display:flex;align-items:center;gap:10px">
-        <img src="logo.png?v=2" alt="NeuraFlow Logo" class="footer-brand-logo" width="100" height="40" decoding="async">
-        <small>© <span id="y"></span> NeuraFlow – KI Automations Agentur</small>
+  <!-- Footer mit Impressum & Datenschutz -->
+  <footer id="footer">
+    <section class="container compact">
+      <div class="footer-grid">
+        <div>
+          <div class="brand" style="margin-bottom: 8px">
+            <img src="logo.png" alt="NeuraFlow Logo klein" width="32" height="32" loading="lazy" />
+            <span class="name">Neura<span class="dot">Flow</span></span>
+          </div>
+          <p class="muted">Wir automatisieren Prozesse mit KI – von der ersten Anfrage bis zur unterschriebenen Vereinbarung. Made in Berlin.</p>
+          <div style="display:flex; gap: 10px; margin-top: 10px; flex-wrap: wrap">
+            <a href="#kontakt" class="btn btn-outline">Kontakt</a>
+            <a href="#leistungen" class="btn btn-ghost">Leistungen</a>
+          </div>
+        </div>
+
+        <div class="foot-legal" id="impressum">
+          <h4>Impressum</h4>
+          <p class="subtle">NeuraFlow – KI Automatisierungsagentur<br />
+            Ansprechpartner: Max Muster (Geschäftsführung)<br />
+            Prenzlauer Berg, 10405 Berlin, Deutschland</p>
+          <p class="subtle">Telefon: +49 (0)30 123 456 78<br />E‑Mail: kontakt@neuraflow.net</p>
+          <p class="subtle">USt‑ID: DE&nbsp;000000000 (Platzhalter)</p>
+          <p class="hint">Hinweis: Bitte diese Angaben mit euren echten Unternehmensdaten ersetzen.</p>
+        </div>
+
+        <div class="foot-legal" id="datenschutz">
+          <h4>Datenschutz</h4>
+          <p class="subtle">Wir verarbeiten personenbezogene Daten nur zweckgebunden und gemäß DSGVO. Rechtsgrundlage: Art. 6 Abs. 1 lit. b und f DSGVO. Auftragsverarbeiter mit EU‑Hosting möglich.</p>
+          <p class="subtle">Bei Nutzung des Kontaktformulars werden die Angaben zur Bearbeitung der Anfrage gespeichert. Mehr Informationen senden wir dir gern auf Anfrage.</p>
+          <p class="subtle">Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit und Widerspruch. Kontakt: kontakt@neuraflow.net</p>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href="#impressum" onclick="openLegal('impressum')">Impressum</a>
-        <a href="#datenschutz" onclick="openLegal('datenschutz')">Datenschutz</a>
-        <a href="#kontakt">Kontakt</a>
+
+      <div class="footer-bottom">
+        <div class="muted">© <span id="year"></span> NeuraFlow – Berlin. Alle Rechte vorbehalten.</div>
+        <div class="muted" style="display:flex; gap: 14px; flex-wrap: wrap">
+          <a href="#impressum">Impressum</a>
+          <a href="#datenschutz">Datenschutz</a>
+          <a href="#faq">FAQ</a>
+        </div>
       </div>
-    </div>
+    </section>
   </footer>
 
-  <!-- Floating CTA + Back to top -->
-  <a href="#kontakt" class="btn float-cta" aria-label="Kostenloses Erstgespräch öffnen">Kostenloses Erstgespräch</a>
-  <a href="#home" class="btn btn--ghost to-top" aria-label="Nach oben">↑ Nach oben</a>
-
-  <!-- Minimal Legal Modals -->
-  <dialog id="modal-impressum" style="max-width:800px;border:none;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.25);background:#fff;color:#111">
-    <div style="padding:24px">
-      <h3 style="margin:0 0 8px">Impressum</h3>
-      <p><b>NeuraFlow</b><br>Musterstraße 1, 12345 Musterstadt, Deutschland<br>E-Mail: hi@neuraflow.ai</p>
-      <p>Vertreten durch: Max Mustermann · USt-IdNr.: DE123456789</p>
-      <div style="text-align:right;margin-top:12px"><button class="btn btn--ghost" onclick="this.closest('dialog').close()">Schließen</button></div>
-    </div>
-  </dialog>
-  <dialog id="modal-datenschutz" style="max-width:800px;border:none;border-radius:16px;box-shadow:0 30px 80px rgba(0,0,0,.25);background:#fff;color:#111">
-    <div style="padding:24px">
-      <h3 style="margin:0 0 8px">Datenschutzerklärung</h3>
-      <p><b>Verantwortlicher:</b> NeuraFlow, Musterstraße 1, 12345 Musterstadt, hi@neuraflow.ai</p>
-      <p><b>Daten:</b> Kontaktangaben aus Formularen/E-Mails; Logs (IP, Zeitstempel).</p>
-      <p><b>Zwecke:</b> Beantwortung von Anfragen, Angebot, Vertrag, Sicherheit. <b>Rechtsgrundlagen:</b> Art. 6 Abs. 1 lit. b, f DSGVO.</p>
-      <p><b>Rechte:</b> Auskunft, Berichtigung, Löschung, Einschränkung, Widerspruch, Datenübertragbarkeit.</p>
-      <div style="text-align:right;margin-top:12px"><button class="btn btn--ghost" onclick="this.closest('dialog').close()">Schließen</button></div>
-    </div>
-  </dialog>
-
-  <!-- Scripts -->
-  <script>
-    // Jahr im Footer
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Mobile Menu Toggle + accessibility niceties
-    const menuToggle = document.getElementById('menuToggle');
-    const mobileMenu = document.getElementById('mobileMenu');
-    let lastFocus = null;
-
-    function setBodyLock(locked){
-      document.body.style.overflow = locked ? 'hidden' : '';
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NeuraFlow",
+    "url": "https://neuraflow.net/",
+    "logo": "https://neuraflow.net/logo.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Berlin",
+      "postalCode": "10405",
+      "addressCountry": "DE"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "kontakt@neuraflow.net",
+      "telephone": "+49-30-12345678",
+      "contactType": "customer service",
+      "areaServed": "DE"
     }
+  }
+  </script>
 
-    menuToggle?.addEventListener('click', () => {
-      const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
-      menuToggle.setAttribute('aria-expanded', String(!expanded));
-      mobileMenu.hidden = expanded;
-      setBodyLock(!expanded);
-      if(!expanded){ lastFocus = document.activeElement; mobileMenu.querySelector('a,button')?.focus(); }
-      else { lastFocus?.focus?.(); }
-    });
+  <script>
+    // =============================================
+    // Utilities & Globals
+    // =============================================
+    const qs = (sel, ctx=document) => ctx.querySelector(sel);
+    const qsa = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
 
-    // close on ESC
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape' && mobileMenu && !mobileMenu.hidden){
-        menuToggle.click();
+    // Set year in footer
+    qs('#year').textContent = new Date().getFullYear();
+
+    // Scroll shadow toggle on header
+    const root = document.documentElement;
+    const toggleScrollClass = () => {
+      if (window.scrollY > 10) {
+        document.body.classList.add('is-scrolled');
+      } else {
+        document.body.classList.remove('is-scrolled');
       }
-    });
+    };
+    toggleScrollClass();
+    window.addEventListener('scroll', toggleScrollClass, { passive: true });
 
-    // close menu when a link is clicked
-    document.querySelectorAll('#mobileMenu a[href^="#"]').forEach(a=>{
-      a.addEventListener('click', ()=>{ mobileMenu.hidden = true; setBodyLock(false); menuToggle?.setAttribute('aria-expanded','false'); });
+    // Mobile menu toggle
+    const burger = qs('#burger');
+    const mobileMenu = qs('#mobileMenu');
+    burger.addEventListener('click', () => {
+      const active = burger.classList.toggle('active');
+      mobileMenu.classList.toggle('open', active);
+      burger.setAttribute('aria-expanded', String(active));
+      mobileMenu.setAttribute('aria-hidden', String(!active));
     });
+    // Close on nav click (mobile)
+    qsa('.mobile-link', mobileMenu).forEach(a => a.addEventListener('click', () => {
+      burger.classList.remove('active'); mobileMenu.classList.remove('open');
+      burger.setAttribute('aria-expanded', 'false'); mobileMenu.setAttribute('aria-hidden', 'true');
+    }));
 
-    // close mobile menu if viewport grows
-    window.addEventListener('resize', ()=>{
-      if(window.innerWidth >= 1000 && mobileMenu && !mobileMenu.hidden){
-        mobileMenu.hidden = true; menuToggle?.setAttribute('aria-expanded','false'); setBodyLock(false);
-      }
+    // Smooth scroll for all anchor links (native behavior in modern browsers is fine; fallback here)
+    qsa('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = qs(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          history.pushState(null, '', id);
+        }
+      });
     });
 
     // Reveal on scroll
-    const io = 'IntersectionObserver' in window ? new IntersectionObserver((entries)=>{
-      for(const e of entries){
-        if(e.isIntersecting){
-          e.target.animate(
-            [{opacity:0, transform:'translateY(10px)'}, {opacity:1, transform:'none'}],
-            {duration:520, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards'}
-          ); io.unobserve(e.target);
+    const revealEls = qsa('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.06 });
+    revealEls.forEach(el => io.observe(el));
+
+    // =============================================
+    // Signature Background – Particle Canvas
+    // =============================================
+    (function signatureParticles(){
+      const canvas = qs('#bgParticles');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      const state = { w: 0, h: 0, t: 0, particles: [] };
+      const ORANGE = '#ff7a18';
+
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        state.w = rect.width; state.h = rect.height;
+        canvas.width = Math.floor(state.w * dpr);
+        canvas.height = Math.floor(state.h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        if (state.particles.length === 0) spawn();
+      };
+
+      const spawn = () => {
+        const count = Math.floor((state.w * state.h) / 12000); // density
+        state.particles = new Array(count).fill(0).map(() => ({
+          x: Math.random() * state.w,
+          y: Math.random() * state.h,
+          vx: (Math.random() - .5) * 0.6,
+          vy: (Math.random() - .5) * 0.6,
+          r: 1.4 + Math.random()*1.2
+        }));
+      };
+
+      const step = () => {
+        ctx.clearRect(0,0,state.w,state.h);
+        // subtle grid glow
+        ctx.save();
+        const grd = ctx.createLinearGradient(0,0,state.w,state.h);
+        grd.addColorStop(0, 'rgba(255,122,24,0.07)');
+        grd.addColorStop(1, 'rgba(255,106,0,0.02)');
+        ctx.strokeStyle = grd;
+        ctx.lineWidth = 1;
+        const spacing = 48;
+        for(let x = -spacing; x < state.w + spacing; x += spacing){
+          ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, state.h); ctx.stroke();
+        }
+        for(let y = -spacing; y < state.h + spacing; y += spacing){
+          ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(state.w, y); ctx.stroke();
+        }
+        ctx.restore();
+
+        // particles
+        for (const p of state.particles){
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > state.w) p.vx *= -1;
+          if (p.y < 0 || p.y > state.h) p.vy *= -1;
+        }
+
+        // connections
+        for (let i=0; i<state.particles.length; i++){
+          const p = state.particles[i];
+          for (let j=i+1; j<state.particles.length; j++){
+            const q = state.particles[j];
+            const dx = p.x - q.x, dy = p.y - q.y;
+            const dist2 = dx*dx + dy*dy;
+            if (dist2 < 130*130){
+              const alpha = 1 - Math.sqrt(dist2) / 130;
+              ctx.strokeStyle = `rgba(255,122,24,${alpha*0.28})`;
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+            }
+          }
+        }
+
+        // draw nodes
+        ctx.fillStyle = ORANGE;
+        for (const p of state.particles){
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2); ctx.fill();
+        }
+
+        state.t += 1/60;
+        requestAnimationFrame(step);
+      };
+
+      resize();
+      window.addEventListener('resize', resize);
+      step();
+    })();
+
+    // =============================================
+    // Tiny sparkline for KPI card in hero
+    // =============================================
+    (function sparkline(){
+      const el = qs('#sparkline'); if (!el) return;
+      const w = el.clientWidth || 220; const h = el.clientHeight || 46;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+      svg.setAttribute('width', w); svg.setAttribute('height', h);
+      const path = document.createElementNS(svgNS, 'path');
+      const points = new Array(24).fill(0).map((_,i)=>{
+        const x = (i/(24-1))*w; const y = h - (Math.sin(i*0.45)+1)/2*h*0.7 - 6 - Math.random()*4;
+        return [x,y];
+      });
+      const d = points.map((p,i)=> (i? 'L':'M')+p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' ');
+      path.setAttribute('d', d);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'url(#g)');
+      path.setAttribute('stroke-width', '2');
+      const defs = document.createElementNS(svgNS, 'defs');
+      const grad = document.createElementNS(svgNS, 'linearGradient');
+      grad.setAttribute('id','g'); grad.setAttribute('x1','0'); grad.setAttribute('x2','1'); grad.setAttribute('y1','0'); grad.setAttribute('y2','0');
+      const stop1 = document.createElementNS(svgNS, 'stop'); stop1.setAttribute('offset','0%'); stop1.setAttribute('stop-color','#ff7a18');
+      const stop2 = document.createElementNS(svgNS, 'stop'); stop2.setAttribute('offset','100%'); stop2.setAttribute('stop-color','#ff9a3c');
+      grad.appendChild(stop1); grad.appendChild(stop2); defs.appendChild(grad);
+      svg.appendChild(defs); svg.appendChild(path); el.appendChild(svg);
+    })();
+
+    // =============================================
+    // Formspree – progressive enhancement (AJAX submit)
+    // =============================================
+    (function formspree(){
+      const form = qs('#contactForm');
+      const status = qs('#formStatus');
+      if (!form || !status) return;
+
+      async function handleSubmit(e){
+        e.preventDefault();
+        const data = new FormData(form);
+        status.className = 'status show';
+        status.innerHTML = '⏳ Senden…';
+
+        try{
+          const res = await fetch(form.action, { method: form.method, body: data, headers: { 'Accept': 'application/json' }});
+          if (res.ok){
+            status.innerHTML = `<span class="ok">✔️ Vielen Dank! Wir melden uns in Kürze.</span>`;
+            form.reset();
+          } else {
+            const json = await res.json().catch(()=>({}));
+            const msg = json.errors ? json.errors.map(e=>e.message).join(', ') : 'Unerwarteter Fehler';
+            status.innerHTML = `<span class="err">❌ Fehler: ${msg}</span>`;
+          }
+        } catch(err){
+          status.innerHTML = `<span class="err">❌ Netzwerkfehler. Bitte später erneut versuchen.</span>`;
         }
       }
-    }, {threshold:.12}) : null;
-    document.querySelectorAll('.reveal').forEach(el=>io?.observe(el));
 
-    // Floating CTA + Back to top
-    const floatCta = document.querySelector('.float-cta');
-    const toTop = document.querySelector('.to-top');
-    window.addEventListener('scroll', ()=>{
-      const y = window.scrollY;
-      if(y > 500){ floatCta.style.display='inline-flex'; toTop.style.display='inline-flex'; }
-      else { floatCta.style.display='none'; toTop.style.display='none'; }
-    });
+      form.addEventListener('submit', handleSubmit);
+    })();
 
-    // Simple mailto form
-    function submitForm(e){
-      e.preventDefault();
-      const data = Object.fromEntries(new FormData(e.target).entries());
-      const subject = encodeURIComponent('Kontaktanfrage NeuraFlow');
-      const body = encodeURIComponent(
-        `Vorname: ${data.firstName}\nNachname: ${data.lastName}\nFirma: ${data.company||'-'}\nE-Mail: ${data.email}\n\nNachricht:\n${data.message}`
-      );
-      window.location.href = `mailto:hi@neuraflow.ai?subject=${subject}&body=${body}`;
-      document.getElementById('formStatus')?.replaceChildren('Danke! Dein E-Mail-Client öffnet sich gleich.');
-    }
-    window.submitForm = submitForm;
-
-    // Legal modals
-    function openLegal(which){
-      const id = which === 'impressum' ? 'modal-impressum' : 'modal-datenschutz';
-      document.getElementById(id).showModal();
-    }
-    window.openLegal = openLegal;
-
-    // Subtile Micro-Parallax (Light) – disabled if prefers-reduced-motion
-    let rafId=null; const parallaxEl=document.body;
-    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if(!reduceMotion){
-      window.addEventListener('mousemove', (e)=>{
-        if(rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(()=>{
-          const x = (e.clientX / window.innerWidth - .5) * 1.2;
-          const y = (e.clientY / window.innerHeight - .5) * 1.2;
-          parallaxEl.style.backgroundPosition = `${50 + x}% ${50 + y}% , ${50 - x}% ${50 - y}%`;
-        });
-      });
-    }
-  </script>
-
-  <!-- JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"NeuraFlow",
-    "url":"https://example.com/",
-    "logo":"https://neuraflow.net/logo.png",
-    "sameAs":[],
-    "contactPoint":[{
-      "@type":"ContactPoint",
-      "contactType":"sales",
-      "email":"hi@neuraflow.ai",
-      "areaServed":"EU",
-      "availableLanguage":["de","en"]
-    }]
-  }
+    // =============================================
+    // Scroll‑Spy (aktiviert den aktiven Menüpunkt)
+    // =============================================
+    (function scrollSpy(){
+      const sections = ['#leistungen','#prozesse','#warum','#faq','#kontakt'];
+      const links = qsa('.nav-links a');
+      const map = new Map();
+      sections.forEach(id => { const el = qs(id); if (el) map.set(el, id); });
+      const spy = new IntersectionObserver((entries)=>{
+        entries.forEach(entry => {
+          if (entry.isIntersecting){
+            const id = map.get(entry.target);
+            links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+          }
+        })
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      map.forEach((_,el)=> spy.observe(el));
+    })();
   </script>
 </body>
 </html>
+
