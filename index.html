@@ -728,7 +728,7 @@
 
         <form id="kontakt" class="reveal" novalidate action="https://formspree.io/f/xqalrqly" method="POST">
           <!-- Honeypot for bots -->
-          <input type="text" name="company_website" id="company_website" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <input type="text" name="nf_hp_field_42" id="nf_hp_field_42" autocomplete="new-password" inputmode="none" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" tabindex="-1" aria-hidden="true" />
 
           <!-- Formspree Mail-Settings -->
           <input type="hidden" name="_subject" value="[NeuraFlow] Neue Anfrage über neuraflow.net" />
@@ -974,14 +974,17 @@
     const FORM_ENDPOINT = "https://formspree.io/f/xqalrqly"; // <-- Formspree Endpoint
 
     if (form) {
+      // Autofill verhindern (reduziert Honeypot-Treffer)
+      form.setAttribute('autocomplete', 'off');
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         statusEl.className = 'form-status';
         statusEl.textContent = '';
 
-        // Honeypot (Bots rausfiltern)
-        if (qs('#company_website').value.trim() !== '') {
-          return; // still und leise abbrechen
+        // Honeypot – kann durch Browser‑Autofill befüllt werden; wir leeren es stattdessen
+        const hp = qs('#nf_hp_field_42');
+        if (hp && hp.value.trim() !== '') {
+          hp.value = '';
         }
 
         // Pflichtfelder prüfen
@@ -1115,4 +1118,3 @@
   </script>
 </body>
 </html>
-
