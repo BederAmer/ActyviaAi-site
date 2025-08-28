@@ -2,15 +2,23 @@
 <html lang="de">
 <head>
   <!--
-    actyviaai.com – KI Automatisierungsagentur
+    actyviaAI – KI Automatisierungsagentur
     Single-file, production-quality landing page
     Tech: Vanilla HTML/CSS/JS (no frameworks), accessible, responsive, SEO-ready
     Colors: Schwarz (#0b0b0b), Weiß (#f5f5f5), Akzent Orange (#ff6a00)
 
     Sections: Leistungen, Prozess, Preise (Auf Anfrage), FAQ, Kontakt, Standort Berlin, Impressum, Datenschutz
+
+    CHANGE LOG (Kurz):
+    - Branding oben links & im Footer: "actyviaAI" (AI in Versalien, zusammen mit actyvia), ".com" entfernt.
+    - Designpolish: flüssigere Transitions, mikrointeraktionen, typografische Feinheiten, glattere Karten, fokus-states.
+    - Mobile: Layouts verfeinert (Grids -> 1-spaltig), größere Touch-Ziele, Safe-Area Insets, Mobile-Menü lock body scroll, ESC schließt Menü.
+    - Links: Keine Standard-"Hyperlink-Optik" mehr. Einheitliche pill/ghost Styles auch für Inline-Links.
+    - Impressum: Aktualisiert auf: Beder Amer · actyviaai - Inh. Beder Amer · Saatwinkler Damm 123, 13629 Berlin · E-Mail: deineagentur@actyviaai.com · (USt-ID vorerst weggelassen).
+    - Performance/UX: prefers-reduced-motion, bessere IntersectionObserver-Defaults, kleine a11y-Verbesserungen.
   -->
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>actyviaai.com – KI Automatisierungsagentur | Berlin</title>
   <meta name="description" content="actyviaai.com ist Ihre KI-Automatisierungsagentur aus Berlin. Chatbots, Lead-Qualifizierung, Onboarding-Automatisierung, Rechnungs- & Vertragsprozesse. Modern, flüssig, ästhetisch." />
   <meta name="theme-color" content="#0b0b0b" />
@@ -25,16 +33,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     /* ======================================================================
-       RESET + TOKENS
+       RESET + TOKENS (verbessert)
        ====================================================================== */
     *, *::before, *::after { box-sizing: border-box; }
     * { margin: 0; }
     html, body { height: 100%; }
-    body { line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    body { line-height: 1.55; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
     img, picture, video, canvas, svg { display: block; max-width: 100%; }
     input, button, textarea, select { font: inherit; }
     p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
     #root, #__next { isolation: isolate; }
+    :focus-visible{ outline: none; }
 
     :root{
       --black:#0b0b0b; --black-2:#101010; --white:#f5f5f5;
@@ -43,28 +52,44 @@
       --success:#1db954; --danger:#e5484d;
 
       --container:1200px;
+      --radius-xl:22px;
       --radius-lg:18px; --radius-md:14px; --radius-sm:10px;
       --shadow-1:0 10px 30px rgba(0,0,0,0.35);
       --shadow-2:0 20px 60px rgba(0,0,0,0.55);
+      --inner-glow:0 0 0 1px rgba(255,255,255,0.06) inset;
+
       --glass:rgba(255,255,255,0.05);
 
       --easing:cubic-bezier(.2,.7,.1,1);
       --fast:180ms var(--easing);
       --med:360ms var(--easing);
       --slow:900ms var(--easing);
+
+      --safe-top: env(safe-area-inset-top);
+      --safe-bottom: env(safe-area-inset-bottom);
+      --safe-left: env(safe-area-inset-left);
+      --safe-right: env(safe-area-inset-right);
     }
 
-    body{ font-family:'Inter',system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background:var(--black); color:var(--white); }
+    body{
+      font-family:'Inter',system-ui,-apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:var(--black); color:var(--white);
+      accent-color: var(--orange);
+      scrollbar-gutter: stable both-edges;
+    }
+
+    ::selection{ background: rgba(255,106,0,0.35); color:#1a0e00; }
 
     /* ======================================================================
        BACKGROUND FX
        ====================================================================== */
     .bg-wrap{ position:fixed; inset:0; z-index:-1; overflow:hidden;
-      background: radial-gradient(1200px 800px at 70% 30%, rgba(255,106,0,0.15), transparent 60%),
-                  radial-gradient(800px 600px at 20% 70%, rgba(255,139,51,0.12), transparent 60%),
-                  radial-gradient(1000px 700px at 50% 50%, rgba(255,255,255,0.035), transparent 60%),
-                  #0b0b0b; }
+      background:
+        radial-gradient(1200px 800px at 70% 30%, rgba(255,106,0,0.14), transparent 60%),
+        radial-gradient(900px 680px at 15% 75%, rgba(255,139,51,0.10), transparent 62%),
+        radial-gradient(1000px 700px at 50% 50%, rgba(255,255,255,0.035), transparent 60%),
+        #0b0b0b;
+    }
     canvas.fx{ position:absolute; inset:0; filter: blur(0.3px) contrast(105%); }
     .noise{ position:absolute; inset:-100px; opacity:.03; pointer-events:none;
       background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="1"/></svg>');
@@ -86,15 +111,26 @@
     .title{ font-size: clamp(2.2rem, 4vw, 3.4rem); line-height:1.1; font-weight:800; letter-spacing:-0.02em; }
     .lead{ font-size: clamp(1.05rem, 1.6vw, 1.2rem); color:var(--muted); }
 
-    .card{ background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-      border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-lg); box-shadow:var(--shadow-1); position:relative; overflow:hidden; }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-1);
+      position:relative; overflow:hidden;
+      backdrop-filter: saturate(140%) blur(4px);
+    }
     .card::before{ content:""; position:absolute; inset:-2px; border-radius:inherit; padding:1px;
       background: linear-gradient(60deg, rgba(255,106,0,0.65), rgba(255,255,255,0.08), rgba(255,106,0,0.2));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
 
-    .btn{ --h:52px; display:inline-grid; place-items:center; padding:0 22px; height:var(--h); font-weight:700; border-radius:calc(var(--radius-sm) + 2px);
+    .btn{
+      --h:52px; display:inline-grid; place-items:center; padding:0 22px; height:var(--h); font-weight:700; border-radius:calc(var(--radius-sm) + 2px);
       border:1px solid rgba(255,255,255,0.1); background:rgba(255,255,255,0.02); color:var(--white); text-decoration:none;
-      transition: transform var(--fast), background var(--fast), border-color var(--fast), box-shadow var(--fast); position:relative; overflow:hidden; }
+      transition: transform var(--fast), background var(--fast), border-color var(--fast), box-shadow var(--fast), opacity var(--fast); position:relative; overflow:hidden;
+      box-shadow: var(--inner-glow);
+      will-change: transform;
+    }
     .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,0.25); }
     .btn:active{ transform: translateY(0); }
     .btn--primary{ background: linear-gradient(180deg, var(--orange), var(--orange-2)); color:#120700; box-shadow: 0 8px 24px rgba(255,106,0,0.35); border-color:transparent; }
@@ -109,21 +145,38 @@
     .halo{ position:absolute; pointer-events:none; inset:auto auto 10% -10%; width:60vw; height:60vw;
       background: radial-gradient(closest-side, rgba(255,106,0,0.135), transparent 65%); filter:blur(50px); transform:translateZ(0); z-index:-1; }
 
+    /* Inline pill link (verhindert "Hyperlink-Optik") */
+    a, a:visited{ text-decoration:none; color:inherit; }
+    a.pill-link{
+      display:inline-flex; align-items:center; gap:.5em; padding:.15rem .6rem; border-radius:999px;
+      border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03);
+      transition: background var(--fast), border-color var(--fast), color var(--fast), transform var(--fast), box-shadow var(--fast);
+      box-shadow: var(--inner-glow);
+      line-height:1.2;
+    }
+    a.pill-link:hover{ color:var(--white); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.16); transform: translateY(-1px); }
+    a.pill-link::after{ content:'↗'; font-size:.9em; opacity:.7; transform: translateX(-4px); transition: transform var(--fast), opacity var(--fast); }
+    a.pill-link:hover::after{ transform: translateX(0); opacity:1; }
+
     /* ======================================================================
-       HEADER + NAV
+       HEADER + NAV (verfeinert)
        ====================================================================== */
     .skip{ position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden; }
     .skip:focus{ left:16px; top:16px; width:auto; height:auto; padding:10px 14px; background:var(--orange); color:#1a0e00; border-radius:8px; z-index:10000; }
 
-    header.site-header{ position:sticky; top:0; z-index:999; backdrop-filter:saturate(160%) blur(10px);
+    header.site-header{
+      position:sticky; top:0; z-index:999; backdrop-filter:saturate(160%) blur(10px);
       background: linear-gradient(180deg, rgba(11,11,11,0.75), rgba(11,11,11,0.35));
-      border-bottom:1px solid rgba(255,255,255,0.08); }
-    .nav{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:20px; height:74px; }
-    .brand{ display:inline-flex; gap:14px; align-items:center; text-decoration:none; color:var(--white); }
-    .brand .logo-mark{ display:inline-block; font-weight:900; letter-spacing:-0.02em; font-size:1.15rem; line-height:1;
-      background: linear-gradient(180deg, var(--orange), var(--orange-2)); -webkit-background-clip:text; background-clip:text; color:transparent;
-      text-shadow: 0 8px 24px rgba(255,106,0,0.35); }
-    .brand .wordmark{ font-weight:800; letter-spacing:-0.02em; font-size:1.15rem; }
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .nav{ display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:20px; height:74px; padding-left: max(1rem, var(--safe-left)); padding-right: max(1rem, var(--safe-right)); }
+    .brand{ display:inline-flex; gap:10px; align-items:center; text-decoration:none; color:var(--white); }
+    .brand .logo-mark{ display:inline-grid; place-items:center; font-weight:900; letter-spacing:-0.02em; font-size:1.05rem; line-height:1;
+      width:28px; height:28px; border-radius:9px; background: linear-gradient(180deg, var(--orange), var(--orange-2)); color:#1a0e00;
+      box-shadow: 0 8px 24px rgba(255,106,0,0.35); }
+    .brand .wordmark{ font-weight:900; letter-spacing:-0.02em; font-size:1.15rem; display:inline-flex; gap:.15em; align-items:baseline; }
+    .brand .wordmark .actyvia{ opacity:.95; }
+    .brand .wordmark .ai{ font-weight:900; letter-spacing:0; text-transform:uppercase; background: linear-gradient(180deg, var(--orange), var(--orange-2)); -webkit-background-clip:text; background-clip:text; color:transparent; filter: drop-shadow(0 4px 14px rgba(255,106,0,0.25)); }
 
     .nav ul{ display:flex; gap:14px; list-style:none; padding:0; margin:0; justify-content:center; }
     .nav a{ color:var(--muted); text-decoration:none; padding:10px 12px; border-radius:10px; display:inline-flex; align-items:center; gap:10px; transition: color var(--fast), background var(--fast); }
@@ -134,14 +187,15 @@
     .burger{ display:none; background:transparent; border:none; color:var(--white); }
     @media (max-width:980px){
       .nav{ grid-template-columns:auto auto 1fr; }
-      nav.primary{ display:none; position:fixed; inset:74px 0 auto 0; background:rgba(11,11,11,0.96); padding:18px; border-bottom:1px solid rgba(255,255,255,0.08); }
+      nav.primary{ display:none; position:fixed; inset:74px 0 auto 0; background:rgba(11,11,11,0.96); padding:18px; border-bottom:1px solid rgba(255,255,255,0.08); backdrop-filter: blur(8px) saturate(150%); }
       nav.primary.open{ display:block; }
       .nav ul{ flex-direction:column; align-items:stretch; }
       .burger{ display:inline-grid; place-items:center; width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); }
+      body.menu-open{ overflow:hidden; }
     }
 
     /* ======================================================================
-       HERO
+       HERO (polish)
        ====================================================================== */
     .hero{ padding-top:32px; padding-bottom: clamp(40px, 8vw, 120px); position:relative; overflow:hidden; }
     .hero .container{ position:relative; z-index:2; }
@@ -161,6 +215,10 @@
     .stat{ background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:14px; padding:16px 18px; text-align:center; }
     .stat strong{ display:block; font-size:1.6rem; }
     .stat span{ color:var(--muted); font-size:.95rem; }
+    @media (max-width:700px){
+      .statbar{ grid-template-columns:1fr; }
+      .hero-actions .btn{ width:100%; justify-content:center; }
+    }
 
     .hero-visual{ position:relative; min-height:320px; }
     .hero-visual .orb{ position:absolute; border-radius:50%; filter:blur(12px); opacity:.75; mix-blend-mode:screen; }
@@ -179,7 +237,7 @@
     .section-header .lead{ max-width:62ch; }
 
     .service-grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap:18px; }
-    .service{ grid-column: span 6; padding:22px; position:relative; overflow:hidden; }
+    .service{ grid-column: span 6; padding:22px; position:relative; overflow:hidden; border-radius: var(--radius-xl); }
     .service .icon{ width:42px; height:42px; border-radius:10px; display:grid; place-items:center; background: linear-gradient(180deg, rgba(255,106,0,0.95), rgba(255,106,0,0.5)); box-shadow: 0 10px 24px rgba(255,106,0,0.35); margin-bottom:12px; }
     .service .icon svg{ width:24px; height:24px; color:#1a0e00; }
     .service h3{ font-size:1.3rem; letter-spacing:-0.02em; }
@@ -212,7 +270,7 @@
     .price-features{ margin-top:12px; display:grid; gap:8px; }
     .price-features li{ list-style:none; display:grid; grid-template-columns:20px 1fr; align-items:start; gap:10px; color:var(--muted); }
     .price-features svg{ width:18px; height:18px; color:var(--orange-2); }
-    .price-cta{ margin-top:16px; display:flex; gap:10px; }
+    .price-cta{ margin-top:16px; display:flex; gap:10px; flex-wrap: wrap; }
     .price-note{ color:var(--muted-2); font-size:.92rem; margin-top:10px; }
     @media (max-width:980px){ .pricing{ grid-template-columns:1fr; } }
 
@@ -239,13 +297,14 @@
     .row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
     @media (max-width:720px){ .row{ grid-template-columns:1fr; } }
     .check{ display:inline-flex; align-items:center; gap:10px; font-size:.95rem; color:var(--muted); }
-    .check input{ accent-color:var(--orange); width:18px; height:18px; }
+    .check input{ width:18px; height:18px; }
     .form-status{ font-size:.95rem; margin-top:4px; min-height:20px; }
     .form-status.ok{ color:var(--success); }
     .form-status.err{ color:var(--danger); }
     .contact-card{ padding:18px; }
     .contact-card .line{ display:flex; align-items:center; gap:10px; color:var(--muted); }
     .contact-card .line svg{ width:18px; height:18px; }
+    .contact-card .line a{ display:inline-flex; align-items:center; gap:.5em; }
 
     /* ======================================================================
        STANDORT / MAP
@@ -254,8 +313,9 @@
     @media (max-width:980px){ .location{ grid-template-columns:1fr; } }
     .map-card{ position:relative; padding:0; min-height:360px; }
     .map-surface{ position:absolute; inset:0;
-      background: radial-gradient(1200px 800px at 80% 20%, rgba(255,106,0,0.08), transparent 60%),
-                  linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      background:
+        radial-gradient(1200px 800px at 80% 20%, rgba(255,106,0,0.08), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
       border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius-lg); overflow:hidden; }
     .map-grid{ position:absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px); background-size:40px 40px; opacity:.18; }
     .pin{ position:absolute; left:58%; top:44%; width:18px; height:18px; background: radial-gradient(circle at 50% 50%, #ff6a00, #ff8b33); border-radius:999px; box-shadow:0 0 0 6px rgba(255,106,0,0.18), 0 0 0 12px rgba(255,106,0,0.10); animation:pulse 2.4s ease infinite; }
@@ -266,7 +326,7 @@
     /* ======================================================================
        REVEAL ON SCROLL
        ====================================================================== */
-    .reveal{ opacity:0; transform: translateY(18px) scale(0.98); transition: opacity var(--med), transform var(--med); }
+    .reveal{ opacity:0; transform: translateY(18px) scale(0.98); transition: opacity var(--med), transform var(--med); will-change: transform, opacity; }
     .reveal.in-view{ opacity:1; transform: translateY(0) scale(1); }
 
     /* ======================================================================
@@ -281,8 +341,8 @@
     .legal p{ margin-bottom:10px; }
     .legal a{ color:var(--white); }
 
-    /* Footer nav links – styled chips instead of plain hyperlinks */
-    .nav-link{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.03); color:var(--muted); text-decoration:none; transition: transform var(--fast), background var(--fast), border-color var(--fast), color var(--fast), box-shadow var(--fast); }
+    /* Footer nav links – styled chips statt plain hyperlinks */
+    .nav-link{ display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.10); background: rgba(255,255,255,0.03); color:var(--muted); text-decoration:none; transition: transform var(--fast), background var(--fast), border-color var(--fast), color var(--fast), box-shadow var(--fast); box-shadow: var(--inner-glow); }
     .nav-link:hover{ color:var(--white); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border-color: rgba(255,255,255,0.18); box-shadow: 0 8px 24px rgba(0,0,0,0.35), 0 6px 18px rgba(255,106,0,0.10); }
     .nav-link::after{ content:'↗'; opacity:0; transform: translateX(-6px); transition: var(--fast); }
     .nav-link:hover::after{ opacity:1; transform: translateX(0); }
@@ -294,8 +354,8 @@
     @media (max-width:800px){ .cta-band{ grid-template-columns:1fr; } }
 
     /* Floating CTA */
-    .fab-cta{ position: fixed; right:22px; bottom:22px; z-index:998; box-shadow: 0 10px 32px rgba(255,106,0,0.35); }
-    @media (max-width:520px){ .fab-cta{ right:14px; bottom:14px; } }
+    .fab-cta{ position: fixed; right: max(22px, var(--safe-right)); bottom: calc(22px + var(--safe-bottom)); z-index:998; box-shadow: 0 10px 32px rgba(255,106,0,0.35); }
+    @media (max-width:520px){ .fab-cta{ right: max(14px, var(--safe-right)); bottom: calc(14px + var(--safe-bottom)); width: calc(100% - 2*max(14px, var(--safe-right))); display:flex; justify-content:center; } }
 
     /* ======================================================================
        MEDIA QUERIES EXTRA
@@ -303,6 +363,15 @@
     @media (max-width:420px){
       .title{ font-size:2rem; }
       .nav{ grid-template-columns:auto 1fr auto; }
+      .brand .wordmark{ font-size: 1.05rem; }
+    }
+
+    /* ======================================================================
+       Reduced motion support
+       ====================================================================== */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+      .reveal{ opacity:1 !important; transform: none !important; }
     }
   </style>
 </head>
@@ -318,9 +387,9 @@
   <!-- HEADER -->
   <header class="site-header" role="banner">
     <div class="container nav" aria-label="Hauptnavigation">
-      <a class="brand" href="#" aria-label="actyviaai.com Startseite">
+      <a class="brand" href="#" aria-label="actyviaAI Startseite">
         <span class="logo-mark" aria-hidden="true">A</span>
-        <span class="wordmark">actyviaai.com</span>
+        <span class="wordmark"><span class="actyvia">actyvia</span><span class="ai">AI</span></span>
       </a>
 
       <nav class="primary" id="siteNav" aria-label="Primäre Navigation">
@@ -351,8 +420,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5v6h5"/></svg>
           <span>KI-Automatisierung aus Berlin</span>
         </div>
-        <h1>Automatisiere dein Wachstum mit <span class="gradient-text">actyviaai.com</span>.</h1>
-        <p class="lead">Wir bauen Chatbots, qualifizieren Leads, automatisieren Onboarding und digitalisieren Rechnungs- & Vertragsunterlagen. Modern, flüssig, ästhetisch – ohne 0815. Alles maßgeschneidert für dein Unternehmen.</p>
+        <h1>Automatisiere dein Wachstum mit <span class="gradient-text">actyviaAI</span>.</h1>
+        <p class="lead">Wir bauen Chatbots, qualifizieren Leads, automatisieren Onboarding und digitalisieren Rechnungs- &amp; Vertragsunterlagen. Modern, flüssig, ästhetisch – ohne 0815. Alles maßgeschneidert für dein Unternehmen.</p>
         <div class="hero-actions">
           <a class="btn btn--primary magnet" href="#kontakt" aria-label="Kontakt aufnehmen"><span class="magnet-inner">Projekt anfragen</span></a>
           <a class="btn btn--ghost" href="#leistungen" aria-label="Zu den Leistungen">Leistungen ansehen</a>
@@ -367,10 +436,10 @@
           <div class="stat card"><strong>↺ Qualität</strong><span>Konstant, messbar, auditierbar</span></div>
         </div>
       </div>
-      <div class="hero-visual">
-        <div class="orb o1" aria-hidden="true"></div>
-        <div class="orb o2" aria-hidden="true"></div>
-        <div class="orb o3" aria-hidden="true"></div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orb o1"></div>
+        <div class="orb o2"></div>
+        <div class="orb o3"></div>
       </div>
     </div>
     <div class="glassline" aria-hidden="true"></div>
@@ -395,7 +464,7 @@
           <h3>Chatbots</h3>
           <p>24/7 Antworten, Konversationen, Buchungen. Feinabgestimmt auf deine Marke, mit deinem Wissensschatz – DSGVO-konform.</p>
           <div class="meta">
-            <span class="chip">Website & WhatsApp</span>
+            <span class="chip">Website &amp; WhatsApp</span>
             <span class="chip">Wissensbasis</span>
             <span class="chip">Handovers</span>
           </div>
@@ -412,7 +481,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l-7 8v6l-4 2v-8L3 4z"/></svg>
           </div>
           <h3>Leadqualifizierung</h3>
-          <p>Formulare waren gestern. Wir filtern, scoren und routen Leads automatisch – direkt in CRM & Kalender.</p>
+          <p>Formulare waren gestern. Wir filtern, scoren und routen Leads automatisch – direkt in CRM &amp; Kalender.</p>
           <div class="meta">
             <span class="chip">Scoring</span>
             <span class="chip">Routing</span>
@@ -433,7 +502,7 @@
           <h3>Onboarding-Automatisierung</h3>
           <p>Von der Begrüßung bis zur ersten Aktivierung. Geführt, personalisiert, und messbar – für Kunden und Mitarbeitende.</p>
           <div class="meta">
-            <span class="chip">E-Mails & Workflows</span>
+            <span class="chip">E-Mails &amp; Workflows</span>
             <span class="chip">Checklisten</span>
             <span class="chip">Guided Tours</span>
           </div>
@@ -449,7 +518,7 @@
           <div class="icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6"/><path d="M12.5 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM12.5 12v1M12.5 20v1M9.5 15h1M14.5 15h1"/></svg>
           </div>
-          <h3>Rechnungs- & Vertragsunterlagen</h3>
+          <h3>Rechnungs- &amp; Vertragsunterlagen</h3>
           <p>Automatisierte Dokumentenerstellung, Freigaben und Archivierung. Fehlerfrei, nachvollziehbar, revisionssicher.</p>
           <div class="meta">
             <span class="chip">Dokumenten-Pipelines</span>
@@ -494,7 +563,7 @@
         <div class="step reveal">
           <div class="badge" aria-hidden="true">1</div>
           <div>
-            <h4>Discovery & Roadmap</h4>
+            <h4>Discovery &amp; Roadmap</h4>
             <p>Wir analysieren Ziele, Datenquellen und Prozesse. Ergebnis: eine priorisierte Roadmap mit klaren Meilensteinen.</p>
           </div>
         </div>
@@ -508,21 +577,21 @@
         <div class="step reveal">
           <div class="badge" aria-hidden="true">3</div>
           <div>
-            <h4>Integration & Sicherheit</h4>
-            <p>Saubere Schnittstellen zu CRM, ERP & Co. Zugriffskontrollen, Logging, Monitoring – DSGVO-konform.</p>
+            <h4>Integration &amp; Sicherheit</h4>
+            <p>Saubere Schnittstellen zu CRM, ERP &amp; Co. Zugriffskontrollen, Logging, Monitoring – DSGVO-konform.</p>
           </div>
         </div>
         <div class="step reveal">
           <div class="badge" aria-hidden="true">4</div>
           <div>
-            <h4>Rollout & Enablement</h4>
+            <h4>Rollout &amp; Enablement</h4>
             <p>Training, Dokumentation und Erfolgsmessung. Wir befähigen Teams für eigenständige Weiterentwicklung.</p>
           </div>
         </div>
         <div class="step reveal">
           <div class="badge" aria-hidden="true">5</div>
           <div>
-            <h4>Iteration & Betreuung</h4>
+            <h4>Iteration &amp; Betreuung</h4>
             <p>Feedback in Releases übersetzen, neue Datenquellen erschließen, KPIs optimieren – kontinuierlich.</p>
           </div>
         </div>
@@ -532,11 +601,11 @@
       <div class="cta-band card reveal" style="margin-top: 18px;">
         <div>
           <h3 class="title">Lass uns mit einem 30-Minuten-Call starten.</h3>
-        <p class="lead">Klarer Scope, klare nächsten Schritte – kostenlos & unverbindlich.</p>
+          <p class="lead">Klarer Scope, klare nächsten Schritte – kostenlos &amp; unverbindlich.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Kostenloses Gespräch</span></a>
-          <a class="btn btn--ghost" href="#preise">Preise & Pakete</a>
+          <a class="btn btn--ghost" href="#preise">Preise &amp; Pakete</a>
         </div>
       </div>
     </div>
@@ -572,29 +641,29 @@
           <h3>Growth</h3>
           <ul class="price-features">
             <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>2–3 automatisierte Workflows</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>CRM/ERP-Integrationen & Rollen</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dashboards & Monitoring</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>CRM/ERP-Integrationen &amp; Rollen</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dashboards &amp; Monitoring</span></li>
           </ul>
           <div class="price-cta">
             <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Angebot anfragen</span></a>
             <a class="btn btn--ghost" href="#faq">FAQ</a>
           </div>
-          <p class="price-note">Perfekt für wachsende Teams & skalierende Prozesse.</p>
+          <p class="price-note">Perfekt für wachsende Teams &amp; skalierende Prozesse.</p>
         </div>
 
         <div class="price-card card reveal">
           <span class="tag">Auf Anfrage</span>
           <h3>Scale</h3>
           <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Enterprise-Integrationen & Security</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mehrere Use-Cases & Teams</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SLAs & Betreuung</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Enterprise-Integrationen &amp; Security</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mehrere Use-Cases &amp; Teams</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SLAs &amp; Betreuung</span></li>
           </ul>
           <div class="price-cta">
             <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Angebot anfragen</span></a>
             <a class="btn btn--ghost" href="#faq">FAQ</a>
           </div>
-          <p class="price-note">Für Unternehmen mit hohen Anforderungen & Compliance.</p>
+          <p class="price-note">Für Unternehmen mit hohen Anforderungen &amp; Compliance.</p>
         </div>
       </div>
     </div>
@@ -705,7 +774,7 @@
                 <option value="Chatbots">Chatbots</option>
                 <option value="Leadqualifizierung">Leadqualifizierung</option>
                 <option value="Onboarding Automatisierung">Onboarding-Automatisierung</option>
-                <option value="Dokumente">Rechnungs- & Vertragsunterlagen</option>
+                <option value="Dokumente">Rechnungs- &amp; Vertragsunterlagen</option>
                 <option value="Sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -716,7 +785,7 @@
             <textarea id="message" name="message" rows="6" placeholder="Worum geht es? Ziele, Zeitplan, Systeme…" required></textarea>
           </div>
 
-          <label class="check"><input type="checkbox" id="privacy" required /> Ich stimme der Verarbeitung meiner Angaben gemäß <a href="#datenschutz">Datenschutz</a> zu.</label>
+          <label class="check"><input type="checkbox" id="privacy" required /> Ich stimme der Verarbeitung meiner Angaben gemäß <a class="pill-link" href="#datenschutz">Datenschutz</a> zu.</label>
           <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
 
           <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
@@ -731,8 +800,14 @@
       <aside class="contact-card card reveal" aria-label="Kontaktinformationen">
         <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="currentColor"/></svg><span>Berlin, Deutschland</span></div>
         <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M4 9h16" stroke="currentColor" stroke-width="2"/></svg><span>Mo–Fr · 9–18 Uhr</span></div>
-        <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M22 6L12 13 2 6" stroke="currentColor" stroke-width="2"/></svg><a href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a></div>
-        <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7h12M6 12h12M6 17h12" stroke="currentColor" stroke-width="2"/></svg><a href="#faq">FAQ lesen</a></div>
+        <div class="line">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M22 6L12 13 2 6" stroke="currentColor" stroke-width="2"/></svg>
+          <a class="pill-link" href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a>
+        </div>
+        <div class="line">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7h12M6 12h12M6 17h12" stroke="currentColor" stroke-width="2"/></svg>
+          <a class="pill-link" href="#faq">FAQ lesen</a>
+        </div>
       </aside>
     </div>
   </section>
@@ -797,9 +872,9 @@
   <footer role="contentinfo">
     <div class="container footer-grid">
       <div>
-        <a class="brand" href="#" aria-label="actyviaai.com">
+        <a class="brand" href="#" aria-label="actyviaAI">
           <span class="logo-mark" aria-hidden="true">A</span>
-          <span class="wordmark">actyviaai.com</span>
+          <span class="wordmark"><span class="actyvia">actyvia</span><span class="ai">AI</span></span>
         </a>
         <p class="foot-note" style="margin-top:12px;">KI-Automatisierungsagentur aus Berlin. Wir gestalten flüssige, belastbare Automatisierungen – mit spürbarem Impact.</p>
       </div>
@@ -829,22 +904,25 @@
     <div class="container legal">
       <section id="impressum" aria-label="Impressum" class="reveal">
         <h3>Impressum</h3>
-        <p><strong>actyviaai.com – KI Automatisierungsagentur</strong></p>
+        <p><strong>actyviaai - Inh. Beder Amer</strong></p>
         <p>
-          <!-- TODO: Rechtliche Angaben ersetzen/ergänzen -->
-          Inhaber: Max Mustermann<br/>
-          Musterstraße 12, 10435 Berlin<br/>
-          E-Mail: <a href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a><br/>
-          USt-ID: DE000000000 (Beispiel)
+          Beder Amer<br/>
+          Saatwinkler Damm 123<br/>
+          13629 Berlin<br/>
+          Deutschland
         </p>
-        <p>Verantwortlich i.S.d. § 18 Abs. 2 MStV: Max Mustermann, Anschrift wie oben.</p>
+        <p>
+          E-Mail: <a class="pill-link" href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a>
+        </p>
+        <p>Verantwortlich i.S.d. § 18 Abs. 2 MStV: Beder Amer, Anschrift wie oben.</p>
+        <!-- USt-ID folgt, sobald vorhanden. -->
       </section>
 
       <section id="datenschutz" aria-label="Datenschutz" class="reveal" style="margin-top:24px;">
         <h3>Datenschutz</h3>
         <p>Wir verarbeiten personenbezogene Daten ausschließlich im Rahmen der geltenden Datenschutzgesetze (insb. DSGVO). Diese Website verwendet keine externen Tracking-Skripte. Server-Logs werden zur Sicherstellung des Betriebs verarbeitet und nach angemessener Frist gelöscht.</p>
         <p>Bei Kontaktanfragen verarbeiten wir die von dir übermittelten Angaben (Name, E-Mail, Nachricht) zur Bearbeitung der Anfrage. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO. Details und Auftragsverarbeitungsverträge je nach eingesetzten Diensten werden hier transparent dokumentiert.</p>
-        <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit. Wende dich hierzu an <a href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a>.</p>
+        <p>Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung sowie Datenübertragbarkeit. Wende dich hierzu an <a class="pill-link" href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a>.</p>
       </section>
     </div>
 
@@ -862,31 +940,46 @@
     const qsa = (s, el=document) => [...el.querySelectorAll(s)];
 
     /* ======================================================================
-       Mobile nav
+       Mobile nav (verbessert: body scroll lock, ESC, click outside)
        ====================================================================== */
     const burger = qs('#burger');
     const siteNav = qs('#siteNav');
+    function setMenuOpen(open){
+      if(!burger || !siteNav) return;
+      siteNav.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.classList.toggle('menu-open', open);
+    }
     if (burger && siteNav) {
-      burger.addEventListener('click', () => {
-        const open = siteNav.classList.toggle('open');
-        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
+      burger.addEventListener('click', () => setMenuOpen(!siteNav.classList.contains('open')));
       siteNav.addEventListener('click', (e) => {
         if (e.target.matches('a') && siteNav.classList.contains('open')) {
-          siteNav.classList.remove('open');
-          burger.setAttribute('aria-expanded', 'false');
+          setMenuOpen(false);
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && siteNav.classList.contains('open')) setMenuOpen(false);
+      });
+      document.addEventListener('click', (e) => {
+        if (!siteNav.contains(e.target) && !burger.contains(e.target) && siteNav.classList.contains('open')) {
+          setMenuOpen(false);
         }
       });
     }
 
     /* ======================================================================
-       Smooth scroll
+       Smooth scroll (polish + focus)
        ====================================================================== */
     qsa('a[href^="#"]').forEach(a => {
       a.addEventListener('click', (e) => {
         const href = a.getAttribute('href'); if (!href || href === '#') return;
         const id = href.slice(1); const target = qs(`#${CSS.escape(id)}`);
-        if (target) { e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); history.pushState(null, '', href); target.focus?.({preventScroll:true}); }
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+          history.pushState(null, '', href);
+          setTimeout(()=>{ target.setAttribute('tabindex','-1'); target.focus({preventScroll:true}); }, 300);
+        }
       });
     });
 
@@ -900,7 +993,7 @@
           io.unobserve(entry.target);
         }
       }
-    }, { threshold: 0.12 });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
     qsa('.reveal').forEach(el => io.observe(el));
 
     /* ======================================================================
@@ -1041,6 +1134,25 @@
        Footer year
        ====================================================================== */
     const yearEl = document.getElementById('year'); if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ======================================================================
+       Active nav on scroll (nice-to-have)
+       ====================================================================== */
+    const sections = ['leistungen','prozess','preise','faq','kontakt','standort'].map(id => qs(`#${id}`)).filter(Boolean);
+    const navLinks = new Map();
+    qsa('nav.primary a').forEach(a => { const href = a.getAttribute('href') || ''; const id = href.startsWith('#') ? href.slice(1) : ''; if(id) navLinks.set(id, a); });
+    const hlIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const id = entry.target.id;
+        const link = navLinks.get(id);
+        if(!link) return;
+        if (entry.isIntersecting && entry.intersectionRatio > 0.25) {
+          qsa('nav.primary a').forEach(l => l.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-30% 0px -60% 0px', threshold: [0.25, 0.6]});
+    sections.forEach(sec => hlIo.observe(sec));
   </script>
 </body>
 </html>
