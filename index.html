@@ -7,23 +7,29 @@
     Tech: Vanilla HTML/CSS/JS (no frameworks), accessible, responsive, SEO-ready
     Colors: Schwarz (#0b0b0b), Weiß (#f5f5f5), Akzent Orange (#ff6a00)
 
-    Sections: Leistungen, Prozess, Preise (Auf Anfrage), FAQ, Kontakt, Standort Berlin, Impressum, Datenschutz
+    Sections: Produkte, Prozess, Preise (Auf Anfrage), FAQ, Kontakt, Standort Berlin, Impressum, Datenschutz
 
     CHANGE LOG (Kurz):
     - Branding oben links & im Footer: "actyviaAI" (AI in Versalien, zusammen mit actyvia), ".com" entfernt.
-    - Designpolish: flüssigere Transitions, mikrointeraktionen, typografische Feinheiten, glattere Karten, fokus-states.
+    - Designpolish: flüssigere Transitions, Mikrointeraktionen, typografische Feinheiten, glattere Karten, Fokus-States.
     - Mobile: Layouts verfeinert (Grids -> 1-spaltig), größere Touch-Ziele, Safe-Area Insets, Mobile-Menü lock body scroll, ESC schließt Menü.
     - Links: Keine Standard-"Hyperlink-Optik" mehr. Einheitliche pill/ghost Styles auch für Inline-Links.
-    - Impressum: Aktualisiert auf: Beder Amer · actyviaai - Inh. Beder Amer · Saatwinkler Damm 123, 13629 Berlin · E-Mail: deineagentur@actyviaai.com · (USt-ID vorerst weggelassen).
+    - Impressum: Aktualisiert auf: Beder Amer · actyviaai - Inh. Beder Amer · Saatwinkler Damm 123, 13629 Berlin · E-Mail: deineagentur@actyviaai.com.
     - Performance/UX: prefers-reduced-motion, bessere IntersectionObserver-Defaults, kleine a11y-Verbesserungen.
+    - 2025-09: Leistungen → **4 Kernprodukte** für Agenturen:
+        1) Sales Automation (Lead-Qualifizierung + Terminbuchung)
+        2) Onboarding Automation (Kunden-Onboarding)
+        3) Reporting & Dashboards
+        4) Ops Automation (Verträge & Rechnungen)
+      Texte, Hero, Meta, Kontakt-Select, Pricing & FAQ entsprechend angepasst.
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>actyviaai.com – KI Automatisierungsagentur | Berlin</title>
-  <meta name="description" content="actyviaai.com ist Ihre KI-Automatisierungsagentur aus Berlin. Chatbots, Lead-Qualifizierung, Onboarding-Automatisierung, Rechnungs- & Vertragsprozesse. Modern, flüssig, ästhetisch." />
+  <meta name="description" content="actyviaai.com ist Ihre KI-Automatisierungsagentur aus Berlin. Sales Automation, Onboarding Automation, Reporting & Dashboards sowie Ops Automation (Verträge & Rechnungen). Produktionsreif. Messbarer ROI." />
   <meta name="theme-color" content="#0b0b0b" />
   <meta property="og:title" content="actyviaai.com – KI Automatisierungsagentur" />
-  <meta property="og:description" content="Automatisieren Sie Ihr Business mit KI – Chatbots, Leads, Onboarding, Dokumente. Standort Berlin." />
+  <meta property="og:description" content="Automatisieren Sie Ihre Agentur mit vier Kernprodukten: Sales Automation, Onboarding, Reporting & Dashboards, Ops (Verträge & Rechnungen). Standort Berlin." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://actyviaai.com" />
   <!-- og:image bewusst weggelassen, da kein Bild-Logo genutzt wird -->
@@ -230,7 +236,7 @@
     .glassline{ position:absolute; inset:auto 0 0 0; height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent); opacity:.4; }
 
     /* ======================================================================
-       LEISTUNGEN
+       PRODUKTE (ehem. Leistungen)
        ====================================================================== */
     .section-header{ display:grid; gap:10px; margin-bottom:26px; }
     .section-header .title{ max-width:18ch; }
@@ -273,6 +279,13 @@
     .price-cta{ margin-top:16px; display:flex; gap:10px; flex-wrap: wrap; }
     .price-note{ color:var(--muted-2); font-size:.92rem; margin-top:10px; }
     @media (max-width:980px){ .pricing{ grid-template-columns:1fr; } }
+
+    /* ======================================================================
+      TRUST STRIP (dezente Logos) – optional placeholder (keine externen Assets)
+      ====================================================================== */
+    .trust-strip{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap:16px; opacity:.85; }
+    .trust-logo{ height:46px; border-radius:12px; border:1px dashed rgba(255,255,255,0.08); display:grid; place-items:center; color:var(--muted-2); font-size:.9rem; background: rgba(255,255,255,0.02); }
+    @media (max-width:900px){ .trust-strip{ grid-template-columns: repeat(2, minmax(0,1fr)); } }
 
     /* ======================================================================
        FAQ
@@ -394,6 +407,14 @@
   }
 }
 
+/* ======================================================================
+   Zusatz: kleine Utility-Animationen (Focus rings / hover glows)
+   ====================================================================== */
+:where(.btn, .nav-link, .pill-link):focus-visible{
+  outline:2px solid rgba(255,106,0,0.65);
+  outline-offset:3px;
+  border-color: rgba(255,255,255,0.35);
+}
   </style>
 </head>
 <body>
@@ -415,7 +436,7 @@
 
       <nav class="primary" id="siteNav" aria-label="Primäre Navigation">
         <ul>
-          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#leistungen">Produkte</a></li>
           <li><a href="#prozess">Prozess</a></li>
           <li><a href="#preise">Preise</a></li>
           <li><a href="#faq">FAQ</a></li>
@@ -442,17 +463,17 @@
           <span>KI-Automatisierung aus Berlin</span>
         </div>
         <h1>Automatisiere dein Wachstum mit <span class="gradient-text">actyviaAI</span>.</h1>
-        <p class="lead">Wir bauen Chatbots, qualifizieren Leads, automatisieren Onboarding und digitalisieren Rechnungs- &amp; Vertragsunterlagen. Modern, flüssig, ästhetisch – ohne 0815. Alles maßgeschneidert für dein Unternehmen.</p>
+        <p class="lead">Vier Kernprodukte, die jede Agentur wirklich braucht: <strong style="color:var(--white)">Sales Automation</strong>, <strong style="color:var(--white)">Onboarding Automation</strong>, <strong style="color:var(--white)">Reporting &amp; Dashboards</strong> und <strong style="color:var(--white)">Ops Automation (Verträge &amp; Rechnungen)</strong>. Produktionsreif. Sicher. Messbarer ROI.</p>
         <div class="hero-actions">
           <a class="btn btn--primary magnet" href="#kontakt" aria-label="Kontakt aufnehmen"><span class="magnet-inner">Projekt anfragen</span></a>
-          <a class="btn btn--ghost" href="#leistungen" aria-label="Zu den Leistungen">Leistungen ansehen</a>
+          <a class="btn btn--ghost" href="#leistungen" aria-label="Zu den Produkten">Produkte ansehen</a>
           <span class="chip" aria-label="Antwort innerhalb von 24h">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm1-14v5l4 2"/></svg>
             Antwort i. d. R. <strong style="color:var(--white)">unter 24h</strong>
           </span>
         </div>
         <div class="statbar">
-          <div class="stat card"><strong>↑ Effizienz</strong><span>Automatisierung von repetitiven Prozessen</span></div>
+          <div class="stat card"><strong>↑ Effizienz</strong><span>Automatisierung von Sales, Delivery, Ops</span></div>
           <div class="stat card"><strong>↓ Kosten</strong><span>Skalierbare Workflows statt Manpower</span></div>
           <div class="stat card"><strong>↺ Qualität</strong><span>Konstant, messbar, auditierbar</span></div>
         </div>
@@ -466,95 +487,112 @@
     <div class="glassline" aria-hidden="true"></div>
   </section>
 
-  <!-- LEISTUNGEN -->
-  <section class="section" id="leistungen" aria-label="Leistungen">
+  <!-- PRODUKTE -->
+  <section class="section" id="leistungen" aria-label="Produkte">
     <div class="container">
       <div class="section-header reveal">
-        <span class="kicker">Leistungen</span>
+        <span class="kicker">Produkte</span>
         <h2 class="title">KI, die arbeitet. Für dich.</h2>
         <p class="lead">Wir liefern produktionsreife Automatisierung – von der ersten Idee bis zum laufenden Betrieb. Keine Spielereien. Kein Overkill. Nur messbarer Nutzen.</p>
       </div>
 
-      <div class="service-grid">
-        <!-- Service: Chatbots -->
-        <article class="service card reveal" tabindex="0">
-          <div class="shine" aria-hidden="true"></div>
-          <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12c0 4.418-4.03 8-9 8-1.18 0-2.3-.19-3.32-.54L3 21l1.62-4.05A7.94 7.94 0 0 1 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-          </div>
-          <h3>Chatbots</h3>
-          <p>24/7 Antworten, Konversationen, Buchungen. Feinabgestimmt auf deine Marke, mit deinem Wissensschatz – DSGVO-konform.</p>
-          <div class="meta">
-            <span class="chip">Website &amp; WhatsApp</span>
-            <span class="chip">Wissensbasis</span>
-            <span class="chip">Handovers</span>
-          </div>
-          <a class="cta" href="#kontakt" aria-label="Chatbots anfragen">
-            <span>Mehr erfahren</span>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-        </article>
+      <!-- optional: dezente Vertrauenselemente -->
+      <div class="trust-strip reveal" aria-hidden="true" style="margin-bottom:18px;">
+        <div class="trust-logo">Agentur · Webdesign</div>
+        <div class="trust-logo">Agentur · Performance</div>
+        <div class="trust-logo">Agentur · Brand</div>
+        <div class="trust-logo">Agentur · Sales</div>
+        <div class="trust-logo">Agentur · Recruiting</div>
+      </div>
 
-        <!-- Service: Leadqualifizierung -->
-        <article class="service card reveal" tabindex="0">
+      <div class="service-grid">
+        <!-- Product 1: Sales Automation -->
+        <article class="service card reveal" tabindex="0" aria-labelledby="p-sales-title">
           <div class="shine" aria-hidden="true"></div>
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18l-7 8v6l-4 2v-8L3 4z"/></svg>
+            <!-- icon: funnel/calendar -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 4h18l-7 8v6l-4 2v-8L3 4z"/></svg>
           </div>
-          <h3>Leadqualifizierung</h3>
-          <p>Formulare waren gestern. Wir filtern, scoren und routen Leads automatisch – direkt in CRM &amp; Kalender.</p>
-          <div class="meta">
-            <span class="chip">Scoring</span>
+          <h3 id="p-sales-title">Sales Automation</h3>
+          <p>Wir automatisieren Lead-Qualifizierung und Terminbuchung – 24/7 und direkt in dein CRM. Mehr qualifizierte Calls, weniger SDR-Aufwand.</p>
+          <div class="meta" aria-label="Kernfunktionen Sales Automation">
+            <span class="chip">Vorqualifizierung</span>
             <span class="chip">Routing</span>
+            <span class="chip">Kalender-Booking</span>
             <span class="chip">CRM Sync</span>
           </div>
-          <a class="cta" href="#kontakt" aria-label="Leadqualifizierung anfragen">
-            <span>Qualified by Design</span>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <a class="cta" href="#kontakt" aria-label="Sales Automation anfragen">
+            <span>Mehr qualifizierte Termine</span>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </article>
 
-        <!-- Service: Onboarding -->
-        <article class="service card reveal" tabindex="0">
+        <!-- Product 2: Onboarding Automation -->
+        <article class="service card reveal" tabindex="0" aria-labelledby="p-onb-title">
           <div class="shine" aria-hidden="true"></div>
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 3l7 7-8 1-1 8-7-7 9-9zM5 19l4 0-4-4 0 4z"/></svg>
+            <!-- icon: rocket/bolt -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3l7 7-8 1-1 8-7-7 9-9zM5 19l4 0-4-4 0 4z"/></svg>
           </div>
-          <h3>Onboarding-Automatisierung</h3>
-          <p>Von der Begrüßung bis zur ersten Aktivierung. Geführt, personalisiert, und messbar – für Kunden und Mitarbeitende.</p>
-          <div class="meta">
-            <span class="chip">E-Mails &amp; Workflows</span>
+          <h3 id="p-onb-title">Onboarding Automation</h3>
+          <p>Von Welcome bis Go-Live: digitale Briefings, Dokumentensammlung, Provisioning und Checklisten – schneller, sauberer Start für neue Kunden.</p>
+          <div class="meta" aria-label="Kernfunktionen Onboarding Automation">
+            <span class="chip">Willkommensflows</span>
+            <span class="chip">Briefings</span>
             <span class="chip">Checklisten</span>
-            <span class="chip">Guided Tours</span>
+            <span class="chip">Provisioning</span>
           </div>
-          <a class="cta" href="#kontakt" aria-label="Onboarding Automatisierung anfragen">
+          <a class="cta" href="#kontakt" aria-label="Onboarding Automation anfragen">
             <span>Schneller zur Aktivierung</span>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </article>
 
-        <!-- Service: Dokumente -->
-        <article class="service card reveal" tabindex="0">
+        <!-- Product 3: Reporting & Dashboards -->
+        <article class="service card reveal" tabindex="0" aria-labelledby="p-report-title">
           <div class="shine" aria-hidden="true"></div>
           <div class="icon" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6"/><path d="M12.5 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM12.5 12v1M12.5 20v1M9.5 15h1M14.5 15h1"/></svg>
+            <!-- icon: chart -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 19h16M6 17V7m6 10V4m6 13V10"/></svg>
           </div>
-          <h3>Rechnungs- &amp; Vertragsunterlagen</h3>
-          <p>Automatisierte Dokumentenerstellung, Freigaben und Archivierung. Fehlerfrei, nachvollziehbar, revisionssicher.</p>
-          <div class="meta">
-            <span class="chip">Dokumenten-Pipelines</span>
+          <h3 id="p-report-title">Reporting &amp; Dashboards</h3>
+          <p>KPIs in Echtzeit: Ads-, CRM- und Umsatzdaten automatisch zusammengeführt. Wöchentliche Auto-Reports via Mail/Slack – ohne Excel-Hölle.</p>
+          <div class="meta" aria-label="Kernfunktionen Reporting & Dashboards">
+            <span class="chip">Ads &amp; CRM</span>
+            <span class="chip">Umsatz-KPIs</span>
+            <span class="chip">Auto-Reports</span>
+            <span class="chip">Slack/Mail</span>
+          </div>
+          <a class="cta" href="#kontakt" aria-label="Reporting & Dashboards anfragen">
+            <span>Zahlen auf einen Blick</span>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </article>
+
+        <!-- Product 4: Ops Automation -->
+        <article class="service card reveal" tabindex="0" aria-labelledby="p-ops-title">
+          <div class="shine" aria-hidden="true"></div>
+          <div class="icon" aria-hidden="true">
+            <!-- icon: document/shield -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6"/><path d="M12.5 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM12.5 12v1M12.5 20v1M9.5 15h1M14.5 15h1"/></svg>
+          </div>
+          <h3 id="p-ops-title">Ops Automation (Verträge &amp; Rechnungen)</h3>
+          <p>Dokumente automatisch erstellen, unterschreiben, verbuchen und revisionssicher archivieren. Fehlerfrei, nachvollziehbar, audit-ready.</p>
+          <div class="meta" aria-label="Kernfunktionen Ops Automation">
             <span class="chip">E-Sign</span>
-            <span class="chip">Archiv</span>
+            <span class="chip">Rechnungen</span>
+            <span class="chip">Freigaben</span>
+            <span class="chip">Archiv &amp; Audit</span>
           </div>
-          <a class="cta" href="#kontakt" aria-label="Dokumentenautomatisierung anfragen">
-            <span>Papier war gestern</span>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <a class="cta" href="#kontakt" aria-label="Ops Automation anfragen">
+            <span>Backoffice ohne Papier</span>
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </article>
       </div>
     </div>
 
-    <!-- CTA band unter Leistungen -->
+    <!-- CTA band unter Produkte -->
     <div class="container reveal" style="margin-top: 18px;">
       <div class="cta-band card">
         <div>
@@ -585,7 +623,7 @@
           <div class="badge" aria-hidden="true">1</div>
           <div>
             <h4>Discovery &amp; Roadmap</h4>
-            <p>Wir analysieren Ziele, Datenquellen und Prozesse. Ergebnis: eine priorisierte Roadmap mit klaren Meilensteinen.</p>
+            <p>Wir analysieren Ziele, Datenquellen und Prozesse. Ergebnis: eine priorisierte Roadmap mit klaren Meilensteinen – ausgerichtet auf Sales, Onboarding, Reporting &amp; Ops.</p>
           </div>
         </div>
         <div class="step reveal">
@@ -645,10 +683,10 @@
         <div class="price-card card reveal">
           <span class="tag">Auf Anfrage</span>
           <h3>Starter</h3>
-          <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Workshop + Roadmap (1–2 Wochen)</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>1 Use-Case MVP</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Grund-Integrationen</span></li>
+          <ul class="price-features" aria-label="Enthalten in Starter">
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Workshop + Roadmap (1–2 Wochen)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>MVP: <strong>Sales Automation</strong> (Qualifizierung + Booking)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Grund-Integrationen (CRM/Kalender)</span></li>
           </ul>
           <div class="price-cta">
             <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Angebot anfragen</span></a>
@@ -660,10 +698,10 @@
         <div class="price-card card reveal">
           <span class="tag">Auf Anfrage</span>
           <h3>Growth</h3>
-          <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>2–3 automatisierte Workflows</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>CRM/ERP-Integrationen &amp; Rollen</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dashboards &amp; Monitoring</span></li>
+          <ul class="price-features" aria-label="Enthalten in Growth">
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Sales + Onboarding Automation</strong></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>2 Dashboards (z. B. Leads &amp; Conversion)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Rollen &amp; Berechtigungen, Monitoring</span></li>
           </ul>
           <div class="price-cta">
             <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Angebot anfragen</span></a>
@@ -675,10 +713,10 @@
         <div class="price-card card reveal">
           <span class="tag">Auf Anfrage</span>
           <h3>Scale</h3>
-          <ul class="price-features">
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Enterprise-Integrationen &amp; Security</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Mehrere Use-Cases &amp; Teams</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SLAs &amp; Betreuung</span></li>
+          <ul class="price-features" aria-label="Enthalten in Scale">
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Sales + Onboarding + Reporting Suite</strong></span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pilot: <strong>Ops Automation</strong> (Verträge &amp; Rechnungen)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Enterprise-Integrationen, SLAs &amp; Betreuung</span></li>
           </ul>
           <div class="price-cta">
             <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Angebot anfragen</span></a>
@@ -711,6 +749,14 @@
         <details class="faq-item reveal">
           <summary>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Kann ich nur ein einzelnes Produkt buchen?
+          </summary>
+          <div class="content">Ja. Alle vier Produkte sind einzeln buchbar (Sales, Onboarding, Reporting, Ops). Viele Kunden starten mit <em>Sales Automation</em> und erweitern dann auf Onboarding &amp; Reporting.</div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Arbeitet ihr mit sensiblen Daten?
           </summary>
           <div class="content">Ja. Wir implementieren Zugriffskontrollen, Verschlüsselung, Logging und rollenbasierte Rechte. Verarbeitung erfolgt DSGVO-konform mit Datenminimierung.</div>
@@ -722,6 +768,14 @@
             Mit welchen Tools und Modellen arbeitet ihr?
           </summary>
           <div class="content">Wir sind herstellerneutral. Je nach Use-Case kombinieren wir LLMs, Vektordatenbanken, OCR, RPA, Integrationsplattformen und Custom-APIs – immer mit Fokus auf ROI.</div>
+        </details>
+
+        <details class="faq-item reveal">
+          <summary>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Für welche Agenturtypen eignet sich das?
+          </summary>
+          <div class="content">Web-, Performance-, Sales-, Recruiting-, Branding- und Content-Agenturen profitieren am stärksten. Wichtig ist ein klarer Prozess &amp; vorhandenes Tool-Set (CRM, PM, Ads o. ä.).</div>
         </details>
 
         <details class="faq-item reveal">
@@ -749,7 +803,7 @@
         </div>
         <div class="cta-actions">
           <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Kontakt aufnehmen</span></a>
-          <a class="btn btn--ghost" href="#leistungen">Leistungen ansehen</a>
+          <a class="btn btn--ghost" href="#leistungen">Produkte ansehen</a>
         </div>
       </div>
     </div>
@@ -791,11 +845,11 @@
             </div>
             <div class="field">
               <label for="service">Interesse an</label>
-              <select id="service" name="service" class="input">
-                <option value="Chatbots">Chatbots</option>
-                <option value="Leadqualifizierung">Leadqualifizierung</option>
-                <option value="Onboarding Automatisierung">Onboarding-Automatisierung</option>
-                <option value="Dokumente">Rechnungs- &amp; Vertragsunterlagen</option>
+              <select id="service" name="service" class="input" aria-label="Interessiertes Produkt auswählen">
+                <option value="Sales Automation">Sales Automation (Lead-Qualifizierung + Terminbuchung)</option>
+                <option value="Onboarding Automation">Onboarding Automation (Kunden-Onboarding)</option>
+                <option value="Reporting & Dashboards">Reporting &amp; Dashboards</option>
+                <option value="Ops Automation">Ops Automation (Verträge &amp; Rechnungen)</option>
                 <option value="Sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -819,14 +873,14 @@
       </div>
 
       <aside class="contact-card card reveal" aria-label="Kontaktinformationen">
-        <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="currentColor"/></svg><span>Berlin, Deutschland</span></div>
-        <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M4 9h16" stroke="currentColor" stroke-width="2"/></svg><span>Mo–Fr · 9–18 Uhr</span></div>
+        <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="currentColor"/></svg><span>Berlin, Deutschland</span></div>
+        <div class="line"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M4 9h16" stroke="currentColor" stroke-width="2"/></svg><span>Mo–Fr · 9–18 Uhr</span></div>
         <div class="line">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/><path d="M22 6L12 13 2 6" stroke="currentColor" stroke-width="2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M22 6L12 13 2 6" stroke="currentColor" stroke-width="2"/></svg>
           <a class="pill-link" href="mailto:deineagentur@actyviaai.com">deineagentur@actyviaai.com</a>
         </div>
         <div class="line">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 7h12M6 12h12M6 17h12" stroke="currentColor" stroke-width="2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 7h12M6 12h12M6 17h12" stroke="currentColor" stroke-width="2"/></svg>
           <a class="pill-link" href="#faq">FAQ lesen</a>
         </div>
       </aside>
@@ -843,8 +897,8 @@
           <p class="lead">Wir arbeiten digital-first, treffen uns aber gern vor Ort. Workshops in Berlin und Umgebung sind jederzeit möglich.</p>
         </div>
         <div class="stack reveal">
-          <div class="chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3" fill="#1a0e00"/></svg> Prenzlauer Berg · Friedrichshain · Mitte</div>
-          <div class="chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 12h18M12 3v18"/></svg> Remote in ganz DACH</div>
+          <div class="chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3" fill="#1a0e00"/></svg> Prenzlauer Berg · Friedrichshain · Mitte</div>
+          <div class="chip"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 12h18M12 3v18"/></svg> Remote in ganz DACH</div>
         </div>
       </div>
       <div class="map-card card reveal" aria-hidden="true">
@@ -903,7 +957,7 @@
         <div>
           <span class="kicker">Navigation</span>
           <div class="stack" style="margin-top:8px;">
-            <a class="nav-link" href="#leistungen">Leistungen</a>
+            <a class="nav-link" href="#leistungen">Produkte</a>
             <a class="nav-link" href="#prozess">Prozess</a>
             <a class="nav-link" href="#preise">Preise</a>
             <a class="nav-link" href="#faq">FAQ</a>
