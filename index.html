@@ -22,6 +22,7 @@
         3) Reporting & Dashboards
         4) Ops Automation (Verträge & Rechnungen)
       Texte, Hero, Meta, Kontakt-Select, Pricing & FAQ entsprechend angepasst.
+    - 2025-09 (neu): Prozess auf **4 Schritte** vereinfacht + visueller Feinschliff (Timeline/Badges/Chips).
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -257,14 +258,35 @@
     .service .cta svg{ width:18px; height:18px; }
 
     /* ======================================================================
-       PROZESS
+       PROZESS (NEU: 4 klare Schritte, optisch straffer)
        ====================================================================== */
-    .timeline{ position:relative; }
-    .timeline::before{ content:""; position:absolute; left:20px; top:0; bottom:0; width:2px; background: linear-gradient(180deg, rgba(255,106,0,0), rgba(255,106,0,0.5), rgba(255,106,0,0)); }
-    .step{ display:grid; grid-template-columns:60px 1fr; gap:20px; padding:18px 0; align-items:start; }
-    .step .badge{ width:40px; height:40px; border-radius:50%; background: radial-gradient(circle at 30% 30%, #ff6a00, #ff8b33); display:grid; place-items:center; color:#1a0e00; font-weight:900; box-shadow: 0 10px 24px rgba(255,106,0,0.35); }
-    .step h4{ font-size:1.15rem; }
-    .step p{ color:var(--muted); }
+    .timeline{ position:relative; margin-top:8px; }
+    .timeline::before{
+      content:""; position:absolute; left:28px; top:0; bottom:0; width:2px;
+      background: linear-gradient(180deg, rgba(255,106,0,0), rgba(255,106,0,0.55), rgba(255,106,0,0));
+      opacity:.9;
+    }
+    .step{
+      display:grid; grid-template-columns:56px 1fr; gap:18px; padding:18px 0; align-items:start;
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+    .step:last-child{ border-bottom:none; }
+    .step .badge{
+      width:36px; height:36px; border-radius:999px;
+      display:grid; place-items:center; font-weight:900; color:#1a0e00;
+      background: radial-gradient(circle at 30% 30%, #ff6a00, #ff8b33);
+      box-shadow: 0 10px 24px rgba(255,106,0,0.35);
+    }
+    .step h4{ font-size:1.15rem; letter-spacing:-0.01em; margin-top:2px; }
+    .step p{ color:var(--muted); margin-top:6px; max-width:62ch; }
+    .step .tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .step .tags .chip{ font-size:.8rem; padding:5px 9px; }
+    .step .meta-min{ color:var(--muted-2); font-size:.9rem; margin-top:6px; }
+
+    @media (max-width:900px){
+      .timeline::before{ left:20px; }
+      .step{ grid-template-columns:50px 1fr; }
+    }
 
     /* ======================================================================
        PREISE
@@ -609,49 +631,61 @@
     <div class="halo" aria-hidden="true"></div>
   </section>
 
-  <!-- PROZESS -->
+  <!-- PROZESS (vereinfacht auf 4 Schritte) -->
   <section class="section" id="prozess" aria-label="Prozess">
     <div class="container">
       <div class="section-header reveal">
         <span class="kicker">Prozess</span>
-        <h2 class="title">Von Idee zu Impact – in Wochen, nicht Monaten.</h2>
-        <p class="lead">Ein klarer, iterativer Ablauf. Transparenz bei jedem Schritt. Wir liefern schnell – und nachhaltig.</p>
+        <h2 class="title">Von Idee zu Umsetzung – in Wochen, nicht Monaten.</h2>
+        <p class="lead">Ein klarer Ablauf mit sichtbaren Ergebnissen. Weniger Gerede, mehr Wirkung.</p>
       </div>
 
       <div class="timeline">
+        <!-- 1 -->
         <div class="step reveal">
           <div class="badge" aria-hidden="true">1</div>
           <div>
-            <h4>Discovery &amp; Roadmap</h4>
-            <p>Wir analysieren Ziele, Datenquellen und Prozesse. Ergebnis: eine priorisierte Roadmap mit klaren Meilensteinen – ausgerichtet auf Sales, Onboarding, Reporting &amp; Ops.</p>
+            <h4>Verstehen &amp; Planen</h4>
+            <p>Wir klären Ziele, Datenquellen und Prozesse. Ergebnis: ein fokussierter Fahrplan mit klaren Meilensteinen.</p>
+            <div class="tags" aria-label="Scope">
+              <span class="chip">Ziele</span><span class="chip">Daten</span><span class="chip">Meilensteine</span>
+            </div>
           </div>
         </div>
+
+        <!-- 2 -->
         <div class="step reveal">
           <div class="badge" aria-hidden="true">2</div>
           <div>
-            <h4>MVP-Prototyp</h4>
-            <p>Wir bauen einen lauffähigen Prototypen in Tagen – mit realen Daten, realen Workflows, realem Nutzen.</p>
+            <h4>Prototyp in Tagen</h4>
+            <p>Ein lauffähiger MVP mit echten Daten und Workflows – damit alle schnell sehen, was funktioniert.</p>
+            <div class="tags">
+              <span class="chip">MVP</span><span class="chip">Real-Data</span><span class="chip">Schnelles Feedback</span>
+            </div>
           </div>
         </div>
+
+        <!-- 3 -->
         <div class="step reveal">
           <div class="badge" aria-hidden="true">3</div>
           <div>
             <h4>Integration &amp; Sicherheit</h4>
-            <p>Saubere Schnittstellen zu CRM, ERP &amp; Co. Zugriffskontrollen, Logging, Monitoring – DSGVO-konform.</p>
+            <p>Saubere Anbindung an CRM/ERP &amp; Co., Berechtigungen, Logging und Monitoring – DSGVO-konform.</p>
+            <div class="tags">
+              <span class="chip">CRM/ERP</span><span class="chip">Rechte</span><span class="chip">Monitoring</span>
+            </div>
           </div>
         </div>
+
+        <!-- 4 -->
         <div class="step reveal">
           <div class="badge" aria-hidden="true">4</div>
           <div>
-            <h4>Rollout &amp; Enablement</h4>
-            <p>Training, Dokumentation und Erfolgsmessung. Wir befähigen Teams für eigenständige Weiterentwicklung.</p>
-          </div>
-        </div>
-        <div class="step reveal">
-          <div class="badge" aria-hidden="true">5</div>
-          <div>
-            <h4>Iteration &amp; Betreuung</h4>
-            <p>Feedback in Releases übersetzen, neue Datenquellen erschließen, KPIs optimieren – kontinuierlich.</p>
+            <h4>Rollout &amp; Wachstum</h4>
+            <p>Enablement, Training &amp; Dokumentation. Danach: kontinuierliche Optimierung und neue Features.</p>
+            <div class="tags">
+              <span class="chip">Training</span><span class="chip">Dokumentation</span><span class="chip">Iterationen</span>
+            </div>
           </div>
         </div>
       </div>
@@ -660,11 +694,11 @@
       <div class="cta-band card reveal" style="margin-top: 18px;">
         <div>
           <h3 class="title">Lass uns mit einem 30-Minuten-Call starten.</h3>
-          <p class="lead">Klarer Scope, klare nächsten Schritte – kostenlos &amp; unverbindlich.</p>
+          <p class="lead">Klarer Scope, nächste Schritte – kostenlos &amp; unverbindlich.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn--primary magnet" href="#kontakt"><span class="magnet-inner">Kostenloses Gespräch</span></a>
-          <a class="btn btn--ghost" href="#preise">Preise &amp; Pakete</a>
+          <a class="btn btn--ghost" href="#leistungen">Produkte ansehen</a>
         </div>
       </div>
     </div>
