@@ -20,17 +20,18 @@
         1) Sales Automation (Lead-Qualifizierung + Terminbuchung)
         2) Onboarding Automation (Kunden-Onboarding)
         3) Reporting & Dashboards
-        4) Ops Automation (Verträge & Rechnungen)
+        4) Recruiting Automation (Vorselektion & Interview-Booking)
       Texte, Hero, Meta, Kontakt-Select, Pricing & FAQ entsprechend angepasst.
     - 2025-09 (neu): Prozess auf **4 Schritte** vereinfacht + visueller Feinschliff (Timeline/Badges/Chips).
+    - 2025-09 (fix): Duplicate ID behoben (Section #kontakt + Form #kontaktForm).
   -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>actyviaai.com – KI Automatisierungsagentur | Berlin</title>
-  <meta name="description" content="actyviaai.com ist Ihre KI-Automatisierungsagentur aus Berlin. Sales Automation, Onboarding Automation, Reporting & Dashboards sowie Ops Automation (Verträge & Rechnungen). Produktionsreif. Messbarer ROI." />
+  <meta name="description" content="actyviaai.com ist Ihre KI-Automatisierungsagentur aus Berlin. Sales Automation, Onboarding Automation, Reporting & Dashboards sowie Recruiting Automation. Produktionsreif. Messbarer ROI." />
   <meta name="theme-color" content="#0b0b0b" />
   <meta property="og:title" content="actyviaai.com – KI Automatisierungsagentur" />
-  <meta property="og:description" content="Automatisieren Sie Ihre Agentur mit vier Kernprodukten: Sales Automation, Onboarding, Reporting & Dashboards, Ops (Verträge & Rechnungen). Standort Berlin." />
+  <meta property="og:description" content="Automatisieren Sie Ihre Agentur mit vier Kernprodukten: Sales Automation, Onboarding, Reporting & Dashboards, Recruiting Automation. Standort Berlin." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://actyviaai.com" />
   <!-- og:image bewusst weggelassen, da kein Bild-Logo genutzt wird -->
@@ -324,7 +325,7 @@
        ====================================================================== */
     .contact-wrap{ display:grid; grid-template-columns:1.2fr .8fr; gap:24px; align-items:start; }
     @media (max-width:980px){ .contact-wrap{ grid-template-columns:1fr; } }
-    form#kontakt{ display:grid; gap:12px; }
+    form#kontaktForm{ display:grid; gap:12px; }
     .field{ display:grid; gap:6px; }
     .field label{ font-size:.95rem; color:var(--muted); }
     .input, textarea{ width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.02); color:var(--white); padding:12px 14px; outline:none; transition: border-color var(--fast), box-shadow var(--fast); }
@@ -485,7 +486,7 @@
           <span>KI-Automatisierung aus Berlin</span>
         </div>
         <h1>Automatisiere dein Wachstum mit <span class="gradient-text">actyviaAI</span>.</h1>
-        <p class="lead">Vier Kernprodukte, die jede Agentur wirklich braucht: <strong style="color:var(--white)">Sales Automation</strong>, <strong style="color:var(--white)">Onboarding Automation</strong>, <strong style="color:var(--white)">Reporting &amp; Dashboards</strong> und <strong style="color:var(--white)">Ops Automation (Verträge &amp; Rechnungen)</strong>. Produktionsreif. Sicher. Messbarer ROI.</p>
+        <p class="lead">Vier Kernprodukte, die jede Agentur wirklich braucht: <strong style="color:var(--white)">Sales Automation</strong>, <strong style="color:var(--white)">Onboarding Automation</strong>, <strong style="color:var(--white)">Reporting &amp; Dashboards</strong> und <strong style="color:var(--white)">Recruiting Automation</strong>. Produktionsreif. Sicher. Messbarer ROI.</p>
         <div class="hero-actions">
           <a class="btn btn--primary magnet" href="#kontakt" aria-label="Kontakt aufnehmen"><span class="magnet-inner">Projekt anfragen</span></a>
           <a class="btn btn--ghost" href="#leistungen" aria-label="Zu den Produkten">Produkte ansehen</a>
@@ -591,23 +592,26 @@
           </a>
         </article>
 
-        <!-- Product 4: Ops Automation -->
-        <article class="service card reveal" tabindex="0" aria-labelledby="p-ops-title">
+        <!-- Product 4: Recruiting Automation (NEU) -->
+        <article class="service card reveal" tabindex="0" aria-labelledby="p-recruit-title">
           <div class="shine" aria-hidden="true"></div>
           <div class="icon" aria-hidden="true">
-            <!-- icon: document/shield -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 2v6h6"/><path d="M12.5 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM12.5 12v1M12.5 20v1M9.5 15h1M14.5 15h1"/></svg>
+            <!-- icon: users/check (recruiting) -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M16 11a4 4 0 10-3.999-4.001A4 4 0 0016 11zm-8 2a4 4 0 10-4-4 4 4 0 004 4z"/>
+              <path d="M2 20a6 6 0 0112 0v1H2zm10 1v-1a6.004 6.004 0 018.5-5.408M22 22l-2.5-2.5M22 17l-5 5"/>
+            </svg>
           </div>
-          <h3 id="p-ops-title">Ops Automation (Verträge &amp; Rechnungen)</h3>
-          <p>Dokumente automatisch erstellen, unterschreiben, verbuchen und revisionssicher archivieren. Fehlerfrei, nachvollziehbar, audit-ready.</p>
-          <div class="meta" aria-label="Kernfunktionen Ops Automation">
-            <span class="chip">E-Sign</span>
-            <span class="chip">Rechnungen</span>
-            <span class="chip">Freigaben</span>
-            <span class="chip">Archiv &amp; Audit</span>
+          <h3 id="p-recruit-title">Recruiting Automation</h3>
+          <p>Wir automatisieren Vorselektion, Interview-Booking und ATS-Sync. Weniger Screening-Aufwand, mehr passende Kandidaten – schneller besetzte Rollen.</p>
+          <div class="meta" aria-label="Kernfunktionen Recruiting Automation">
+            <span class="chip">Pre-Screening</span>
+            <span class="chip">Scoring</span>
+            <span class="chip">Interview-Booking</span>
+            <span class="chip">ATS Sync</span>
           </div>
-          <a class="cta" href="#kontakt" aria-label="Ops Automation anfragen">
-            <span>Backoffice ohne Papier</span>
+          <a class="cta" href="#kontakt" aria-label="Recruiting Automation anfragen">
+            <span>Mehr passende Kandidaten</span>
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </article>
@@ -749,7 +753,7 @@
           <h3>Scale</h3>
           <ul class="price-features" aria-label="Enthalten in Scale">
             <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><strong>Sales + Onboarding + Reporting Suite</strong></span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pilot: <strong>Ops Automation</strong> (Verträge &amp; Rechnungen)</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Pilot: <strong>Recruiting Automation</strong></span></li>
             <li><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Enterprise-Integrationen, SLAs &amp; Betreuung</span></li>
           </ul>
           <div class="price-cta">
@@ -785,7 +789,7 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Kann ich nur ein einzelnes Produkt buchen?
           </summary>
-          <div class="content">Ja. Alle vier Produkte sind einzeln buchbar (Sales, Onboarding, Reporting, Ops). Viele Kunden starten mit <em>Sales Automation</em> und erweitern dann auf Onboarding &amp; Reporting.</div>
+          <div class="content">Ja. Alle vier Produkte sind einzeln buchbar (Sales, Onboarding, Reporting, Recruiting). Viele Kunden starten mit <em>Sales Automation</em> und erweitern dann auf Onboarding &amp; Reporting.</div>
         </details>
 
         <details class="faq-item reveal">
@@ -853,7 +857,7 @@
           <p class="lead">Schick uns ein paar Stichworte. Wir melden uns meist innerhalb von 24 Stunden mit nächsten Schritten.</p>
         </div>
 
-        <form id="kontakt" class="reveal" novalidate action="https://formspree.io/f/xqalrqly" method="POST" autocomplete="off">
+        <form id="kontaktForm" class="reveal" novalidate action="https://formspree.io/f/xqalrqly" method="POST" autocomplete="off">
           <!-- Honeypot (umbenannt & autofill-sicherer) -->
           <input type="text" name="nf_hp_field_42" id="nf_hp_field_42" autocomplete="new-password" inputmode="none" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;" tabindex="-1" aria-hidden="true" />
 
@@ -883,7 +887,7 @@
                 <option value="Sales Automation">Sales Automation (Lead-Qualifizierung + Terminbuchung)</option>
                 <option value="Onboarding Automation">Onboarding Automation (Kunden-Onboarding)</option>
                 <option value="Reporting & Dashboards">Reporting &amp; Dashboards</option>
-                <option value="Ops Automation">Ops Automation (Verträge &amp; Rechnungen)</option>
+                <option value="Recruiting Automation">Recruiting Automation (Vorselektion &amp; Interview-Booking)</option>
                 <option value="Sonstiges">Sonstiges</option>
               </select>
             </div>
@@ -1123,7 +1127,7 @@
     /* ======================================================================
        Contact form – Formspree (AJAX + Validation + Fallback)
        ====================================================================== */
-    const form = document.querySelector('form#kontakt');
+    const form = document.querySelector('form#kontaktForm');
     const statusEl = qs('#formStatus');
     const FORM_ENDPOINT = "https://formspree.io/f/xqalrqly";
 
