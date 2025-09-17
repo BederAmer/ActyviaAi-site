@@ -411,17 +411,13 @@
     }
 
     /* Mobile: Hintergrundeffekte abschwächen */
-    @media (max-width: 768px) {
-      .bg-wrap {
-        background:
-          radial-gradient(1200px 800px at 70% 30%, rgba(255,106,0,0.08), transparent 60%),
-          radial-gradient(900px 680px at 15% 75%, rgba(255,139,51,0.06), transparent 62%),
-          radial-gradient(1000px 700px at 50% 50%, rgba(255,255,255,0.02), transparent 60%),
-          #0b0b0b;
-      }
-      .hero-visual .orb { opacity: 0.45 !important; filter: blur(16px); }
-      .noise { opacity: 0.015; }
-    }
+   @media (max-width: 768px) {
+  .bg-wrap {
+    background: #0b0b0b !important; /* Nur Schwarz, keine Verläufe */
+  }
+  .hero-visual .orb { display: none !important; } /* Orbs ganz ausblenden */
+  .noise { display: none !important; } /* Rausch-Overlay ausblenden */
+}
 
     /* ======================================================================
        Zusatz: kleine Utility-Animationen (Focus rings / hover glows)
